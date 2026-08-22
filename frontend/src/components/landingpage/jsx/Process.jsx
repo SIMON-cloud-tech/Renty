@@ -1,30 +1,30 @@
-import { FiHome, FiFileText, FiZap } from 'react-icons/fi';
+import { FiHome, FiTruck, FiShield } from 'react-icons/fi';
 import '../css/Process.css';
 
-const Process = () => {
-  const steps = [
-    {
-      icon: <FiHome size={36} />,
-      title: 'Consult & Assess',
-      description: 'We evaluate your energy needs and site conditions – roof space, sun exposure, and load requirements.'
-    },
-    {
-      icon: <FiFileText size={36} />,
-      title: 'Design & Quote',
-      description: 'We create a custom solar plan and provide a transparent, no‑obligation quote.'
-    },
-    {
-      icon: <FiZap size={36} />,
-      title: 'Install & Energize',
-      description: 'Our certified team installs, connects, and hands over your system – you start saving immediately.'
-    }
-  ];
+const PROCESS_CONFIG = [
+  {
+    icon: <FiHome size={36} />,
+    title: 'Browse & Select',
+    description: 'Explore our wide range of furniture — from office seats and beds to wardrobes and TV stands. Find what fits your space and style.',
+  },
+  {
+    icon: <FiTruck size={36} />,
+    title: 'Order & Deliver',
+    description: 'Place your order online or in-store. We deliver across Nairobi — free within the city, with affordable rates for other areas.',
+  },
+  {
+    icon: <FiShield size={36} />,
+    title: 'Enjoy & Relax',
+    description: 'Your furniture is set up and ready to use. We stand behind everything with a 2‑year warranty — so you can relax and enjoy.',
+  },
+];
 
+const Process = () => {
   return (
     <section className="process-section">
       <h2 className="process-title">How It Works</h2>
       <div className="process-grid">
-        {steps.map((step, index) => (
+        {PROCESS_CONFIG.map((step, index) => (
           <div key={index} className="process-step">
             <div className="step-icon">{step.icon}</div>
             <h3 className="step-title">{step.title}</h3>

@@ -1,16 +1,18 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
+
 /* ===== NAVBAR ===== */
 .navbar {
-  background: #1a2a6c;
-  color: white;
+  background: #f5f5f5; /* Whitesmoke – clean, warm */
+  color: #1e1e1e; /* Deep charcoal for text */
   padding: 0 2rem;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .navbar-container {
@@ -26,12 +28,13 @@
   text-decoration: none;
   font-size: 1.6rem;
   font-weight: 700;
-  color: white;
+  color: #1e1e1e; /* Deep charcoal */
   display: flex;
   align-items: center;
 }
+
 .navbar-logo-img {
-  height: 100px;   /* Adjust as needed */
+  height: 100px; /* Adjust as needed */
   width: auto;
   margin-right: 0.5rem;
 }
@@ -52,7 +55,7 @@
 }
 
 .nav-link {
-  color: rgba(255, 255, 255, 0.8);
+  color: #2c2c2c; /* Soft charcoal */
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -61,14 +64,16 @@
 }
 
 .nav-link:hover {
-  color: #f39c12;
+  color: #B8860B; /* Deep gold – warm accent */
 }
+
 .nav-right {
-  display: flex;           /* ← ADDED: was missing entirely, causing overlap */
+  display: flex;
   align-items: center;
-  gap: 1rem;               /* ← ADDED: space between cart icon and hamburger */
+  gap: 1rem;
 }
-/* Cart */
+
+/* ===== Cart ===== */
 .navbar-cart {
   display: flex;
   align-items: center;
@@ -77,28 +82,28 @@
 
 .cart-icon-wrapper {
   position: relative;
-  color: white;
+  color: #1e1e1e;
   text-decoration: none;
-   background: none;   
-  background-color:transparent;
+  background: none;
+  background-color: transparent;
   display: flex;
   border: none;
-   cursor: pointer;
-   padding: 0;
+  cursor: pointer;
+  padding: 0;
   align-items: center;
   transition: color 0.3s;
 }
 
 .cart-icon-wrapper:hover {
-  color: #f39c12;
+  color: #B8860B; /* Deep gold hover */
 }
 
 .cart-badge {
   position: absolute;
   top: -8px;
   right: -10px;
-  background: #e74c3c;
-  color: white;
+  background: #B8860B; /* Deep gold */
+  color: #ffffff;
   font-size: 0.7rem;
   font-weight: 700;
   width: 20px;
@@ -107,15 +112,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Mobile Hamburger */
+/* ===== Mobile Hamburger ===== */
 .mobile-menu-btn {
   display: none;
   background: none;
   border: none;
-  color: white;
+  color: #1e1e1e;
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;
@@ -123,10 +128,10 @@
 }
 
 .mobile-menu-btn:hover {
-  color: #f39c12;
+  color: #B8860B;
 }
 
-/* Mobile menu – smooth slide */
+/* ===== Mobile Menu ===== */
 .mobile-menu {
   display: none;
   position: fixed;
@@ -134,7 +139,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(26, 42, 108, 0.98);
+  background: rgba(245, 245, 245, 0.98); /* Whitesmoke with transparency */
   backdrop-filter: blur(10px);
   padding: 2rem;
   z-index: 999;
@@ -164,7 +169,7 @@
 }
 
 .mobile-nav-link {
-  color: white;
+  color: #1e1e1e;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 500;
@@ -175,13 +180,14 @@
 }
 
 .mobile-nav-link:hover {
-  color: #f39c12;
+  color: #B8860B;
 }
+
 .mobile-nav-item button.mobile-nav-link {
-  background: none;        
+  background: none;
   border: none;
   cursor: pointer;
-  color: white;
+  color: #1e1e1e;
   font-size: 1.2rem;
   font-weight: 500;
   padding: 0.75rem;
@@ -192,17 +198,32 @@
 }
 
 .mobile-nav-item button.mobile-nav-link:hover {
-  color: #f39c12;
+  color: #B8860B;
 }
 
 .mobile-cart-badge {
-  background: #e74c3c;
-  color: white;
+  background: #B8860B;
+  color: #ffffff;
   font-size: 0.8rem;
   font-weight: 700;
   padding: 0.1rem 0.6rem;
   border-radius: 20px;
   margin-left: 0.5rem;
+}
+
+/* ===== Admin Entry (Discreet) ===== */
+.admin-entry {
+  color: rgba(30, 30, 30, 0.3);
+  transition: color 0.3s, opacity 0.3s;
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  text-decoration: none;
+}
+
+.admin-entry:hover {
+  color: #B8860B;
+  opacity: 1;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -250,24 +271,7 @@
     top: -6px;
     right: -8px;
   }
-}
-/* ===== Hidden admin entry ===== */
-.admin-entry {
-  color: rgba(255, 255, 255, 0.4);
-  transition: color 0.3s, opacity 0.3s;
-  display: flex;
-  align-items: center;
-  margin-right: 0.5rem;
-  text-decoration: none;
-}
 
-.admin-entry:hover {
-  color: #f39c12;
-  opacity: 1;
-}
-
-/* Optional: make it even more discreet on mobile */
-@media (max-width: 480px) {
   .admin-entry {
     opacity: 0.3;
     font-size: 0.9rem;

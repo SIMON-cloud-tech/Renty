@@ -14,7 +14,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* Smoother, slightly snappier fade-in */
   opacity: 0;
   animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   will-change: opacity, transform;
@@ -23,7 +22,7 @@
 .about-hero-overlay {
   padding: 2rem;
   border-radius: 12px;
-  color: #333;
+  color: #1e1e1e; /* Deep charcoal */
   width: 100%;
   height: 100%;
   display: flex;
@@ -34,15 +33,14 @@
 
 .about-hero h1 {
   font-size: 2rem;
-  color: #333;
+  color: #1e1e1e;
   margin-bottom: 0.5rem;
-  transition: color 0.25s ease;
 }
 
 .about-hero p {
   font-size: 1.2rem;
-  opacity: 0.9;
-  transition: opacity 0.25s ease;
+  opacity: 0.85;
+  color: #2c2c2c;
 }
 
 /* ── Content: Image + Text ── */
@@ -60,24 +58,23 @@
 .about-image {
   height: 350px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f0f0f0; /* retained placeholder */
+  background: #f0ede8;
   transition: box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .about-image:hover {
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10);
 }
 
 .about-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Smoother image appear + subtle scale for polish */
   opacity: 0;
   transform: scale(1.02);
   transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
@@ -85,7 +82,6 @@
   will-change: opacity, transform;
 }
 
-/* Once the image has loaded the browser will paint it; this keeps the transition smooth */
 .about-image img[src] {
   opacity: 1;
   transform: scale(1);
@@ -93,29 +89,27 @@
 
 .about-text h2 {
   font-size: 2rem;
-  color: #1a2a6c;
+  color: #1e1e1e;
   margin-bottom: 1rem;
-  transition: color 0.25s ease;
 }
 
 .about-text p {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: #333;
+  color: #2c2c2c;
   margin-bottom: 1rem;
-  transition: color 0.25s ease;
 }
 
 .about-text .tagline {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #f39c12;
+  color: #B8860B; /* Deep gold */
   letter-spacing: 1px;
   transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .about-text .tagline:hover {
-  color: #e67e22; /* subtle warmer accent on hover – still in the same family */
+  color: #9a7209;
   transform: translateY(-1px);
 }
 
@@ -128,21 +122,19 @@
 }
 
 .mvv-card {
-  background: white; /* retained */
+  background: #ffffff;
   padding: 2rem 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e8e5e0;
   text-align: center;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
               box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  
-  /* Start hidden – same as before */
   opacity: 0;
   transform: translateY(30px);
   will-change: opacity, transform;
 }
 
-/* Trigger animation when visible – smoother curve + slightly faster */
 .mvv-card.mvv-visible {
   animation: slideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
@@ -153,21 +145,19 @@
 
 .mvv-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.13);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
 }
 
 .mvv-card h3 {
   font-size: 1.4rem;
-  color: #1a2a6c;
+  color: #1e1e1e;
   margin-bottom: 0.75rem;
-  transition: color 0.25s ease;
 }
 
 .mvv-card p {
-  color: #555;
+  color: #2c2c2c;
   line-height: 1.6;
   font-size: 0.95rem;
-  transition: color 0.25s ease;
 }
 
 .mvv-card ul {
@@ -179,12 +169,12 @@
 .mvv-card ul li {
   padding: 0.3rem 0;
   font-weight: 500;
-  color: #1a2a6c;
+  color: #1e1e1e;
   transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .mvv-card ul li:hover {
-  color: #f39c12; /* accent on hover – still using your palette */
+  color: #B8860B;
   transform: translateX(2px);
 }
 

@@ -12,8 +12,8 @@ const CONTACT_DETAILS = [
   {
     id: 'location',
     label: 'Locations',
-    value: 'Nairobi CBD Cookie House',
-    href: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.816031465158!2d36.82632290000001!3d-1.2843004!2m3!1f0!2f0!3f0!3m2! 1i1024!2i768!4f13.1!3m3!1m2!1s0x182f11938e8142e5%3A0xb86e39e564106f6f!2sCookie%20House!5e0!3m2!1sen!2ske!4v1784716867725!5m2!1sen!2ske',
+    value: 'Nairobi — Karen, Kilimani, Umoja',
+    href: '#',
     icon: <FaMapMarkerAlt />,
   },
   {
@@ -26,15 +26,15 @@ const CONTACT_DETAILS = [
   {
     id: 'email',
     label: 'Email',
-    value: 'energensolar15@gmail.com',
-    href: 'mailto:energensolar15@gmail.com',
+    value: 'info@furnihaven.co.ke',
+    href: 'mailto:info@furnihaven.co.ke',
     icon: <FaEnvelope />,
   },
   {
     id: 'website',
     label: 'Website',
-    value: 'www.energen.co.ke',
-    href: 'https://www.energen.co.ke',
+    value: 'www.furnihaven.co.ke',
+    href: 'https://www.furnihaven.co.ke',
     icon: <FaGlobe />,
   },
 ];
@@ -70,9 +70,9 @@ const Contact = () => {
     e.preventDefault();
 
     const text = `
-Hi Energen Team 👋
+Hi FurniHaven Team 👋
 
-I'm interested in solar solutions.
+I'm interested in your furniture.
 
 My details:
 • Name: ${form.name}
@@ -82,9 +82,9 @@ My details:
 My enquiry:
 ${form.message}
 
-Please advise on availability, pricing, and installation timeline.
+Please advise on availability, pricing, and delivery options.
 
-Looking forward to your reply ☀️
+Looking forward to your reply 🪑
 `;
 
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
@@ -101,17 +101,16 @@ Looking forward to your reply ☀️
       <div className="contact-header">
         <h2 className="contact-title">Get in Touch</h2>
         <p className="contact-subtitle">
-          Ready to switch to solar? Reach out to us for a free consultation 
-          and a custom quote tailored to your energy needs.
+          Looking for the perfect piece of furniture? Reach out to us for a 
+          free consultation and expert advice tailored to your space.
         </p>
       </div>
 
       {/* BODY */}
       <div className="contact-body">
-
         {/* LEFT */}
         <div className="contact-left">
-          <h3>Contact & Office Info</h3>
+          <h3>Contact & Store Info</h3>
 
           <div>
             {CONTACT_DETAILS.map(d => (
@@ -127,8 +126,8 @@ Looking forward to your reply ☀️
           </div>
 
           <div className="delivery-areas">
-            <h4>Service Areas</h4>
-            <p>Nairobi, Kiambu, Machakos, Kajiado, Nakuru, Kisumu, and nationwide.</p>
+            <h4>Delivery Areas</h4>
+            <p>Nairobi, Kiambu, Machakos, Kajiado, and nationwide.</p>
           </div>
         </div>
 
@@ -137,7 +136,7 @@ Looking forward to your reply ☀️
           <h3>Request a Quote</h3>
 
           {submitted && (
-            <p className="success">✓ WhatsApp opened — we'll get back to you shortly ☀️</p>
+            <p className="success">✓ WhatsApp opened — we'll get back to you shortly 🪑</p>
           )}
 
           <form onSubmit={handleSubmit} className="contact-form">
@@ -166,24 +165,22 @@ Looking forward to your reply ☀️
             />
             <textarea
               name="message"
-              placeholder="Tell us about your solar needs (e.g., home, business, backup, water pumping)"
+              placeholder="Tell us about your furniture needs (e.g., office seating, living room, bedroom, custom order)"
               value={form.message}
               onChange={handleChange}
               required
             />
             <button type="submit">
-              Send on WhatsApp ☀️
+              Send on WhatsApp 🪑
             </button>
           </form>
         </div>
-
       </div>
 
       {/* MAP */}
       <div className="contact-map">
-        <iframe src={MAP_EMBED} title="Office Location" loading="lazy" />
+        <iframe src={MAP_EMBED} title="Store Location" loading="lazy" />
       </div>
-
     </section>
   );
 };

@@ -14,16 +14,15 @@ function Home(){
   return(
     <>
       <SEO
-        title="Solar Energy Experts in Kenya"
-        description="Energen delivers custom solar installations, battery systems, and energy savings for homes and businesses across Kenya."
-        keywords="solar energy Kenya, solar panels, solar installation, renewable energy, battery backup"
+        title="Modern Furniture & Home Essentials in Kenya"
+        description="FurniHaven offers stylish furniture, home decor, storage solutions, and functional everyday pieces for homes and offices across Kenya."
+        keywords="furniture Kenya, home decor, sofas, dining sets, bedroom furniture, office furniture, FurniHaven"
       />
       <Hero />
       <Story />
       <Process />
-      <FeaturedProducts />
+      <Products variant="light" />
       <Reach />
-      <ProjectsSection />
       <Testimonials />
       <LatestBlogs />
     </>

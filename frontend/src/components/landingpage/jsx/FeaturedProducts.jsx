@@ -30,26 +30,27 @@ const FeaturedProducts = () => {
     setCart(prev => addToCart(prev, product));
   };
 
- if (loading) {
-  return (
-    <div className="products-loading">
-      <div className="spinner"></div>
-      <p>Loading products...</p>
-    </div>
-  );
- }
+  if (loading) {
+    return (
+      <div className="products-loading">
+        <div className="spinner"></div>
+        <p>Loading products...</p>
+      </div>
+    );
+  }
   if (products.length === 0) return null;
 
   return (
     <section className="featured-section">
       <div className="featured-header">
         <div className="featured-header-content">
-          <h2>Featured Products</h2>
+          <h2>Featured Furniture</h2>
           <p className="featured-subtitle">
-            🌞 <strong>Reliable solar power starts here.</strong> Our systems cut your electricity 
-            bills, protect you from blackouts, and reduce your carbon footprint. Each product is 
-            built for durability, backed by expert support, and priced for real value — because 
-            clean energy should be accessible to every home and business.
+            🪑 <strong>Quality craftsmanship meets everyday comfort.</strong> Our collection 
+            is built to last — from executive office chairs and sturdy wardrobes to elegant 
+            living room sets and custom kitchen cabinets. Each piece is designed for durability, 
+            backed by our 2‑year warranty, and priced for real value — because quality furniture 
+            should be accessible to every home and business.
           </p>
         </div>
         <button className="view-all-btn" onClick={() => navigate('/products')}>
@@ -73,7 +74,7 @@ const FeaturedProducts = () => {
             <div className="featured-info">
               <h3>{product.name}</h3>
               <p className="featured-description">{product.description}</p>
-             <p className="product-price">KSH {Number(product.price).toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+              <p className="product-price">KSH {Number(product.price).toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
             </div>
             <div className="featured-actions">
               <button

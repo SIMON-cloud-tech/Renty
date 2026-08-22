@@ -1,34 +1,22 @@
 import { Link } from 'react-router-dom';
-import {
-  FaFacebook,
-  FaTiktok,
-  
-} from 'react-icons/fa';
+import { FaFacebook, FaTiktok, FaInstagram } from 'react-icons/fa';
 import '../css/Footer.css';
 
 const Footer = () => {
   return (
     <footer className="footer">
-       {/* ── ENERGEN WATERMARK ── */}
-      <div className="footer-watermark">
-        <span className="footer-watermark-text">ENERGEN</span>
-      </div>
       <div className="footer-container">
-
         {/* TOP SECTION */}
         <div className="footer-top">
-
           {/* BUSINESS INFO */}
           <div>
-            <h2 className="footer-title main">Energen</h2>
+            <h2 className="footer-title main">FurniHaven</h2>
             <p className="footer-text">
-              Powering Kenya with clean, reliable solar energy — reaching beyond
-              Nairobi’s estates into rural communities in Thika, Juja, Gatundu,
-              Limuru, and Githunguri in Kiambu. From homesteads and schools to
-              small trading centers, we supply and install solar solutions that
-              help families and institutions cut costs and embrace sustainable living.
+              Your trusted source for quality furniture across Nairobi. 
+              From office seating and beds to wardrobes and TV stands, 
+              we deliver craftsmanship and comfort to homes and businesses 
+              in Karen, Kilimani, Umoja, Kitengela, and beyond.
             </p>
-
           </div>
 
           {/* QUICK LINKS */}
@@ -36,11 +24,11 @@ const Footer = () => {
             <h2 className="footer-title small">Quick Links</h2>
             <ul className="footer-links">
               <li><Link to="/">Home</Link></li>
-              <li><Link to="/about">About us</Link></li>
-              <li><Link to="/products">Products</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/products">Shop</Link></li>
               <li><Link to="/projects">Projects</Link></li>
-              <li><Link to="/blogs">Blogs</Link></li>
-              <li><Link to="/contact">Contact us</Link></li>
+              <li><Link to="/blogs">Blog</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>
 
@@ -55,32 +43,31 @@ const Footer = () => {
 
             <div className="footer-location">
               <h2 className="footer-title small">Location</h2>
-              <p>Nairobi CBD Cookie House</p>
+              <p>Nairobi — Karen, Kilimani, Umoja</p>
             </div>
           </div>
         </div>
 
         {/* MIDDLE SECTION */}
         <div className="footer-middle">
-
           {/* SOCIALS */}
           <div>
-            <h2 className="footer-title small">Follow Us On</h2>
+            <h2 className="footer-title small">Follow Us</h2>
             <div className="footer-socials">
-              <a href="https://www.facebook.com/share/18JMsrLyF2/" className="social-icon"><FaFacebook /></a>
-              <a href="https://vm.tiktok.com/ZS9rAK5PoeQtf-dD3rW/" className="social-icon"><FaTiktok /></a>
+              <a href="#" className="social-icon"><FaFacebook /></a>
+              <a href="#" className="social-icon"><FaInstagram /></a>
+              <a href="#" className="social-icon"><FaTiktok /></a>
             </div>
           </div>
-
-          {/* WHATSAPP */}
         </div>
 
         {/* BOTTOM */}
         <div className="footer-bottom">
-           <p>© {new Date().getFullYear()} Energen Systems &amp; General Supplies Ltd.All Rights Reserved.
-           </p>
-          <p> Energy That Cares{' '}<Link to="/admin" className="admin-sun-icon" aria-label="Admin login">☀️</Link>
-         </p>
+          <p>© {new Date().getFullYear()} FurniHaven. All rights reserved.</p>
+          <p>
+            Quality Furniture You Can Trust{' '}
+            <Link to="/admin" className="admin-sun-icon" aria-label="Admin login">🪑</Link>
+          </p>
         </div>
       </div>
     </footer>

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import '../css/Story.css';
-import aboutImage from '/about.webp'; // Convert to WebP!
+import aboutImage from '/about.webp'; // Replace with your furniture store image
 
 const Story = () => {
   const sectionRef = useRef(null);
@@ -29,8 +29,8 @@ const Story = () => {
       {/* ── HERO / INTRO SECTION ── */}
       <section className="about-hero">
         <div className="about-hero-overlay">
-          <h1>About Energen</h1>
-          <p>Powering Kenya with sustainable solar solutions since 2010.</p>
+          <h1>About FurniHaven</h1>
+          <p>Quality furniture crafted for comfort — delivered across Nairobi since 2020.</p>
         </div>
       </section>
 
@@ -39,7 +39,7 @@ const Story = () => {
         <div className="about-image">
           <img 
             src={aboutImage} 
-            alt="Energen Company" 
+            alt="FurniHaven Showroom" 
             loading="lazy"
             decoding="async"
           />
@@ -47,25 +47,20 @@ const Story = () => {
         <div className="about-text">
           <h2>Who We Are</h2>
           <p>
-            <strong>Energen Systems & General Supplies Ltd.</strong>is a trusted solar energy company in Kenya 
-            specializing in solar lighting and installation, solar water pumps for farms in Thika and Gatundu,
-             solar hot water systems for households in Kiambu estates like Ruiru and Githunguri, and solar 
-             power backup solutions for Nairobi businesses in Westlands, Industrial Area, and Buruburu. 
-            Our expertise ensures reliable, affordable, and sustainable energy for both urban and rural communities.
+            <strong>FurniHaven</strong> is a trusted furniture company in Kenya
+            specializing in quality home and office furnishings. From executive 
+            office chairs and ergonomic workstations to elegant living room sets, 
+            durable wardrobes, and custom kitchen cabinets — we bring craftsmanship 
+            and comfort to spaces across Karen, Kilimani, Umoja, Kitengela, and beyond.
           </p>
           <p>
-            Founded in <strong>2020</strong>,Energen has rapidly expanded 
-            its services and successfully installed solar 
-            systems in over 500 homes, schools, 
-            and institutions across Nairobi, Kiambu, 
-            and Thika. From residential rooftops 
-            in Kasarani and South B, to commercial 
-            projects in Donholm and Kitengela, and 
-            rural installations in Limuru and Juja, 
-            we continue to power communities with clean energy while 
-            reducing electricity costs and promoting sustainable living.
+            Founded in <strong>2020</strong>, FurniHaven has rapidly expanded 
+            its services and successfully furnished over 500 homes, offices, 
+            and institutions across Nairobi, Kiambu, and Machakos. From single 
+            pieces to full office fit-outs, we deliver quality that lasts — 
+            backed by a 2-year warranty and free delivery within Nairobi.
           </p>
-          <p className="tagline">⚡ Energy That Cares</p>
+          <p className="tagline">🪑 Quality You Can Trust</p>
         </div>
       </section>
 
@@ -74,23 +69,23 @@ const Story = () => {
         <div className="mvv-card">
           <h3>🎯 Mission</h3>
           <p>
-            Empowering communities to opt for a sustainable and greener lifestyle 
-            through innovative energy solutions.
+            To provide high-quality, durable furniture that transforms spaces 
+            and enhances lives — with exceptional service and lasting value.
           </p>
         </div>
         <div className="mvv-card">
           <h3>🔭 Vision</h3>
           <p>
-            Dedicated to the execution of renewable energy projects focused 
-            in Kenya and East Africa.
+            To become Kenya's most trusted furniture brand — recognized for 
+            quality, reliability, and customer-first service.
           </p>
         </div>
         <div className="mvv-card">
           <h3>⭐ Core Values</h3>
           <ul>
             <li>Quality</li>
-            <li>Professionalism</li>
-            <li>Commitment</li>
+            <li>Integrity</li>
+            <li>Customer First</li>
           </ul>
         </div>
       </section>

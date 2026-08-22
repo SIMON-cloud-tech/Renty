@@ -9,8 +9,6 @@ import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Products from './components/landingpage/jsx/Products.jsx';
-import Projects from './components/landingpage/jsx/Projects.jsx';
-import ProjectDetail from './components/landingpage/jsx/ProjectDetail.jsx';
 import BlogDetail from './components/landingpage/jsx/BlogDetail.jsx';
 import BlogSection from './components/landingpage/jsx/BlogSection.jsx';
 
@@ -56,8 +54,6 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route path="/blogs" element={<BlogSection />} />
         <Route path="/blogs/:id" element={<BlogDetail />} />
       </Route>

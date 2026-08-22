@@ -1,207 +1,147 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { FiPlus, FiEdit, FiTrash2, FiX } from 'react-icons/fi';
 import '../css/TestimonialsManage.css';
 
+// ── Constants ──
+const INITIAL_VISIBLE = 3;
+const LOAD_MORE = 3;
+const INITIAL_FORM = { name: '', location: '', text: '' };
+
+// ── Testimonial Card ──
+const TestimonialCard = ({ testimonial, onEdit, onDelete }) => {
+  const { id, name, location, text } = testimonial;
+  return (
+    <div className="testimonial-card">
+      <div className="testimonial-content">
+        <p className="testimonial-text">"{text}"</p>
+        <div className="testimonial-author">
+          <h4>{name}</h4>
+          {location && <span className="testimonial-location">{location}</span>}
+        </div>
+      </div>
+      <div className="testimonial-actions">
+        <button className="edit-btn" onClick={() => onEdit(testimonial)}><FiEdit /> Edit</button>
+        <button className="delete-btn" onClick={() => onDelete(id)}><FiTrash2 /> Delete</button>
+      </div>
+    </div>
+  );
+};
+
+// ── Main Component ──
 const TestimonialsManage = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
-  const [visibleCount, setVisibleCount] = useState(3);
-  const [formData, setFormData] = useState({
-    name: '',
-    location: '',
-    text: ''
-  });
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+  const [formData, setFormData] = useState(INITIAL_FORM);
 
-  // ── Fetch testimonials ──
-  const fetchTestimonials = async () => {
+  // ── Fetch ──
+  const fetchTestimonials = useCallback(async () => {
     try {
-      const res = await fetch('/api/testimonials', {
-        credentials: 'include'
-      });
-      if (!res.ok) throw new Error('Failed to fetch');
-      const data = await res.json();
-      setTestimonials(data);
-    } catch (err) {
-      console.error('Fetch error:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchTestimonials();
+      const res = await fetch('/api/testimonials', { credentials: 'include' });
+      const data = res.ok ? await res.json() : [];
+      setTestimonials(Array.isArray(data) ? data : []);
+    } catch (e) { setTestimonials([]) } finally { setLoading(false) }
   }, []);
 
-  // ── Form handling ──
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  useEffect(() => { fetchTestimonials() }, [fetchTestimonials]);
 
-  // ── Submit (add / update) ──
-  const handleSubmit = async (e) => {
+  // ── Memoized ──
+  const visibleTestimonials = useMemo(() => testimonials.slice(0, visibleCount), [testimonials, visibleCount]);
+  const hasMore = useMemo(() => visibleCount < testimonials.length, [visibleCount, testimonials.length]);
+
+  // ── Handlers ──
+  const handleChange = useCallback((e) => {
+    setFormData(p => ({ ...p, [e.target.name]: e.target.value }));
+  }, []);
+
+  const resetForm = useCallback(() => setFormData(INITIAL_FORM), []);
+  const handleCancel = useCallback(() => { setShowForm(false); setEditingId(null); resetForm() }, [resetForm]);
+  const handleLoadMore = useCallback(() => setVisibleCount(p => p + LOAD_MORE), []);
+
+  // ── Submit ──
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     try {
       const url = editingId ? `/api/testimonials/${editingId}` : '/api/testimonials';
-      const method = editingId ? 'PUT' : 'POST';
-
       const res = await fetch(url, {
-        method,
+        method: editingId ? 'PUT' : 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
-
       if (!res.ok) throw new Error('Failed to save');
       await fetchTestimonials();
       setShowForm(false);
       setEditingId(null);
       resetForm();
-    } catch (err) {
-      console.error('Save error:', err);
-    }
-  };
-
-  const resetForm = () => {
-    setFormData({ name: '', location: '', text: '' });
-  };
+    } catch (err) { console.error('Save error:', err) }
+  }, [editingId, formData, fetchTestimonials, resetForm]);
 
   // ── Delete ──
-  const handleDelete = async (id) => {
+  const handleDelete = useCallback(async (id) => {
     if (!window.confirm('Delete this testimonial?')) return;
     try {
-      const res = await fetch(`/api/testimonials/${id}`, {
-        method: 'DELETE',
-        credentials: 'include'
-      });
-      if (!res.ok) throw new Error('Delete failed');
-      await fetchTestimonials();
-    } catch (err) {
-      console.error('Delete error:', err);
-    }
-  };
+      const res = await fetch(`/api/testimonials/${id}`, { method: 'DELETE', credentials: 'include' });
+      if (res.ok) await fetchTestimonials();
+    } catch (err) { console.error('Delete error:', err) }
+  }, [fetchTestimonials]);
 
-  // ── Edit – populate form ──
-  const handleEdit = (testimonial) => {
-    setEditingId(testimonial.id);
-    setFormData({
-      name: testimonial.name,
-      location: testimonial.location || '',
-      text: testimonial.text
-    });
+  // ── Edit ──
+  const handleEdit = useCallback((testimonial) => {
+    const { id, name, location, text } = testimonial;
+    setEditingId(id);
+    setFormData({ name, location: location || '', text });
     setShowForm(true);
-  };
+  }, []);
 
-  // ── Cancel ──
-  const handleCancel = () => {
-    setShowForm(false);
-    setEditingId(null);
-    resetForm();
-  };
+  // ── Form fields config ──
+  const formFields = [
+    { label: 'Client Name', name: 'name', type: 'text', required: true },
+    { label: 'Location (optional)', name: 'location', type: 'text', placeholder: 'e.g. Nairobi, Kenya' },
+    { label: 'Testimonial Text', name: 'text', type: 'textarea', required: true },
+  ];
 
-  // ── Load more ──
-  const loadMore = () => setVisibleCount(prev => prev + 3);
-
-  const visibleTestimonials = testimonials.slice(0, visibleCount);
-  const hasMore = visibleCount < testimonials.length;
-
-  if (loading) return <div className="testimonials-loading">Loading testimonials...</div>;
+  // ── Loading ──
+  if (loading) return <div className="testimonials-loading"><div className="spinner" /><p>Loading testimonials...</p></div>;
 
   return (
     <div className="testimonials-manage">
       <div className="testimonials-header">
         <div className="header-actions">
-          {hasMore && (
-            <button className="load-more-btn" onClick={loadMore}>
-              Load More
-            </button>
-          )}
-          <button className="add-btn" onClick={() => setShowForm(true)}>
-            <FiPlus /> Add Testimonial
-          </button>
+          {hasMore && <button className="load-more-btn" onClick={handleLoadMore}>Load More</button>}
+          <button className="add-btn" onClick={() => setShowForm(true)}><FiPlus /> Add Testimonial</button>
         </div>
       </div>
 
-      {/* Testimonials Cards Grid */}
       <div className="testimonials-grid">
-        {visibleTestimonials.map((testimonial) => (
-          <div key={testimonial.id} className="testimonial-card">
-            <div className="testimonial-content">
-              <p className="testimonial-text">"{testimonial.text}"</p>
-              <div className="testimonial-author">
-                <h4>{testimonial.name}</h4>
-                {testimonial.location && (
-                  <span className="testimonial-location">{testimonial.location}</span>
-                )}
-              </div>
-            </div>
-            <div className="testimonial-actions">
-              <button className="edit-btn" onClick={() => handleEdit(testimonial)}>
-                <FiEdit /> Edit
-              </button>
-              <button className="delete-btn" onClick={() => handleDelete(testimonial.id)}>
-                <FiTrash2 /> Delete
-              </button>
-            </div>
-          </div>
-        ))}
+        {visibleTestimonials.map(t => <TestimonialCard key={t.id} testimonial={t} onEdit={handleEdit} onDelete={handleDelete} />)}
       </div>
 
-      {visibleTestimonials.length === 0 && (
-        <div className="no-testimonials">
-          <p>No testimonials yet. Click "Add Testimonial" to create one.</p>
-        </div>
-      )}
+      {!visibleTestimonials.length && <div className="no-testimonials"><p>No testimonials yet. Click "Add Testimonial" to create one.</p></div>}
 
-      {/* Add/Edit Modal */}
       {showForm && (
         <div className="modal-overlay" onClick={handleCancel}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
               <h3>{editingId ? 'Edit Testimonial' : 'Add Testimonial'}</h3>
-              <button className="close-modal" onClick={handleCancel}>
-                <FiX />
-              </button>
+              <button className="close-modal" onClick={handleCancel}><FiX /></button>
             </div>
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label>Client Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>Location (optional)</label>
-                <input
-                  type="text"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  placeholder="e.g. Nairobi, Kenya"
-                />
-              </div>
-              <div className="form-group">
-                <label>Testimonial Text</label>
-                <textarea
-                  name="text"
-                  value={formData.text}
-                  onChange={handleChange}
-                  rows="4"
-                  required
-                />
-              </div>
+              {formFields.map(({ label, name, type = 'text', placeholder = '', required = false }) => (
+                <div className="form-group" key={name}>
+                  <label>{label}</label>
+                  {type === 'textarea' ? (
+                    <textarea name={name} value={formData[name] || ''} onChange={handleChange} rows="4" required={required} />
+                  ) : (
+                    <input type={type} name={name} value={formData[name] || ''} onChange={handleChange} placeholder={placeholder} required={required} />
+                  )}
+                </div>
+              ))}
               <div className="form-actions">
-                <button type="button" className="cancel-btn" onClick={handleCancel}>
-                  Cancel
-                </button>
-                <button type="submit" className="save-btn">
-                  {editingId ? 'Update' : 'Save'}
-                </button>
+                <button type="button" className="cancel-btn" onClick={handleCancel}>Cancel</button>
+                <button type="submit" className="save-btn">{editingId ? 'Update' : 'Save'}</button>
               </div>
             </form>
           </div>

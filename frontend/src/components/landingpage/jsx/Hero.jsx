@@ -1,12 +1,30 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Hero.css';
+
+// ===== Configuration object for easy updates =====
+const HERO_CONFIG = {
+  title: 'Find Furniture That Fits Your Life',
+  subtitle: `From office to living room — quality you can feel. 
+    We deliver across Nairobi, from Karen and Kilimani to Umoja and Kitengela. 
+    Whether you need a single piece or a full office setup, we bring craftsmanship and comfort to your space.`,
+  tagline: '🪑 Handcrafted · 🛋️ Quality Guaranteed · 🚚 Free Delivery Nairobi · 🔒 2-Year Warranty',
+  primaryCTA: 'Browse Collection',
+  primaryPath: '/products',
+  secondaryCTA: 'View Deals',
+  secondaryPath: '/contact',
+};
 
 const Hero = () => {
   const navigate = useNavigate();
   const heroRef = useRef(null);
 
-  // Lazy load animation on scroll
+  // ===== Navigation handlers using object lookup =====
+  const handleNavigation = useCallback((path) => {
+    navigate(path);
+  }, [navigate]);
+
+  // ===== Lazy load animation on scroll =====
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -19,46 +37,50 @@ const Hero = () => {
       { threshold: 0.1 }
     );
 
-    if (heroRef.current) {
-      observer.observe(heroRef.current);
+    const currentHero = heroRef.current;
+    if (currentHero) {
+      observer.observe(currentHero);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      if (currentHero) {
+        observer.unobserve(currentHero);
+      }
+    };
   }, []);
+
+  // ===== Button config array for cleaner rendering =====
+  const buttons = [
+    { label: HERO_CONFIG.primaryCTA, path: HERO_CONFIG.primaryPath, type: 'btn-primary' },
+    { label: HERO_CONFIG.secondaryCTA, path: HERO_CONFIG.secondaryPath, type: 'btn-secondary' },
+  ];
 
   return (
     <section className="hero" ref={heroRef}>
       <div className="hero-overlay">
         <div className="hero-content">
           <h2 className="hero-title">
-            Power Your Future with Clean Solar Energy
+            {HERO_CONFIG.title}
           </h2>
 
-        <p className="hero-subtitle">
-       Energen delivers high‑quality solar solutions across Kenya —
-       from Nairobi estates like Umoja, Donholm, Syokimau, Imara Daima,
-       and Kitengela, to communities in Wajir and beyond. Whether for
-       homes or businesses, we help you cut electricity costs, shrink
-       your carbon footprint, and achieve true energy independence.
-       </p>
+          <p className="hero-subtitle">
+            {HERO_CONFIG.subtitle}
+          </p>
 
           <h4 className="marketing-strip">
-            🌍 Eco‑Friendly  •  ⚡ Stable Power  •  💰 Lower Bills  •  🔋 Reliable
+            {HERO_CONFIG.tagline}
           </h4>
 
           <div className="hero-cta">
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate('/products')}
-            >
-              Explore Solutions
-            </button>
-            <button
-              className="btn btn-secondary"
-              onClick={() => navigate('/contact')}
-            >
-              Contact Us
-            </button>
+            {buttons.map(({ label, path, type }) => (
+              <button
+                key={label}
+                className={`btn ${type}`}
+                onClick={() => handleNavigation(path)}
+              >
+                {label}
+              </button>
+            ))}
           </div>
         </div>
       </div>

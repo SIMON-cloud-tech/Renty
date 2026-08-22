@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiShoppingCart, FiMenu, FiX, FiSettings } from 'react-icons/fi';
+import { FiShoppingCart, FiMenu, FiX } from 'react-icons/fi';
 import Cart from './Cart';
 import '../css/Navbar.css';
-import LogoImage from '/logo.png'
+import LogoImage from '/logo.png' // Replace with your furniture store logo
 
 const MENU_ITEMS = [
   { label: 'Home', path: '/' },
+  { label: 'Shop', path: '/products' },
+  { label: 'Categories', path: '/categories' },
   { label: 'About', path: '/about' },
-  { label: 'Products', path: '/products' },
   { label: 'Projects', path: '/projects' },
-  { label: 'Blogs', path: '/blogs' },
+  { label: 'Blog', path: '/blogs' },
   { label: 'Contact', path: '/contact' },
 ];
 
@@ -23,13 +24,12 @@ const Navbar = ({ cart, setCart, cartCount = 0 }) => {
   const toggleCart = () => setCartOpen(!cartOpen);
   const closeCart = () => setCartOpen(false);
 
-
   return (
     <>
       <nav className="navbar">
         <div className="navbar-container">
           <Link to="/" className="navbar-logo">
-            <img src={LogoImage} alt="Energen Logo" className="navbar-logo-img" />
+            <img src={LogoImage} alt="Furniture Store Logo" className="navbar-logo-img" />
           </Link>
 
           <ul className="nav-menu">
@@ -43,8 +43,7 @@ const Navbar = ({ cart, setCart, cartCount = 0 }) => {
           </ul>
 
           <div className="nav-right">
-
-            {/* Cart icon – now a button (not a Link) */}
+            {/* Cart icon – opens cart drawer */}
             <button className="cart-icon-wrapper" onClick={toggleCart} aria-label="Open cart">
               <FiShoppingCart size={24} />
               {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}

@@ -1,204 +1,238 @@
-# Energen - Solar Energy Management Platform
+# Furnihaven
 
-Energen is a complete solar energy management platform that combines a public-facing website with a private admin dashboard. It allows businesses to showcase their solar products, publish blog posts, display project case studies, and manage client testimonials – all without any technical help.
+Furnihaven is a full-stack furniture and homeware storefront with a public shopping experience and a secure admin dashboard. The project combines a modern React frontend with a Node.js/Express backend, allowing the business to manage products, blog content, inventory, and customer-facing pages without needing to touch code.
 
-## Features
+## Overview
 
-### Public Website
-- **Homepage** – Professional landing page with hero section, featured products, and call-to-action
-- **Products** – Browse solar products with images, descriptions, and pricing
-- **Blogs** – Read articles about solar energy, installation guides, and industry updates
-- **Projects** – View completed solar installations with detailed case studies
-- **Testimonials** – Read feedback from satisfied clients
-- **Contact** – Enquire via WhatsApp or contact form
-- **Cart** – Add products to cart and checkout via WhatsApp
+This application includes:
 
-### Admin Dashboard
-- **Product Management** – Add, edit, and delete products with images and pricing
-- **Blog Management** – Write and publish blog posts with images and keywords
-- **Project Management** – Upload project case studies with images and details
-- **Testimonials Management** – Collect and display client feedback
-- **Secure Authentication** – Login with email and password, protected by JWT
-- **User Profile** – View and manage your profile
+- A public storefront with a landing page, featured products, product listings, blog articles, testimonials, and contact sections
+- A shopping cart and WhatsApp-based checkout flow
+- A secure admin dashboard for managing inventory and website content
+- JWT-based authentication with protected routes and reset-password support
+- MongoDB-backed data models with API endpoints for the frontend
+- Cloudinary-compatible image uploads for product and content management
 
-### Technical Features
-- **Responsive Design** – Works on desktop, tablet, and mobile
-- **SEO Optimized** – Meta tags, keywords, and clean URLs
-- **Image Upload** – Upload images for products, blogs, and projects
-- **WhatsApp Integration** – Checkout and enquiries via WhatsApp
-- **Secure Authentication** – JWT with httpOnly cookies
-- **Password Reset** – Reset password via email OTP
-
-## Technologies Used
+## Tech Stack
 
 ### Frontend
-- **React** – UI library for building the user interface
-- **Vite** – Build tool for fast development and production builds
-- **React Router** – Client-side routing
-- **React Icons** – Icon library for UI components
+- React
+- Vite
+- React Router DOM
+- React Icons
+- React Helmet Async
 
 ### Backend
-- **Node.js** – JavaScript runtime for the backend
-- **Express.js** – Web framework for building APIs
-- **JSON Data Storage** – Lightweight data storage using JSON files
-- **JWT** – Authentication via JSON Web Tokens
-- **bcryptjs** – Password hashing for security
-- **Multer** – Image upload handling
-- **Cookie Parser** – Parse cookies for authentication
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- JWT
+- bcryptjs
+- Multer
+- Cookie Parser
+- Nodemailer / Resend
 
-### Deployment
-- **Render** – Cloud hosting for frontend and backend
+## Project Structure
 
-## Data Flow
-
-### Product Management
-1. Admin adds product via dashboard
-2. Product data is sent to backend
-3. Image is saved to `uploads/` folder
-4. Product is stored in `inventory.json`
-5. Product appears on public website instantly
-
-### Blog Publishing
-1. Admin writes blog post via dashboard
-2. Blog data is sent to backend
-3. Image is saved to `uploads/` folder
-4. Blog is stored in `blogs.json`
-5. Blog appears on public website instantly
-
-### User Authentication
-1. User logs in with email and password
-2. Backend validates credentials against `profile.json`
-3. JWT token is generated and stored in httpOnly cookie
-4. User is redirected to dashboard
-5. Subsequent requests are authenticated via cookie
-
-## API Endpoints
-
-### Public Endpoints
-- `GET /api/inventory` – Fetch all products
-- `GET /api/blogs` – Fetch all blog posts
-- `GET /api/projects` – Fetch all projects
-- `GET /api/testimonials` – Fetch all testimonials
-- `GET /api/health` – Health check
-
-### Protected Endpoints (Requires Authentication)
-- `POST /api/inventory` – Add new product
-- `PUT /api/inventory/:id` – Update product
-- `DELETE /api/inventory/:id` – Delete product
-- `POST /api/blogs` – Add new blog
-- `PUT /api/blogs/:id` – Update blog
-- `DELETE /api/blogs/:id` – Delete blog
-- `POST /api/projects` – Add new project
-- `PUT /api/projects/:id` – Update project
-- `DELETE /api/projects/:id` – Delete project
-- `POST /api/testimonials` – Add new testimonial
-- `PUT /api/testimonials/:id` – Update testimonial
-- `DELETE /api/testimonials/:id` – Delete testimonial
-
-### Authentication Endpoints
-- `POST /api/register` – Register new user
-- `POST /api/login` – Login user
-- `GET /api/profile` – Get user profile
-- `POST /api/logout` – Logout user
-
-### Password Reset Endpoints
-- `POST /api/reset/send-otp` – Send OTP for password reset
-- `POST /api/reset/verify-otp` – Verify OTP
-- `POST /api/reset/reset-password` – Reset password
-
-## Installation and Setup
-
-### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn
-
-### Backend Setup
-1. Navigate to the backend folder:
-   ```bash
-   cd backend
-
-   energen/
+```bash
+Furnihaven/
 ├── backend/
+│   ├── config/
+│   │   └── db.js
 │   ├── controllers/
 │   │   ├── authController.js
 │   │   ├── blogController.js
+│   │   ├── chatBotController.js
 │   │   ├── inventoryController.js
-│   │   ├── projectController.js
-│   │   └── testimonialsController.js
+│   │   ├── resetController.js
+│   │   └── testimonialController.js
 │   ├── data/
-│   │   ├── profile.json
-│   │   ├── inventory.json
-│   │   ├── blogs.json
-│   │   ├── projects.json
-│   │   └── testimonials.json
+│   │   └── chatbotknowledge.json
 │   ├── middleware/
 │   │   ├── authMiddleware.js
 │   │   └── uploadMiddleware.js
+│   ├── models/
+│   │   ├── Blogs.js
+│   │   ├── otpStore.js
+│   │   ├── Products.js
+│   │   ├── Testimonials.js
+│   │   └── User.js
 │   ├── routes/
 │   │   ├── authRoute.js
 │   │   ├── blogRoute.js
+│   │   ├── chatBotRoute.js
+│   │   ├── dashboardRoute.js
 │   │   ├── inventoryRoute.js
 │   │   ├── projectRoute.js
-│   │   └── testimonialsRoute.js
+│   │   ├── resetRoute.js
+│   │   └── testimonialRoute.js
 │   ├── utils/
-│   │   └── sendEmail.js
-│   ├── uploads/
+│   │   ├── chatBotParser.js
+│   │   ├── cloudinary.js
+│   │   ├── errorHandler.js
+│   │   ├── sendEmail.js
+│   │   └── uploadToCloudinary.js
+│   ├── .env
+│   ├── package.json
 │   └── server.js
 ├── frontend/
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── dashboard/
-│   │   │   │   ├── jsx/
-│   │   │   │   │   ├── Dashboard.jsx
-│   │   │   │   │   ├── ProductManage.jsx
-│   │   │   │   │   ├── BlogManage.jsx
-│   │   │   │   │   ├── ProjectManage.jsx
-│   │   │   │   │   └── TestimonialsManage.jsx
-│   │   │   │   └── css/
-│   │   │   └── public/
-│   │   │       ├── jsx/
-│   │   │       │   ├── Navbar.jsx
-│   │   │       │   ├── Footer.jsx
-│   │   │       │   ├── Hero.jsx
-│   │   │       │   ├── Products.jsx
-│   │   │       │   ├── BlogSection.jsx
-│   │   │       │   ├── Projects.jsx
-│   │   │       │   └── Testimonials.jsx
-│   │   │       └── css/
+│   │   │   │   ├── css/
+│   │   │   │   │   ├── Auth.css
+│   │   │   │   │   ├── BlogManage.css
+│   │   │   │   │   ├── Dashboard.css
+│   │   │   │   │   ├── Inventory.css
+│   │   │   │   │   ├── ProductManage.css
+│   │   │   │   │   ├── ProjectManage.css
+│   │   │   │   │   ├── Reset.css
+│   │   │   │   │   └── TestimonialsManage.css
+│   │   │   │   └── jsx/
+│   │   │   │       ├── Auth.jsx
+│   │   │   │       ├── BlogManage.jsx
+│   │   │   │       ├── Dashboard.jsx
+│   │   │   │       ├── Inventory.jsx
+│   │   │   │       ├── ProductManage.jsx
+│   │   │   │       ├── Reset.jsx
+│   │   │   │       └── TestimonialManage.jsx
+│   │   │   └── landingpage/
+│   │   │       ├── css/
+│   │   │       │   ├── BlogDetail.css
+│   │   │       │   ├── BlogSection.css
+│   │   │       │   ├── Cart.css
+│   │   │       │   ├── Chatbot.css
+│   │   │       │   ├── Contact.css
+│   │   │       │   ├── FeaturedProducts.css
+│   │   │       │   ├── Footer.css
+│   │   │       │   ├── Hero.css
+│   │   │       │   ├── Loader.css
+│   │   │       │   ├── Navbar.css
+│   │   │       │   ├── Process.css
+│   │   │       │   ├── ProductDetail.css
+│   │   │       │   ├── Products.css
+│   │   │       │   ├── Story.css
+│   │   │       │   └── Testimonials.css
+│   │   │       └── jsx/
+│   │   │           ├── BlogDetail.jsx
+│   │   │           ├── BlogSection.jsx
+│   │   │           ├── Cart.jsx
+│   │   │           ├── Chatbot.jsx
+│   │   │           ├── FeaturedProducts.jsx
+│   │   │           ├── Footer.jsx
+│   │   │           ├── Hero.jsx
+│   │   │           ├── Loader.jsx
+│   │   │           ├── Navbar.jsx
+│   │   │           ├── Process.jsx
+│   │   │           ├── ProductDetail.jsx
+│   │   │           ├── Products.jsx
+│   │   │           ├── Reach.jsx
+│   │   │           ├── Story.jsx
+│   │   │           └── Testimonials.jsx
 │   │   ├── layouts/
 │   │   │   └── PublicLayout.jsx
 │   │   ├── pages/
-│   │   │   ├── Home.jsx
 │   │   │   ├── About.jsx
-│   │   │   └── Contact.jsx
+│   │   │   ├── Contact.jsx
+│   │   │   ├── Home.jsx
+│   │   │   └── ProductsPage.jsx
 │   │   ├── utils/
 │   │   │   └── CartUtil.js
 │   │   ├── App.jsx
-│   │   └── main.jsx
-│   └── package.json
+│   │   ├── main.jsx
+│   │   └── assets/
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
+│   └── eslint.config.js
 ├── Dockerfile
-└── README.md
+├── cookies.txt
+├── package.json
+├── seed-data.sh
+├── README.md
+└── .gitignore
+```
+
+## Key Frontend Pages and Components
+
+### Public-facing UI
+- `Home.jsx` renders the landing page entry experience
+- `About.jsx` contains the brand and company story sections
+- `Contact.jsx` provides contact and enquiry actions
+- `ProductsPage.jsx` is used for the product catalog experience
+- `Navbar.jsx`, `Footer.jsx`, `Hero.jsx`, `FeaturedProducts.jsx`, `Story.jsx`, `Process.jsx`, and `Testimonials.jsx` make up the storefront layout
+- `Products.jsx` and `ProductDetail.jsx` handle the product catalogue and detail view
+- `BlogSection.jsx` and `BlogDetail.jsx` power the blog area
+- `Cart.jsx` handles cart functionality and checkout actions
+- `Chatbot.jsx` adds the customer support assistant
+
+### Admin UI
+- `Auth.jsx` controls admin sign-in
+- `Reset.jsx` handles password reset flow
+- `Dashboard.jsx` is the main admin shell
+- `Inventory.jsx` and `ProductManage.jsx` manage store inventory
+- `BlogManage.jsx` manages content publishing
+- `TestimonialManage.jsx` handles client testimonials
+
+## App Routes
+
+The frontend routing is defined in `App.jsx` and includes:
+
+- `/` → Home page
+- `/about` → About page
+- `/products` → Products listing
+- `/contact` → Contact page
+- `/blogs` → Blog listing
+- `/blogs/:id` → Blog detail page
+- `/admin` → Admin login
+- `/reset` → Password reset
+- `/dashboard/*` → Protected admin dashboard
+
+## Setup and Run
+
+### 1. Install dependencies
+
+```bash
+npm install
+cd frontend && npm install
+cd ../backend && npm install
+```
+
+### 2. Start the project
+
+From the project root:
+
+```bash
+npm run dev
+```
+
+This uses the root script to run the frontend and backend together via `concurrently`.
+
+### 3. Run frontend and backend separately
+
+```bash
+cd frontend
+npm run dev
+```
+
+```bash
+cd backend
+npm run dev
+```
+
+## Environment Variables
+
+Create a `.env` file in the backend folder with values such as:
 
 
-## How Data Flows in Energen
+## Notes
 
-The Energen platform operates on a simple but powerful data flow model. All data is stored in JSON files on the backend server (backend/data/) and in the mongodb database  via config/db.js. The data that feeds the chatbot to answer client questions regarding energen solar company is stored in data/knowledgebase.json file inside the bakend folder.  When a visitor views the public website, the frontend makes API calls to the backend, which reads the JSON files and returns the data as JSON. The frontend then renders the data into the user interface. For example, when someone visits the Products page, a GET request is sent to /api/inventory, the backend reads inventory.json, and the products are displayed as cards on the page. The same flow applies to blogs, projects, and testimonials. All public content is fetched dynamically, ensuring that any update made through the admin dashboard appears instantly on the live site.
+- The project uses a hybrid content architecture with both MongoDB models and routed API logic.
+- Product, blog, testimonial, and dashboard management are connected to the backend APIs.
+- The public storefront and the admin interface live inside the same repository but are split between `frontend/` and `backend/`.
+- The project name and folder structure in this repository are now aligned with the actual Furnihaven implementation.
 
-When an admin makes changes through the dashboard, the data flow works in reverse. The admin submits a form, the frontend sends a POST, PUT, or DELETE request to the backend, the backend updates the relevant JSON file, and the frontend refreshes to show the updated data. Images are handled separately through Multer, which saves uploaded files to the uploads/ folder and stores the file paths in the JSON files. Authentication is managed via JWT tokens stored in httpOnly cookies, ensuring that only authorised users can access the admin dashboard. This simple but effective data flow means you have full control over your content without needing any technical knowledge.
+## License
 
-
-
-## Live Demo & Contact
-
-**🔗 Live Site:** https://energen.co.ke/
-
-**📧 Email:** simonmbithi143@gmail.com  
-**📱 Phone:** +254703433014
-
-Feel free to explore the platform and get in touch if you have any questions or would like to discuss a project.
-
-
-
-   
-# Furnihaven
+This project is currently configured for local development and deployment work. Update the license details if you plan to publish or distribute it publicly.

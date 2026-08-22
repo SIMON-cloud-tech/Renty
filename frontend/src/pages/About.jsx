@@ -5,8 +5,9 @@ function About(){
   return(
     <>
       <SEO
-        title="About Energen"
-        description="Learn how Energen designs and installs renewable solar energy systems for Kenyan homes and businesses."
+        title="About FurniHaven"
+        description="Learn about FurniHaven, your source for elegant, durable, and affordable furniture pieces for every room in the home."
+        keywords="about FurniHaven, furniture company Kenya, home interior solutions, quality furniture"
       />
       <Story />
     </>

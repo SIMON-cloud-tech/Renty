@@ -4,10 +4,11 @@
   box-sizing: border-box;
 }
 
+/* ===== HERO SECTION ===== */
 .hero {
   height: 90vh;
   min-height: 500px;
-  background: url('/solarbg.webp') center/cover no-repeat;
+  background: url('/furniture-bg.webp') center/cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;
@@ -31,13 +32,14 @@
   }
 }
 
+/* ===== OVERLAY ===== */
 .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(30, 30, 30, 0.65); /* Darker overlay for better contrast */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,10 +47,11 @@
   will-change: opacity;
 }
 
+/* ===== CONTENT ===== */
 .hero-content {
   max-width: 800px;
   padding: 2rem;
-  color: white;
+  color: #ffffff; /* White text on dark overlay */
   transform: translateY(30px);
   opacity: 0;
   animation: contentSlideUp 0.8s ease 0.3s forwards;
@@ -71,14 +74,16 @@
   margin-bottom: 1rem;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   backface-visibility: hidden;
+  color: #ffffff;
 }
 
 .hero-subtitle {
   font-size: 1.2rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
-  opacity: 0.9;
+  opacity: 0.92;
   backface-visibility: hidden;
+  color: #f0f0f0;
 }
 
 .marketing-strip {
@@ -86,9 +91,10 @@
   font-weight: 400;
   letter-spacing: 1px;
   margin-bottom: 2rem;
-  color: #f1c40f;
+  color: #B8860B; /* Deep gold — warm accent */
 }
 
+/* ===== CTA BUTTONS ===== */
 .hero-cta {
   display: flex;
   gap: 1rem;
@@ -109,28 +115,28 @@
 }
 
 .btn-primary {
-  background: #f39c12;
-  color: #1a2a6c;
+  background: #B8860B; /* Deep gold */
+  color: #ffffff;
 }
 
 .btn-primary:hover {
-  background: #e67e22;
+  background: #9a7209; /* Darker gold */
   transform: scale(1.05);
 }
 
 .btn-secondary {
   background: transparent;
-  color: white;
-  border: 2px solid white;
+  color: #ffffff;
+  border: 2px solid #ffffff;
 }
 
 .btn-secondary:hover {
-  background: white;
-  color: #1a2a6c;
+  background: #ffffff;
+  color: #1e1e1e;
   transform: scale(1.05);
 }
 
-/* ── Responsive ── */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .hero {
     height: 70vh;

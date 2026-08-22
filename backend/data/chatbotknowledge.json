@@ -3,236 +3,146 @@
     {
       "id": "welcome",
       "keywords": ["hello", "hi", "hey", "greetings", "good morning", "good afternoon", "how are you", "morning", "evening"],
-      "reply": "Hello! Welcome to Energen. We provide solar panel installation, hybrid inverters, lithium battery storage, and full solar energy systems for homes and businesses across Kenya. How can I help you today?"
+      "reply": "Hello! Welcome to FurniHaven. We provide quality home and office furniture — from executive chairs and beds to wardrobes, TV stands, and full living room sets. How can I help you today?"
     },
     {
       "id": "products",
-      "keywords": ["products", "kits", "packages", "systems", "what do you sell", "solar panels", "options", "sizes", "range"],
-      "reply": "We offer solar kits ranging from 2kW to 20kW, as well as a dedicated 10kVA solar energy system package. Each kit includes a hybrid inverter, solar panels, lithium battery storage, balance of system components, and installation sundries.",
+      "keywords": ["products", "furniture", "items", "what do you sell", "chairs", "tables", "beds", "wardrobes", "options", "range", "collection"],
+      "reply": "We offer a wide range of furniture including office chairs, study tables, beds, wardrobes, TV stands, shoe racks, kitchen cabinets, and full living room sets. Each piece is crafted for durability and comfort.",
       "context": {
-        "small": "Our 2kW kit is ideal for lights, TV, Wi-Fi, laptops, and phone charging in smaller homes.",
-        "medium": "Our 5kW kit suits medium homes, powering a fridge, washing machine, water pump, and iron.",
-        "large": "Our 10kW to 20kW kits are designed for large homes, offices, shops, hospitals, and factories.",
-        "commercial": "For schools, clinics, and commercial buildings, our 15kW and 20kW kits provide reliable, scalable power.",
-        "brand": "We source high-quality, durable panels and components suited for Kenya's climate. Contact us for specific brand and datasheet details.",
-        "sizing": "The right system size depends on your daily power usage and appliances. We recommend a free consultation so we can calculate this accurately for you.",
-        "upgrade": "Yes, most of our systems can be expanded later by adding extra panels or battery capacity as your needs grow."
+        "office": "Our office chairs are ergonomically designed for long working hours, available in executive, mesh, and standard styles.",
+        "bedroom": "We offer quality beds in various sizes — single, double, queen, and king, with matching wardrobes and bedside tables.",
+        "living": "Our living room collection includes sofas, TV stands, coffee tables, and entertainment units in modern and classic designs.",
+        "kitchen": "Our kitchen furniture includes cabinets, dining tables, and storage units designed for functionality and style."
       }
     },
     {
       "id": "pricing",
       "keywords": ["price", "cost", "budget", "afford", "estimate", "quote", "how much", "cheap", "expensive", "pricing", "amount", "ksh", "kes"],
-      "reply": "Our solar kits range from approximately KSh 139,700 for a 2kW system to KSh 1,714,900 for a 20kW system, depending on capacity and components. Contact us for a tailored quote based on your specific power needs.",
+      "reply": "Our furniture prices vary by item and material quality — from affordable KSh 5,000 basic chairs to premium KSh 85,000+ bedroom sets. Contact us for a tailored quote based on your specific needs.",
       "context": {
-        "2kw": "The 2kW kit costs KSh 139,700 and covers basic lighting, Wi-Fi, and device charging.",
-        "5kw": "The 5kW kit costs KSh 439,200 and supports fridges, water pumps, and washing machines.",
-        "10kw": "The 10kW kit costs KSh 854,200, suited for larger homes and small businesses.",
-        "financing": "We can discuss flexible payment arrangements depending on your circumstances — contact us to talk through options.",
-        "vat": "Please contact us directly to confirm whether VAT is included in your specific quote.",
-        "deposit": "We can discuss a deposit-based payment structure for larger installations — reach out for details.",
-        "bulk": "For bulk or wholesale orders, contact us directly to discuss volume pricing.",
-        "refund": "For questions about cancellations or refunds on an order, please contact us directly so we can address your specific case."
+        "chairs": "Our office chairs range from KSh 8,000 to KSh 35,000 depending on design and material.",
+        "beds": "Beds range from KSh 12,000 for a standard single bed to KSh 65,000 for a premium king-size set.",
+        "wardrobes": "Wardrobes start at KSh 15,000 for basic units and go up to KSh 60,000 for custom designs.",
+        "sets": "Full living room sets (sofa + TV stand + coffee table) range from KSh 35,000 to KSh 120,000.",
+        "delivery": "We offer free delivery within Nairobi on orders above KSh 30,000. For other areas, delivery fees apply."
       }
     },
     {
-      "id": "installation",
-      "keywords": ["install", "installation", "how long", "setup", "process", "fitting", "mounting", "how does it work"],
-      "reply": "Installation begins with a site assessment to determine your power needs and roof/space suitability, followed by mounting the panels, wiring the inverter and battery system, and final testing before handover. Most residential installations are completed within a few days.",
+      "id": "delivery",
+      "keywords": ["delivery", "deliver", "shipping", "how long to deliver", "track order", "order status", "arrival", "free delivery"],
+      "reply": "We deliver across Nairobi and surrounding areas. Orders are typically delivered within 1-3 business days. Free delivery within Nairobi for orders above KSh 30,000 — otherwise, a delivery fee applies based on location.",
       "context": {
-        "duration": "Typical installations take 1 to 3 days depending on system size and site conditions.",
-        "site visit": "We conduct a site visit before installation to assess roof space, sunlight exposure, and wiring requirements.",
-        "commercial": "Larger commercial or institutional installations may take longer depending on scale and grid connection requirements.",
-        "presence": "It's helpful for someone to be present during installation, though this can be arranged based on your availability."
-      }
-    },
-    {
-      "id": "appointments",
-      "keywords": ["appointment", "book", "schedule", "site visit", "reschedule", "available", "availability", "when can you come", "visit me", "come today"],
-      "reply": "We're happy to schedule a site visit or installation appointment. Please contact us with your preferred date, location, and a brief description of your needs, and we'll confirm availability.",
-      "context": {
-        "reschedule": "If you need to reschedule, just contact us as early as possible and we'll arrange a new time.",
-        "site visit": "A site visit lets us assess your power needs and recommend the right system before installation begins.",
-        "today": "Same-day visits depend on our current schedule — contact us directly to check availability."
+        "nairobi": "Within Nairobi, we deliver to Karen, Kilimani, Umoja, Donholm, Kitengela, Westlands, and all other major estates.",
+        "outside": "We also deliver to Kiambu, Machakos, Kajiado, Nakuru, and other counties — contact us for a delivery quote.",
+        "track": "You'll receive a tracking update once your order is on the way. Contact us for specific order status.",
+        "assembly": "We offer assembly services for larger items at an additional fee — contact us to arrange this."
       }
     },
     {
       "id": "warranty_support",
-      "keywords": ["warranty", "guarantee", "support", "maintenance", "after sale", "after-sales", "fix", "repair", "issue", "problem", "help", "broken", "not working", "faulty", "service"],
-      "reply": "We provide after-sales support for all our installations. If you experience any issue after installation, contact us directly and we will diagnose and resolve it, including free fixes for connectivity or setup-related faults within the support period.",
+      "keywords": ["warranty", "guarantee", "support", "maintenance", "after sale", "after-sales", "fix", "repair", "issue", "problem", "help", "broken", "faulty", "service"],
+      "reply": "We provide a 2-year warranty on all our furniture against manufacturing defects. If you experience any issue, contact us and we'll arrange an inspection and repair or replacement as needed.",
       "context": {
-        "connectivity": "Connectivity issues, such as system communication faults, are typically resolved quickly and often at no charge.",
-        "battery": "Our lithium battery systems are built for long-term reliability, with support available if performance issues arise.",
-        "response time": "We aim to respond to support calls promptly and resolve issues as fast as possible.",
-        "servicing": "We recommend periodic system checks; contact us to arrange a maintenance visit if needed.",
-        "surge": "If your system is affected by a power surge or lightning strike, contact us immediately so we can assess any damage.",
-        "escalation": "If your issue isn't resolved to your satisfaction, please contact us directly and we will personally follow up to make it right."
+        "returns": "We accept returns within 14 days of delivery for unused items in original packaging. Contact us to arrange a return.",
+        "repair": "For warranty repairs, we'll arrange to collect the item or send a technician to assess and fix the issue.",
+        "response": "We aim to respond to all support requests within 24 hours and resolve issues promptly."
       }
     },
     {
-      "id": "components",
-      "keywords": ["inverter", "battery", "panels", "lifepo4", "lithium", "hybrid", "components", "parts", "specifications", "specs", "watt", "kwp"],
-      "reply": "Our systems use high-efficiency solar panels, hybrid inverters, and LiFePO4 lithium battery storage, along with balance of system components, durable cabling, and secure mounting structures for long-term performance and safety.",
+      "id": "materials",
+      "keywords": ["material", "wood", "metal", "leather", "fabric", "quality", "durable", "solid", "particleboard", "plywood", "hardwood"],
+      "reply": "We use a variety of high-quality materials including solid hardwood, engineered wood, metal frames, genuine leather, and durable upholstery fabrics — chosen for durability and aesthetic appeal.",
       "context": {
-        "battery type": "We use LiFePO4 lithium batteries, known for longer lifespan and safer performance compared to traditional lead-acid batteries.",
-        "inverter": "Our hybrid inverters manage power from solar panels, batteries, and the grid simultaneously for reliable output.",
-        "panels": "We use high-efficiency photovoltaic panels rated for durability under Kenya's climate conditions.",
-        "monitoring": "Some of our systems support remote monitoring so you can track performance from your phone — ask us for details on your specific kit."
+        "wood": "Our wooden furniture uses mahogany, oak, and other hardwoods, as well as high-grade plywood for structural pieces.",
+        "leather": "Our leather chairs and sofas use genuine top-grain leather, not bonded or faux leather.",
+        "fabric": "Our fabric upholstery is stain-resistant and available in a variety of colors and textures.",
+        "metal": "Our metal frames are powder-coated for rust resistance and long-term durability."
       }
     },
     {
-      "id": "grid_offgrid",
-      "keywords": ["on-grid", "off-grid", "hybrid", "grid connection", "kplc", "national grid", "backup", "blackout", "outage"],
-      "reply": "We offer both on-grid and off-grid solar solutions. On-grid systems connect to the national grid and can feed excess power back, while off-grid and hybrid systems provide full independence or backup power during outages.",
+      "id": "customization",
+      "keywords": ["custom", "customize", "bespoke", "made to order", "special order", "design", "personalized"],
+      "reply": "Yes, we offer custom furniture solutions. You can choose materials, colors, dimensions, and designs to match your space. Contact us with your requirements and we'll provide a quote.",
       "context": {
-        "on-grid": "On-grid systems reduce your KPLC bill and allow excess solar power to be fed back into the grid.",
-        "off-grid": "Off-grid systems are ideal for areas with unreliable or no grid access, providing full energy independence.",
-        "outages": "Our hybrid systems with battery storage ensure continuous power supply even during blackouts."
+        "office": "We can customize office workstations, reception desks, and executive furniture to fit your office layout.",
+        "home": "Customize your living room, bedroom, or kitchen furniture to match your style and space.",
+        "lead time": "Custom orders typically take 2-4 weeks depending on complexity and material availability.",
+        "deposit": "We require a 50% deposit for custom orders, with balance payable on delivery."
       }
     },
     {
-      "id": "savings",
-      "keywords": ["save", "savings", "roi", "payback", "return", "worth it", "long term", "benefits", "advantages", "reduce bill"],
-      "reply": "Solar systems typically pay for themselves within 3 to 5 years through reduced or eliminated KPLC bills, and continue generating free electricity for 25 to 30 years with minimal maintenance costs.",
+      "id": "appointments",
+      "keywords": ["appointment", "book", "schedule", "visit", "showroom", "reschedule", "available", "availability", "when can you come", "view", "showroom", "store"],
+      "reply": "We're happy to schedule a showroom visit or in-home consultation. Please contact us with your preferred date and location, and we'll confirm availability.",
       "context": {
-        "business": "Businesses can cut operational energy costs by up to 80 percent with solar installation.",
-        "household": "Households can significantly reduce or eliminate monthly KPLC bills depending on system size and usage."
+        "showroom": "Our showroom is located in Nairobi — contact us for the address and to book a visit.",
+        "home visit": "We can visit your home or office to help you choose the right furniture and take measurements.",
+        "today": "Same-day visits depend on our current schedule — contact us directly to check availability."
+      }
+    },
+    {
+      "id": "payment",
+      "keywords": ["payment", "pay", "mpesa", "mobile money", "bank", "installment", "deposit", "financing", "receipt", "invoice", "deposit"],
+      "reply": "We accept M-Pesa and bank payments. For larger orders, we can discuss installment payment arrangements. Contact us to discuss the payment structure that works best for you.",
+      "context": {
+        "mpesa": "M-Pesa payments are accepted for all orders.",
+        "installments": "For large orders above KSh 50,000, we can arrange a 50% deposit with the balance on delivery.",
+        "receipt": "Yes, we issue receipts and invoices for all payments — contact us if you need one reissued."
       }
     },
     {
       "id": "locations",
       "keywords": ["location", "where", "where are you located", "where are you based", "areas", "coverage", "serve", "reach", "deliver", "nairobi", "county", "region", "near me", "outside nairobi"],
-      "reply": "We serve customers across Kenya, including Nairobi estates such as Umoja, Donholm, Pipeline, Imara Daima, Westlands, and Karen, as well as Kiambu, Machakos, Kajiado, Homa Bay, and many other counties nationwide.",
+      "reply": "We serve customers across Nairobi — including Karen, Kilimani, Umoja, Westlands, Donholm, and Kitengela — as well as Kiambu, Machakos, Kajiado, and other counties nationwide.",
       "context": {
-        "nairobi": "Within Nairobi, we cover estates including Umoja, Donholm, Pipeline, Syokimau, Imara Daima, Westlands, Kilimani, Karen, and Kasarani.",
-        "rural": "We also serve rural and peri-urban areas, including Machakos, Kitui, Wajir, and Isiolo, powering schools, clinics, and small businesses.",
-        "outside nairobi": "Yes, we deliver and install beyond Nairobi, including Kiambu, Thika, Homa Bay, Nakuru, and other counties."
-      }
-    },
-    {
-      "id": "delivery",
-      "keywords": ["delivery", "deliver", "shipping", "how long to deliver", "track order", "order status", "arrival"],
-      "reply": "Delivery timelines depend on your location and the components ordered. Once your order is confirmed, we'll give you an estimated delivery date and keep you updated on progress.",
-      "context": {
-        "track": "For updates on your specific order, please contact us directly with your order details.",
-        "faulty": "If any component arrives damaged or faulty, contact us immediately and we will arrange a replacement."
-      }
-    },
-    {
-      "id": "process",
-      "keywords": ["process", "how it works", "steps", "consultation", "how do i order", "how do i buy", "get started"],
-      "reply": "Getting started is simple: contact us to discuss your power needs, we conduct a site assessment, recommend the right system size, then proceed with installation and final testing before handover.",
-      "context": {
-        "consultation": "We offer an initial consultation to understand your energy needs before recommending a system.",
-        "site assessment": "A site visit helps us determine the best system size and installation approach for your property."
-      }
-    },
-    {
-      "id": "payment",
-      "keywords": ["payment", "pay", "mpesa", "mobile money", "bank", "installment", "deposit", "financing", "loan", "sacco", "receipt", "invoice"],
-      "reply": "We accept M-Pesa and bank payments, and can discuss flexible payment arrangements depending on your project size. Contact us directly to discuss the payment structure that works best for you.",
-      "context": {
-        "mpesa": "M-Pesa payments are accepted for convenient and secure transactions.",
-        "installments": "For larger systems, we can discuss phased or installment-based payment arrangements.",
-        "receipt": "Yes, we issue receipts for all payments made — contact us if you need one reissued."
-      }
-    },
-    {
-      "id": "power_capacity",
-      "keywords": ["what can it power", "appliances", "fridge", "tv", "lights", "washing machine", "pump", "how many appliances", "capacity"],
-      "reply": "The appliances a system can power depend on its size. Smaller kits (2-3kW) handle lights, TV, Wi-Fi, and phone charging, while larger kits (10-20kW) can power fridges, washing machines, water pumps, CCTV systems, and even commercial equipment.",
-      "context": {
-        "home": "A 5kW system can typically run a fridge, TV, lights, water pump, and washing machine during the day.",
-        "business": "Larger systems (10kW+) can support offices, shops, and small industrial equipment.",
-        "large": "Our 20kW system is designed for large commercial premises, hospitals, farms, and factories."
-      }
-    },
-    {
-      "id": "durability_climate",
-      "keywords": ["weather", "rain", "climate", "durable", "lifespan", "how long does it last", "quality", "reliable"],
-      "reply": "Our solar panels and mounting structures are built to withstand Kenya's varying weather conditions, including heavy rains and strong sunlight, with panels rated to perform reliably for 25 to 30 years.",
-      "context": {
-        "rain": "Our mounting structures and cabling are designed for durability even during heavy seasonal rains."
-      }
-    },
-    {
-      "id": "company",
-      "keywords": ["about", "who are you", "company", "what you do", "experience", "history", "team", "energen", "background", "registered", "licensed", "legit", "trust"],
-      "reply": "Energen is a Kenyan solar energy company providing reliable, affordable solar installations for homes, businesses, schools, and communities across the country, backed by professional installation and genuine after-sales support.",
-      "context": {
-        "mission": "Our mission is to make reliable, affordable solar energy accessible to households and businesses across Kenya.",
-        "registered": "Energen operates as a registered business. Contact us if you'd like further verification details.",
-        "reviews": "We're happy to share references or examples of past installations — contact us directly to request these.",
-        "testimonials": "We have real customer feedback from installations across Kenya — reach out and we can share relevant examples."
-      }
-    },
-    {
-      "id": "partnership",
-      "keywords": ["partner", "partnership", "dealer", "reseller", "wholesale", "bulk order", "county government", "ngo", "collaborate", "hiring", "careers", "job"],
-      "reply": "We're open to partnerships, bulk orders, and collaborations with organizations, county governments, and NGOs. Please contact us directly to discuss your specific proposal.",
-      "context": {
-        "dealer": "For dealer or reseller inquiries, please reach out with details about your business so we can discuss terms.",
-        "careers": "For job or career inquiries, please contact us directly and we'll let you know about any current openings."
+        "nairobi": "Within Nairobi, we deliver to all major estates including Karen, Kilimani, Umoja, Westlands, Donholm, and Kitengela.",
+        "outskirts": "We also serve surrounding areas like Thika, Ruiru, Syokimau, and Athi River.",
+        "rural": "We deliver to rural and peri-urban areas across Kenya — contact us for a delivery quote."
       }
     },
     {
       "id": "contact",
       "keywords": ["contact", "reach", "email", "phone", "call", "whatsapp", "sms", "message", "get in touch", "address", "visit", "office"],
-      "reply": "You can reach us at energensolar15@gmail.com or via call, SMS, or WhatsApp at +254727713219. Our office is located at Cookie House, 3rd Floor, Kenneth Matiba Road, Nairobi CBD.",
+      "reply": "You can reach us at info@furnihaven.co.ke or via call, SMS, or WhatsApp at +254727713219. Our showroom is located in Nairobi — contact us for the exact address.",
       "context": {
-        "visit": "You are welcome to visit our office at Cookie House, 3rd Floor, Kenneth Matiba Road, Nairobi CBD.",
-        "hours": "We are available during standard business hours, Monday to Saturday.",
+        "visit": "We have a showroom in Nairobi. Contact us to arrange a visit and view our collection in person.",
+        "hours": "We are available Monday to Saturday, 8 AM to 6 PM.",
         "whatsapp": "You can reach us on WhatsApp at +254727713219 for a faster response.",
-        "email": "You can email us directly at energensolar15@gmail.com with your inquiry."
+        "email": "You can email us directly at info@furnihaven.co.ke with your inquiry."
       }
     },
     {
-      "id": "environment",
-      "keywords": ["environment", "eco friendly", "green", "carbon", "emissions", "sustainable", "renewable"],
-      "reply": "Solar energy reduces reliance on fossil fuels and grid electricity, lowering carbon emissions while providing clean, renewable power for homes and businesses.",
+      "id": "returns",
+      "keywords": ["return", "returning", "refund", "exchange", "cancel", "cancellation", "change", "unsatisfied", "defective"],
+      "reply": "We offer a 14-day return policy for unused items in original packaging. For defective items, we offer repair or replacement under warranty. Contact us to initiate a return or exchange.",
       "context": {}
     },
     {
-      "id": "safety",
-      "keywords": ["safe", "safety", "fire risk", "explode", "danger", "hazard", "secure", "insurance", "insured"],
-      "reply": "Our systems are installed with safety as a priority, using quality components, secure mounting structures, and proper wiring practices to ensure safe, long-term operation.",
+      "id": "sustainability",
+      "keywords": ["environment", "eco friendly", "green", "sustainable", "recycled", "environmentally friendly", "green furniture"],
+      "reply": "We are committed to sustainable practices — using responsibly sourced wood, recyclable materials, and minimizing waste in our production processes. We believe in furniture that's good for your home and the planet.",
+      "context": {}
+    },
+    {
+      "id": "trust",
+      "keywords": ["why should i trust you", "trust you", "why choose you", "why you", "reliable", "proof", "credibility", "convince me", "legit"],
+      "reply": "We've been serving customers across Kenya with quality furniture and genuine after-sales support. Our 2-year warranty, real customer reviews, and commitment to quality craftsmanship set us apart. Contact us for references or to view our showroom.",
+      "context": {}
+    },
+    {
+      "id": "bot_persona",
+      "keywords": ["your name", "who are you", "are you a robot", "are you human", "are you real", "what is your name", "chatbot name"],
+      "reply": "My name is Ann, and I'm here to help answer your questions about FurniHaven's furniture collection. What would you like to know today?",
       "context": {
-        "insurance": "For questions about insurance coverage on your installed system, please contact us directly."
+        "robot": "I'm Ann, a virtual assistant for FurniHaven, here to help answer your questions about our furniture.",
+        "human": "I'm Ann, an automated assistant here to help you quickly. For anything I can't answer, our team is happy to speak with you directly."
       }
     },
-    {
-      "id": "complaint",
-      "keywords": ["complaint", "complain", "unhappy", "dissatisfied", "disappointed", "not satisfied", "bad experience", "poor service"],
-      "reply": "We take all concerns seriously. Please contact us directly with details of your experience, and we will personally follow up to resolve the issue as quickly as possible.",
-      "context": {}
-    },
-    {
-  "id": "bot_persona",
-  "keywords": ["your name", "who are you", "are you single", "are you a robot", "are you human", "are you real", "what is your name", "chatbot name", "married", "boyfriend", "girlfriend", "dating"],
-  "reply": "My name is Ann, and I'm here to help answer your questions about Energen's solar products and services. What would you like to know?",
-  "context": {
-    "single": "I'm just a virtual assistant here to help with your solar energy questions — happy to help with anything about our products or services though!",
-    "robot": "I'm Ann, a virtual assistant for Energen, here to help answer your questions about our solar products and services.",
-    "human": "I'm Ann, an automated assistant here to help you quickly. For anything I can't answer, our team is happy to speak with you directly.",
-    "married": "I'm just a virtual assistant, so I don't have personal relationships. But I'm here to help you with any questions about Energen's solar products and services!",
-    "girlfriend": "I'm only a virtual assistant and therefore it is not within my prerogative to address such matters. However, I am here to help you with any questions related to Energen's solar products and services."
-  }
-},
-{
-  "id": "company_founding",
-  "keywords": ["when did you start", "founded", "established", "how old is the company", "since when", "company start", "how long have you been operating"],
-  "reply": "Energen has been providing solar energy solutions since 2020 to homes and businesses across Kenya. For specific details about our history, feel free to contact us directly.",
-  "context": {}
-},
-{
-  "id": "trust",
-  "keywords": ["why should i trust you", "trust you", "why choose you", "why you", "reliable company", "proof", "credibility", "convince me"],
-  "reply": "Great question. We stand by every installation with genuine after-sales support, real customer testimonials, and quality components built to last 25-30 years. Unlike many providers who disappear after installation, we stay reachable to fix any issues that arise. Feel free to ask us for references or examples of past work.",
-  "context": {}
-},
     {
       "id": "default",
       "keywords": [],
-      "reply": "I'm not sure I fully understood that. Could you rephrase your question? Alternatively, you can contact us directly at energensolar15@gmail.com or +254727713219 (call, SMS, or WhatsApp) and we'll be happy to help."
+      "reply": "I'm not sure I fully understood that. Could you rephrase your question? Alternatively, you can contact us directly at info@furnihaven.co.ke or +254727713219 (call, SMS, or WhatsApp) and we'll be happy to help."
     }
   ]
 }

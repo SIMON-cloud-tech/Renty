@@ -4,9 +4,9 @@ export default function Contact(){
   return(
     <>
       <SEO
-        title="Contact Energen"
-        description="Contact Energen for solar consultations, site assessments, and support for renewable energy installations in Kenya."
-        keywords="solar consultation Kenya, contact Energen, solar quote, renewable energy support"
+        title="Contact FurniHaven"
+        description="Get in touch with FurniHaven for furniture enquiries, product recommendations, and home styling support across Kenya."
+        keywords="contact FurniHaven, furniture enquiry Kenya, home decor support, furniture consultation"
       />
       <Reach />
     </>

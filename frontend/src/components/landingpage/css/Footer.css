@@ -1,7 +1,6 @@
-/* src/components/Footer.css */
-
+/* ===== FOOTER ===== */
 .footer {
-  background: #0f1a3a;
+  background: #1e1e1e; /* Deep charcoal — warm, grounded */
   color: #d1d5db;
   padding: 3.5rem 1.2rem 1rem;
   width: 100%;
@@ -9,72 +8,7 @@
   overflow: hidden;
 }
 
-/* ── ENERGEN WATERMARK (italicized, graffiti style) ── */
-.footer-watermark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-2deg); /* Slight tilt for graffiti feel */
-  z-index: 0;
-  pointer-events: none;
-  user-select: none;
-  opacity: 0.15;
-}
-
-.footer-watermark-text {
-  font-size: clamp(7rem, 16vw, 20rem);
-  font-weight: 300;  /* Lighter weight */
-  font-style: italic;
-  color: #f39c12;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-family: 'Georgia', 'Times New Roman', serif;  /* More elegant/graffiti feel */
-  line-height: 1;
-  white-space: nowrap;
-  text-shadow: 
-    0 0 40px rgba(243, 156, 18, 0.08),
-    0 0 80px rgba(243, 156, 18, 0.04),
-    4px 4px 0 rgba(243, 156, 18, 0.05),
-    -2px -2px 0 rgba(243, 156, 18, 0.03);
-  transform: skewX(-5deg);  /* Slight slant for graffiti feel */
-}
-
-/* ── More visible on hover ── */
-.footer:hover .footer-watermark {
-  opacity: 0.3;
-  transition: opacity 0.6s ease;
-}
-
-.footer:hover .footer-watermark-text {
-  text-shadow: 
-    0 0 60px rgba(243, 156, 18, 0.15),
-    0 0 120px rgba(243, 156, 18, 0.08),
-    6px 6px 0 rgba(243, 156, 18, 0.08),
-    -3px -3px 0 rgba(243, 156, 18, 0.05);
-}
-
-/* ── Optional: Graffiti drip effect ── */
-.footer-watermark::after {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  left: 10%;
-  width: 4px;
-  height: 30px;
-  background: rgba(243, 156, 18, 0.08);
-  border-radius: 0 0 4px 4px;
-}
-
-.footer-watermark::before {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  right: 20%;
-  width: 3px;
-  height: 20px;
-  background: rgba(243, 156, 18, 0.06);
-  border-radius: 0 0 3px 3px;
-}
+/* ── No watermark ── */
 
 /* CONTAINER */
 .footer-container {
@@ -95,13 +29,14 @@
 
 /* TITLES */
 .footer-title {
-  color: white;
+  color: #ffffff;
   margin-bottom: 1rem;
   font-weight: 700;
 }
 
 .footer-title.main {
   font-size: 1.8rem;
+  color: #B8860B; /* Deep gold — brand accent */
 }
 
 .footer-title.small {
@@ -133,7 +68,7 @@
 }
 
 .footer-links a:hover {
-  color: #f39c12;
+  color: #B8860B; /* Deep gold on hover */
 }
 
 /* WORKING HOURS */
@@ -173,34 +108,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #ffffff;
   text-decoration: none;
   transition: 0.3s ease;
 }
 
 .social-icon:hover {
-  background: #f39c12;
-  color: #0f1a3a;
+  background: #B8860B; /* Deep gold */
+  color: #1e1e1e;
   transform: translateY(-3px);
-}
-
-/* WHATSAPP BUTTON */
-.whatsapp-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  background: #25d366;
-  color: white;
-  text-decoration: none;
-  padding: 0.9rem 1.3rem;
-  border-radius: 10px;
-  transition: 0.3s ease;
-  font-weight: 600;
-}
-
-.whatsapp-btn:hover {
-  background: #1da851;
-  transform: scale(1.03);
 }
 
 /* BOTTOM SECTION */
@@ -215,7 +131,7 @@
   margin-bottom: 0.4rem;
 }
 
-/* ── Admin Sun Icon ── */
+/* ── Admin Icon (Furniture-themed) ── */
 .admin-sun-icon {
   display: inline-block;
   text-decoration: none;
@@ -242,7 +158,7 @@
   transform: scale(1.02);
 }
 
-/* MOBILE RESPONSIVENESS */
+/* ===== MOBILE RESPONSIVENESS ===== */
 @media (max-width: 900px) {
   .footer-top {
     grid-template-columns: 1fr;
@@ -253,14 +169,8 @@
     flex-direction: column;
     align-items: flex-start;
   }
-
-  .footer-watermark-text {
-    font-size: clamp(4.5rem, 12vw, 8rem);
-    transform: skewX(-3deg);
-  }
 }
 
-/* EXTRA SMALL DEVICES */
 @media (max-width: 500px) {
   .footer {
     padding: 3rem 1rem 1rem;
@@ -284,19 +194,5 @@
   .social-icon {
     width: 42px;
     height: 42px;
-  }
-
-  .whatsapp-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .footer-watermark-text {
-    font-size: clamp(3rem, 10vw, 5rem);
-    letter-spacing: 0.1em;
-  }
-
-  .footer-watermark {
-    transform: translate(-50%, -50%) rotate(-1deg);
   }
 }

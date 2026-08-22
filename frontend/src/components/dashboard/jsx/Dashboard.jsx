@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   FiPackage, FiEdit, FiBox, FiSettings,
   FiLogOut, FiSun, FiMoon,
-  FiMenu, FiX, FiFolder, FiStar,    
+  FiMenu, FiX, FiFolder, FiStar,
 } from 'react-icons/fi';
 import '../css/Dashboard.css';
 import ProductManage from './ProductManage.jsx';
@@ -13,49 +12,60 @@ import Inventory from './Inventory.jsx';
 import ProjectManage from './ProjectManage.jsx';
 import TestimonialsManage from './TestimonialManage.jsx';
 
+// ── Constants ──
 const MENU_ICONS = {
   products: FiPackage,
   blog: FiEdit,
   inventory: FiBox,
   projects: FiFolder,
-  testimonials: FiStar,    
+  testimonials: FiStar,
 };
 
+const MENU_ITEMS = [
+  { id: 'products', label: 'Product Management' },
+  { id: 'blog', label: 'Blog Management' },
+  { id: 'inventory', label: 'Inventory' },
+  { id: 'projects', label: 'Project Management' },
+  { id: 'testimonials', label: 'Testimonials' },
+];
+
+const COMPONENT_MAP = {
+  products: ProductManage,
+  blog: BlogManage,
+  inventory: Inventory,
+  projects: ProjectManage,
+  testimonials: TestimonialsManage,
+};
+
+// ── Helper ──
+const getGreeting = () => {
+  const h = new Date().getHours();
+  return h < 12 ? 'Good Morning' : h < 17 ? 'Good Afternoon' : 'Good Evening';
+};
+
+// ── Dashboard ──
 const Dashboard = ({ setUser }) => {
   const navigate = useNavigate();
-
   const [activeMenuItem, setActiveMenuItem] = useState('products');
   const [theme, setTheme] = useState('light');
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-  const toggleMobileSidebar = () => setMobileSidebarOpen(!mobileSidebarOpen);
-  const closeMobileSidebar = () => setMobileSidebarOpen(false);
+  // ── Toggle helpers ──
+  const toggleMobileSidebar = useCallback(() => setMobileSidebarOpen(p => !p), []);
+  const closeMobileSidebar = useCallback(() => setMobileSidebarOpen(false), []);
 
-  const menuItems = [
-    { id: 'products', label: 'Product Management' },
-    { id: 'blog', label: 'Blog Management' },
-    { id: 'inventory', label: 'Inventory' },
-    {id: 'projects', label: 'Project Management'},
-    { id: 'testimonials', label: 'Testimonials' },
-  ];
-
+  // ── Fetch profile ──
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch('/api/profile', {
-          credentials: 'include' // sends the httpOnly cookie
-        });
+        const res = await fetch('/api/profile', { credentials: 'include' });
         if (!res.ok) {
-          if (res.status === 401) {
-            navigate('/auth');
-            return;
-          }
+          if (res.status === 401) navigate('/auth');
           throw new Error('Failed to fetch profile');
         }
-        const data = await res.json();
-        setProfile(data);
+        setProfile(await res.json());
       } catch (err) {
         console.error('Failed to load profile:', err);
       } finally {
@@ -65,99 +75,79 @@ const Dashboard = ({ setUser }) => {
     fetchProfile();
   }, [navigate]);
 
-  const handleLogout = async () => {
+  // ── Logout ──
+  const handleLogout = useCallback(async () => {
     try {
-      await fetch('/api/logout', {
-        method: 'POST',
-        credentials: 'include'
-      });
+      await fetch('/api/logout', { method: 'POST', credentials: 'include' });
     } catch (err) {
       console.error('Logout error:', err);
     }
     setUser(null);
     navigate('/auth');
-  };
+  }, [setUser, navigate]);
 
-  const renderContentPanel = () => {
-    switch (activeMenuItem) {
-      case 'products':
-        return <ProductManage />;
-      case 'blog':
-        return <BlogManage />;
-      case 'inventory':
-        return <Inventory />;
-      case 'projects':
-        return <ProjectManage />
-      case 'testimonials':
-        return <TestimonialsManage />
-      default:
-        return <p>Section not found</p>;
-    }
-  };
+  // ── Menu handlers ──
+  const handleMenuItemClick = useCallback((id) => {
+    setActiveMenuItem(id);
+    closeMobileSidebar();
+  }, [closeMobileSidebar]);
 
+  // ── Memoized values ──
+  const activeLabel = useMemo(
+    () => MENU_ITEMS.find(item => item.id === activeMenuItem)?.label || 'Dashboard',
+    [activeMenuItem]
+  );
+
+  const ActiveComponent = useMemo(
+    () => COMPONENT_MAP[activeMenuItem] || (() => <p>Section not found</p>),
+    [activeMenuItem]
+  );
+
+  const greeting = useMemo(getGreeting, []);
+
+  // ── Loading ──
   if (loading) return <div className="dashboard-status"><p>Loading dashboard...</p></div>;
 
-  const activeLabel = menuItems.find((item) => item.id === activeMenuItem)?.label || 'Dashboard';
-
-  const getGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return 'Good Morning';
-    if (hour < 17) return 'Good Afternoon';
-    return 'Good Evening'; 
+  // ── Render helpers ──
+  const renderMenuItem = ({ id, label }) => {
+    const Icon = MENU_ICONS[id] || FiSettings;
+    const isActive = activeMenuItem === id;
+    return (
+      <button
+        key={id}
+        className={`sidebar-item ${isActive ? 'active' : ''}`}
+        onClick={() => handleMenuItemClick(id)}
+        title={label}
+      >
+        <span className="sidebar-icon"><Icon size={20} /></span>
+        <span className="sidebar-label">{label}</span>
+      </button>
+    );
   };
 
   return (
     <div className={`dashboard ${theme}`}>
-     {/* Mobile top bar — full-width strip that houses the hamburger */}
-    <div className="mobile-topbar">
-     <button className="mobile-hamburger" onClick={toggleMobileSidebar}
-       aria-label={mobileSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
-      >
-      {mobileSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-     </button>
-    </div>
+      {/* Mobile top bar */}
+      <div className="mobile-topbar">
+        <button className="mobile-hamburger" onClick={toggleMobileSidebar} aria-label={mobileSidebarOpen ? 'Close sidebar' : 'Open sidebar'}>
+          {mobileSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        </button>
+      </div>
 
       {/* Sidebar overlay */}
-      <div
-        className={`sidebar-overlay ${mobileSidebarOpen ? 'visible' : ''}`}
-        onClick={closeMobileSidebar}
-      />
+      <div className={`sidebar-overlay ${mobileSidebarOpen ? 'visible' : ''}`} onClick={closeMobileSidebar} />
 
       {/* Sidebar */}
       <aside className={`sidebar ${mobileSidebarOpen ? 'sidebar-open' : ''}`}>
-        <div className="sidebar-header">
-          <h2>Dashboard</h2>
-        </div>
-
-        <nav>
-          {menuItems.map((item) => {
-            const Icon = MENU_ICONS[item.id] || FiSettings;
-            return (
-              <button
-                key={item.id}
-                className={`sidebar-item ${activeMenuItem === item.id ? 'active' : ''}`}
-                onClick={() => {
-                  setActiveMenuItem(item.id);
-                  closeMobileSidebar();
-                }}
-                title={item.label}
-              >
-                <span className="sidebar-icon"><Icon size={20} /></span>
-                <span className="sidebar-label">{item.label}</span>
-              </button>
-            );
-          })}
-        </nav>
-
+        <div className="sidebar-header"><h2>Dashboard</h2></div>
+        <nav>{MENU_ITEMS.map(renderMenuItem)}</nav>
         <div className="sidebar-footer">
           <button className="logout-btn" onClick={handleLogout}>
             <span className="sidebar-icon"><FiLogOut size={20} /></span>
             <span className="sidebar-label">Logout</span>
           </button>
           <button className="theme-toggle" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-            <span className="sidebar-icon">
-              {theme === 'light' ? <FiMoon size={20} /> : <FiSun size={20} />}
-            </span>
+            <span className="sidebar-icon">{theme === 'light' ? <FiMoon size={20} /> : <FiSun size={20} />}</span>
             <span className="sidebar-label">{theme === 'light' ? 'Dark mode' : 'Light mode'}</span>
           </button>
         </div>
@@ -165,25 +155,23 @@ const Dashboard = ({ setUser }) => {
 
       {/* Main content */}
       <main className="dashboard-main">
-        {/* Welcome banner — fixed row, never scrolls, never shrinks */}
         <section className="dashboard-row dashboard-row-fixed">
           <div className="welcome-banner">
-            <h1 className="welcome-title">{getGreeting()},  {profile?.name || 'User'}! 👋</h1>
+            <h1 className="welcome-title">{greeting}, {profile?.name || 'User'}! 👋</h1>
           </div>
         </section>
 
-        {/* Content panel — the ONLY part of the page that scrolls internally */}
         <section className="dashboard-row dashboard-row-scrollable">
           <div className="content-panel full-width">
             <h3>{activeLabel}</h3>
-            {renderContentPanel()}
+            <ActiveComponent />
           </div>
         </section>
 
         <footer className="dashboard-footer">
-          <p>© {new Date().getFullYear()} Energen Systems &amp; General Supplies Ltd. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} FurniHaven. All Rights Reserved.</p>
           <Link to="/" className="dashboard-footer-link">
-            <p>Energy That Cares ☀️</p>
+            <p>Quality Furniture You Can Trust 🪑</p>
           </Link>
         </footer>
       </main>
