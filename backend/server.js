@@ -31,7 +31,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const FRONTEND_ORIGIN = process.env.NODE_ENV === 'production'
-  ? 'https://energen.co.ke'
+  ? 'https://furnihaven.onrender.com'
   : 'http://localhost:5173';
 
 // Render (and most hosts) sit behind a reverse proxy. Without this, Express
@@ -85,8 +85,8 @@ app.use('/api/analytics/bot', botAnalyticsRoutes);
 
 app.get('/api/config', (req, res) => {
   res.json({
-    whatsappNumber: process.env.VITE_WHATSAPP_NUMBER || '254727713219',
-    phoneNumber: process.env.VITE_WHATSAPP_NUMBER || '254727713219'
+    whatsappNumber: process.env.VITE_WHATSAPP_NUMBER || '254703433014',
+    phoneNumber: process.env.VITE_WHATSAPP_NUMBER || '254703433014'
   });
 });
 

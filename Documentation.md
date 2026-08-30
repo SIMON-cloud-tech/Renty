@@ -770,3 +770,46 @@ This platform is ideal for any furniture business looking to establish or improv
 *For support, contact: info@furnihaven.co.ke*
 
 *Version 1.0 - 2026*
+
+
+
+
+
+
+
+
+
+Subject: Noticed [Business Name] might be losing customers to word-of-mouth alone
+
+Hi [First Name],
+
+Quick question: how many customers do you think find [Business Name] through search versus word-of-mouth or foot traffic right now?
+
+I ask because I build websites specifically for furniture and home-decor businesses, and the ones without a real online presence are usually leaving a lot of that "search traffic" money on the table — people actively looking for furniture in your area, finding a competitor instead simply because they show up first.
+
+I recently built a full storefront + content management system for exactly this kind of business — product catalog, SEO-optimized blog content to rank in search, a lead-capture chatbot, and an easy admin dashboard so your team never needs a developer for day-to-day updates. You can see it live here: [demo link].
+
+Happy to do a quick, no-obligation walkthrough of what this could look like for [Business Name] specifically — 15 minutes, your schedule.
+
+Best,
+Simon Mbithi
+[GitHub link] | [phone/WhatsApp]
+
+
+
+
+Subject: A quick look at what your website could be doing for you
+
+Hi [First Name],
+
+I came across [Business Name] while looking at furniture businesses growing online, and noticed your current site [doesn't have an online store yet / could be doing more to convert visitors into leads — adjust based on what you actually see].
+
+I build full-stack websites specifically for furniture and home-decor businesses — not templates, a real system: a storefront with product pages and SEO-focused content, a dashboard so your team can update products and blog posts without touching code, a built-in chatbot that answers customer questions and captures leads automatically, and analytics showing exactly which products and pages are driving enquiries.
+
+I already have a working version live here: [demo link] — worth a 2-minute look before we talk, so you can see exactly what you'd be getting rather than take my word for it.
+
+If it looks like a fit, I'd be glad to set up a short call this week to talk through what a version for [Business Name] would look like.
+
+Best,
+Simon Mbithi
+[GitHub link] | [phone/WhatsApp]

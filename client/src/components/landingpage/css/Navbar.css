@@ -171,7 +171,8 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
-  background: var(--color-brand-elevated);
+  background: var(--color-brand);
+  color: var(--color-text-on-dark);
   list-style: none;
   border-radius: 5px;
   padding: 1rem;
@@ -223,8 +224,6 @@
 }
 
 .dropdown-link:hover {
-  background: var(--walnut-300);
-  color: var(--color-accent);
   padding-left: 1.5rem;
 }
 

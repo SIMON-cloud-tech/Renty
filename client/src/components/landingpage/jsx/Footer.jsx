@@ -75,7 +75,7 @@ const Footer = () => {
 
             <div className="footer-contact">
               <h2 className="footer-title small">Contact</h2>
-              <p><FiPhone size={14} /> +254 727 713 219</p>
+              <p><FiPhone size={14} /> +254 703 4330 14</p>
               <p><FiMail size={14} /> info@furnihaven.co.ke</p>
             </div>
           </div>
