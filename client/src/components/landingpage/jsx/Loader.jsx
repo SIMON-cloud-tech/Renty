@@ -1,10 +1,16 @@
-import '../css/Loader.css';   // or wherever you put the styles
+import '../css/Loader.css';
 
 const Loader = () => {
   return (
     <div className="loader-wrapper">
-      <div className="spinner"></div>
-      <p className="loader-text">Loading...</p>
+      <div className="loader-dots">
+        <span className="dot"></span>
+        <span className="dot"></span>
+        <span className="dot"></span>
+        <span className="dot"></span>
+        <span className="dot"></span>
+      </div>
+      <p className="loader-text">Loading FurniHaven...</p>
     </div>
   );
 };
