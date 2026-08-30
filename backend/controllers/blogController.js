@@ -19,6 +19,22 @@ exports.getBlogById = asyncHandler(async (req, res) => {
   res.json(blog);
 });
 
+// ─── PUBLIC: increment blog views ───
+exports.incrementBlogView = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  
+  const blog = await Blog.findOne({ id });
+  if (!blog) {
+    throw new AppError('Blog not found', 404);
+  }
+  
+  // Increment views
+  blog.views = (blog.views || 0) + 1;
+  await blog.save();
+  
+  res.json({ views: blog.views });
+});
+
 // ─── PROTECTED: add a new blog ───
 exports.addBlog = asyncHandler(async (req, res) => {
   const userId = req.user.id;

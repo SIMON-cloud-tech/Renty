@@ -1,0 +1,187 @@
+{
+  "title": "Privacy Policy",
+  "lastUpdated": "August 2026",
+  "intro": "At FurniHaven, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website and services.",
+  "sections": [
+    {
+      "id": "information-we-collect",
+      "heading": "1. Information We Collect",
+      "content": [
+        {
+          "type": "text",
+          "text": "We collect the following types of information:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Name, email address, and phone number when you fill our contact form",
+            "Your inquiries and messages about our furniture products",
+            "Location information you mention in your inquiries (e.g., Kilimani, Karen)",
+            "Chatbot conversation history when you interact with our assistant",
+            "Browsing behavior and preferences through cookies",
+            "Order details if you make a purchase"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "how-we-use",
+      "heading": "2. How We Use Your Information",
+      "content": [
+        {
+          "type": "text",
+          "text": "Your information is used to:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Respond to your inquiries and provide customer support",
+            "Process orders and arrange deliveries",
+            "Improve our products and services",
+            "Send you updates about new arrivals and offers (only if you opt in)",
+            "Analyze website traffic and user behavior",
+            "Comply with legal obligations"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cookies",
+      "heading": "3. Cookies & Tracking",
+      "content": [
+        {
+          "type": "text",
+          "text": "We use cookies and similar technologies to enhance your browsing experience. Cookies are small files stored on your device that help us:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Remember your preferences and settings",
+            "Keep items in your shopping cart",
+            "Analyze how you use our website",
+            "Improve site performance"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "You can control cookies through your browser settings. However, disabling essential cookies may affect site functionality."
+        }
+      ]
+    },
+    {
+      "id": "third-parties",
+      "heading": "4. Third-Party Services",
+      "content": [
+        {
+          "type": "text",
+          "text": "We use the following third-party services:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Cloudinary - For storing and serving product images",
+            "WhatsApp - For direct communication with customers",
+            "MongoDB Atlas - For secure data storage",
+            "Google Maps - For displaying our location"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "These services have their own privacy policies and may collect data as described in their respective policies."
+        }
+      ]
+    },
+    {
+      "id": "data-security",
+      "heading": "5. Data Security",
+      "content": [
+        {
+          "type": "text",
+          "text": "We take data security seriously. Your information is:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Stored securely in MongoDB with access controls",
+            "Protected during transmission using HTTPS",
+            "Only accessible to authorized personnel",
+            "Never sold to third parties"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "your-rights",
+      "heading": "6. Your Rights",
+      "content": [
+        {
+          "type": "text",
+          "text": "Under the Kenya Data Protection Act 2019, you have the right to:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Access your personal data",
+            "Request correction of inaccurate data",
+            "Request deletion of your data",
+            "Object to processing of your data",
+            "Withdraw consent at any time",
+            "Lodge a complaint with the Data Commissioner"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "To exercise any of these rights, contact us at info@furnihaven.co.ke."
+        }
+      ]
+    },
+    {
+      "id": "data-retention",
+      "heading": "7. Data Retention",
+      "content": [
+        {
+          "type": "text",
+          "text": "We retain your personal information only for as long as necessary to fulfill the purposes described in this policy, unless a longer retention period is required by law."
+        }
+      ]
+    },
+    {
+      "id": "children",
+      "heading": "8. Children's Privacy",
+      "content": [
+        {
+          "type": "text",
+          "text": "Our website is not intended for children under 18. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us immediately."
+        }
+      ]
+    },
+    {
+      "id": "changes",
+      "heading": "9. Changes to This Policy",
+      "content": [
+        {
+          "type": "text",
+          "text": "We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page. Changes are effective immediately upon posting."
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "heading": "10. Contact Us",
+      "content": [
+        {
+          "type": "text",
+          "text": "If you have questions about this Privacy Policy, contact us at:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Email: info@furnihaven.co.ke",
+            "Phone/WhatsApp: +254 727 713 219",
+            "Location: Nairobi, Kenya"
+          ]
+        }
+      ]
+    }
+  ]
+}

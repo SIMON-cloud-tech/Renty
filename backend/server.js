@@ -14,11 +14,17 @@ const authRoutes = require('./routes/authRoute');
 const resetRoutes = require('./routes/resetRoute');
 const inventoryRoutes = require('./routes/inventoryRoute');
 const blogRoutes = require('./routes/blogRoute');
-const projectRoutes = require('./routes/projectRoute');
 const testimonialsRoutes = require('./routes/testimonialRoute');
 const dashboardRoutes = require('./routes/dashboardRoute');
 const chatbotRoutes = require('./routes/chatBotRoute');
-
+const guideRoutes = require('./routes/guideRoute');
+const leadRoutes = require('./routes/leadRoute');
+const analyticsRoutes = require('./routes/analyticsRoute');
+const productAnalyticsRoutes = require('./routes/productAnalyticsRoute');
+const leadAnalyticsRoutes = require('./routes/leadAnalyticsRoute');
+const blogAnalyticsRoutes = require('./routes/blogAnalyticsRoute');
+const guideAnalyticsRoutes = require('./routes/guideAnalyticsRoute');
+const botAnalyticsRoutes = require('./routes/botAnalyticsRoute');
 // ==================== APP SETUP ====================
 
 const app = express();
@@ -66,9 +72,16 @@ app.use('/api', authRoutes);              // register, login, /profile (protecte
 app.use('/api/reset', resetRoutes);       // password reset via OTP — must stay reachable while logged out
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/blogs', blogRoutes);
-app.use('/api/projects', projectRoutes);
 app.use('/api/testimonials', testimonialsRoutes);
-app.use('/api/chatbot', chatbotRoutes);
+app.use('/api/bot', chatbotRoutes);
+app.use('/api/guides', guideRoutes);
+app.use('/api/leads', leadRoutes);
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/analytics/products', productAnalyticsRoutes);
+app.use('/api/analytics/leads', leadAnalyticsRoutes);
+app.use('/api/analytics/blogs', blogAnalyticsRoutes);
+app.use('/api/analytics/guides', guideAnalyticsRoutes);
+app.use('/api/analytics/bot', botAnalyticsRoutes);
 
 app.get('/api/config', (req, res) => {
   res.json({

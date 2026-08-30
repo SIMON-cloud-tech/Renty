@@ -1,0 +1,114 @@
+:root {
+  /* ============================================================
+     BASE ANCHORS — the only colors anyone hand-picked.
+     Every other value below is mathematically derived from these
+     five via color-mix(). Change a base, the whole ramp shifts
+     in proportion — nothing downstream needs manual retouching.
+     ============================================================ */
+  --base-walnut: #3B2A20; /* primary dark — wood */
+  --base-brass:  #A97C50; /* accent — aged metal */
+  --base-sage:   #6B7860; /* secondary accent — natural counterpoint */
+  --base-bone:   #F2EDE4; /* background — linen/raw wood */
+  --base-ink:    #1C1A18; /* text — warm near-black */
+  --base-danger: #A6402D; /* muted brick-red — destructive actions only (remove item, delete) */
+
+  /* ============================================================
+     WALNUT RAMP — derived by mixing the base toward white (light
+     end) or black (dark end) in fixed percentage steps. The step
+     size (15%) is the "engineering constant": every ramp in this
+     file uses the same interval, so all nine families stay
+     perceptually consistent with each other.
+     ============================================================ */
+  --walnut-100: color-mix(in srgb, var(--base-walnut) 15%, white);
+  --walnut-200: color-mix(in srgb, var(--base-walnut) 30%, white);
+  --walnut-300: color-mix(in srgb, var(--base-walnut) 50%, white);
+  --walnut-400: color-mix(in srgb, var(--base-walnut) 75%, white);
+  --walnut-500: var(--base-walnut); /* the anchor itself */
+  --walnut-600: color-mix(in srgb, var(--base-walnut) 85%, black);
+  --walnut-700: color-mix(in srgb, var(--base-walnut) 70%, black);
+  --walnut-800: color-mix(in srgb, var(--base-walnut) 55%, black);
+
+  /* ===== BRASS RAMP — same formula, different anchor ===== */
+  --brass-100: color-mix(in srgb, var(--base-brass) 15%, white);
+  --brass-200: color-mix(in srgb, var(--base-brass) 30%, white);
+  --brass-300: color-mix(in srgb, var(--base-brass) 50%, white);
+  --brass-400: color-mix(in srgb, var(--base-brass) 75%, white);
+  --brass-500: var(--base-brass);
+  --brass-600: color-mix(in srgb, var(--base-brass) 85%, black);
+  --brass-700: color-mix(in srgb, var(--base-brass) 70%, black);
+
+  /* ===== SAGE RAMP — used sparingly, fewer stops needed ===== */
+  --sage-200: color-mix(in srgb, var(--base-sage) 25%, white);
+  --sage-500: var(--base-sage);
+  --sage-700: color-mix(in srgb, var(--base-sage) 75%, black);
+
+  /* ===== NEUTRAL RAMP — derived from Ink, not true gray. This
+     keeps every "gray" in the UI subtly warm instead of a cold
+     off-the-shelf gray fighting the wood/brass palette. ===== */
+  --neutral-100: color-mix(in srgb, var(--base-ink) 8%, white);
+  --neutral-200: color-mix(in srgb, var(--base-ink) 20%, white);
+  --neutral-300: color-mix(in srgb, var(--base-ink) 35%, white);
+  --neutral-400: color-mix(in srgb, var(--base-ink) 55%, white);
+  --neutral-500: color-mix(in srgb, var(--base-ink) 75%, white);
+  --neutral-900: var(--base-ink);
+
+  /* ===== BONE RAMP — background surface depth ===== */
+  --bone-100: var(--base-bone);
+  --bone-200: color-mix(in srgb, var(--base-bone) 90%, black);
+
+  /* ===== DANGER RAMP — destructive actions only, kept out of the
+     brand palette on purpose so it reads as a warning, not a style ===== */
+  --danger-200: color-mix(in srgb, var(--base-danger) 25%, white);
+  --danger-500: var(--base-danger);
+  --danger-700: color-mix(in srgb, var(--base-danger) 75%, black);
+
+  /* ============================================================
+     SEMANTIC TOKENS — what components actually reference. Naming
+     the role, not the ramp step, means a future palette rework
+     never touches component CSS — only the mapping below changes.
+     ============================================================ */
+  --color-bg: var(--bone-100);
+  --color-bg-elevated: var(--bone-200);
+
+  --color-text-primary: var(--neutral-900);
+  --color-text-secondary: var(--neutral-500);
+  --color-text-muted: var(--neutral-400);
+  --color-text-on-dark: var(--bone-100);
+  --color-text-on-dark-muted: color-mix(in srgb, var(--bone-100) 75%, var(--base-walnut)); /* dimmed off-white for secondary text on dark brand surfaces, e.g. nested dropdown items */
+
+  --color-brand: var(--walnut-500);
+  --color-brand-hover: var(--walnut-600);
+  --color-brand-elevated: var(--walnut-400); /* stacked dark UI: utility bar, dropdowns, mobile nav — one step lighter than --color-brand so layers read as depth, not flat repetition */
+  --color-brand-elevated-hover: var(--walnut-300); /* hover/border state on elevated dark surfaces above */
+
+  --color-accent: var(--brass-500);
+  --color-accent-hover: var(--brass-600);
+  --color-accent-muted: var(--brass-200);
+
+  --color-tag: var(--sage-500);
+  --color-tag-bg: var(--sage-200);
+
+  --color-border: var(--brass-200);
+  --color-border-strong: var(--walnut-300);
+
+  --color-danger: var(--danger-500);
+  --color-danger-hover: var(--danger-700);
+
+  /* ===== SHADOWS / RADIUS — unchanged, already tokenized ===== */
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-pill: 30px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+}

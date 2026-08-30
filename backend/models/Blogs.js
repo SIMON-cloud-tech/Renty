@@ -7,7 +7,8 @@ const blogSchema = new mongoose.Schema({
   title: { type: String, required: true, trim: true, maxlength: 200 },
   description: { type: String, required: true, trim: true, maxlength: 20000 },
   keywords: { type: String, default: '', trim: true, maxlength: 300 },
-  image: { type: String, default: '' }
+  image: { type: String, default: '' },
+  views: { type: Number, default: 0 }
 }, { timestamps: true }); // auto createdAt/updatedAt — controller no longer needs to set them manually
 
 module.exports = mongoose.model('Blog', blogSchema);

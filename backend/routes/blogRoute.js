@@ -1,5 +1,5 @@
 const express = require('express');
-const { getBlogs, getBlogById, addBlog, updateBlog, deleteBlog } = require('../controllers/blogController');
+const { getBlogs, getBlogById, addBlog, updateBlog, incrementBlogView, deleteBlog } = require('../controllers/blogController');
 const authMiddleware = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 
@@ -7,6 +7,7 @@ const router = express.Router();
 
 // Public routes (no auth)
 router.get('/', getBlogs);
+router.post('/:id/view', incrementBlogView);
 router.get('/:id', getBlogById);
 
 // Protected routes (admin only)

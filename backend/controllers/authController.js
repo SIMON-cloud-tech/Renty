@@ -111,4 +111,4 @@ exports.logout = (req, res) => {
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
   });
   res.json({ message: 'Logged out successfully' });
-});
+};

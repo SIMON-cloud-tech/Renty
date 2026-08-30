@@ -1,23 +1,28 @@
-const fs = require('fs');
-const path = require('path');
+const Bot = require('../models/Bot');
 
-const dataPath = path.join(__dirname, '../data/chatbotknowledge.json');
-
-// ─── Read knowledge base ──────────────────────
-const readKnowledgeBase = () => {
+// ─── Read knowledge base from database ───
+const readKnowledgeBase = async () => {
   try {
-    if (!fs.existsSync(dataPath)) {
-      return { intents: [] };
-    }
-    const data = fs.readFileSync(dataPath, 'utf-8');
-    return JSON.parse(data);
+    const entries = await Bot.find({ 
+      isAnswered: true, 
+      status: 'answered' 
+    });
+    
+    return { 
+      intents: entries.map(entry => ({
+        id: entry.id,
+        keywords: entry.keywords || [],
+        reply: entry.reply,
+        context: entry.context ? Object.fromEntries(entry.context) : {},
+      }))
+    };
   } catch (error) {
-    console.error('Error reading knowledge base:', error);
+    console.error('Error reading knowledge base from database:', error);
     return { intents: [] };
   }
 };
 
-// ─── Extract keywords from user message ──────
+// ─── Extract keywords from user message ───
 const extractKeywords = (message) => {
   const text = message.toLowerCase();
   const stopWords = ['i', 'me', 'my', 'you', 'your', 'he', 'she', 'it', 'we', 'they',
@@ -30,7 +35,7 @@ const extractKeywords = (message) => {
   return words;
 };
 
-// ─── Score intents based on keyword matches ──
+// ─── Score intents based on keyword matches ───
 const scoreIntents = (keywords, intents) => {
   const results = [];
   for (const intent of intents) {
@@ -50,7 +55,7 @@ const scoreIntents = (keywords, intents) => {
   return results.sort((a, b) => b.score - a.score);
 };
 
-// ─── Extract contextually relevant replies ──
+// ─── Extract contextually relevant replies ───
 const extractContext = (message, intent) => {
   const text = message.toLowerCase();
   const contextReplies = [];
@@ -64,7 +69,7 @@ const extractContext = (message, intent) => {
   return contextReplies;
 };
 
-// ─── Build final response ────────────────────
+// ─── Build final response ───
 const buildResponse = (intent, contextReplies) => {
   let response = intent.reply;
   if (contextReplies.length > 0) {
@@ -74,22 +79,27 @@ const buildResponse = (intent, contextReplies) => {
   return response;
 };
 
-// ─── Main parser function ─────────────────────
-const parseAndReply = (message) => {
-  const data = readKnowledgeBase();
+// ─── Main parser function ───
+const parseAndReply = async (message) => {
+  const data = await readKnowledgeBase();
   const intents = data.intents || [];
 
   const keywords = extractKeywords(message);
   const matches = scoreIntents(keywords, intents);
 
   if (matches.length === 0 || matches[0].score === 0) {
-    const defaultIntent = intents.find(i => i.id === 'default');
-    return defaultIntent ? defaultIntent.reply : "I'm not sure how to respond.";
+    return { 
+      reply: "I'm not sure I fully understood that. Could you rephrase your question? Alternatively, you can contact us directly at info@furnihaven.co.ke or +254727713219 (call, SMS, or WhatsApp) and we'll be happy to help.",
+      isUnanswered: true 
+    };
   }
 
   const bestMatch = matches[0];
   const contextReplies = extractContext(message, bestMatch);
-  return buildResponse(bestMatch, contextReplies);
+  return { 
+    reply: buildResponse(bestMatch, contextReplies),
+    isUnanswered: false 
+  };
 };
 
 module.exports = { parseAndReply };

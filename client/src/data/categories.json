@@ -1,0 +1,40 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Living Room",
+      "slug": "living-room",
+      "description": "Complete living room sets - sofas, seats, TV stands & more",
+      "image": "/living.jpeg",
+      "path": "/rooms/living-room",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "name": "Bedroom",
+      "slug": "bedroom",
+      "description": "Beds, wardrobes & complete bedroom furniture",
+      "image": "/bed.jpeg",
+      "path": "/rooms/bedroom",
+      "featured": true
+    },
+    {
+      "id": 3,
+      "name": "Dining & Kitchen",
+      "slug": "kitchen",
+      "description": "Dining sets, cupboards & kitchen storage solutions",
+      "image": "/dining.jpeg",
+      "path": "/rooms/kitchen",
+      "featured": true
+    },
+    {
+      "id": 4,
+      "name": "Office & Study",
+      "slug": "home-office",
+      "description": "Desks, chairs & complete office furniture",
+      "image": "/study.jpeg",
+      "path": "/rooms/home-office",
+      "featured": true
+    }
+  ]
+}

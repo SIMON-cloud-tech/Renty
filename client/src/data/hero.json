@@ -1,0 +1,66 @@
+{
+  "slides": [
+    {
+      "id": 1,
+      "image": "bg1.jpeg",
+      "title": "Find Furniture That Fits Your Life",
+      "subtitle": "From office to living room — quality you can feel. We deliver across Nairobi, from Karen and Kilimani to Umoja and Kitengela. Whether you need a single piece or a full office setup, we bring craftsmanship and comfort to your space.",
+      "tagline": "🪑 Handcrafted · 🛋️ Quality Guaranteed · 🚚 Free Delivery Nairobi · 🔒 2-Year Warranty",
+      "primaryCTA": "Browse Collection",
+      "primaryPath": "/products",
+      "secondaryCTA": "Our Story",
+      "secondaryPath": "/about"
+    },
+    {
+      "id": 2,
+      "image": "bg2.jpeg",
+      "title": "Elegant Living Room Collections",
+      "subtitle": "Transform your living space into a haven of comfort and style. Discover sofas, coffee tables, and entertainment units crafted with premium materials and timeless designs that make every moment at home special.",
+      "tagline": "🛋️ Premium Fabrics · 🎨 Custom Designs · ✨ Modern Aesthetics · 💎 Lasting Quality",
+      "primaryCTA": "Shop Living Room",
+      "primaryPath": "/shop/sofas",
+      "secondaryCTA": "View Rooms",
+      "secondaryPath": "/rooms/living-room"
+    },
+    {
+      "id": 3,
+      "image": "bg3.jpeg",
+      "title": "Bedroom Comfort Redefined",
+      "subtitle": "Create your perfect retreat with our bedroom collections. From luxurious beds and mattresses to wardrobes and nightstands, every piece is designed to bring tranquility and elegance to your personal space.",
+      "tagline": "🛏️ Comfort First · 🌙 Peaceful Designs · 💤 Quality Sleep · 🏠 Space Optimization",
+      "primaryCTA": "Shop Bedroom",
+      "primaryPath": "/shop/beds",
+      "secondaryCTA": "Bedroom Ideas",
+      "secondaryPath": "/rooms/bedroom"
+    },
+    {
+      "id": 4,
+      "image": "bg4.jpeg",
+      "title": "Workspaces That Inspire Productivity",
+      "subtitle": "Elevate your home office or corporate space with our ergonomic and stylish furniture. From executive desks to comfortable chairs and storage solutions, we help you create an environment where great work happens.",
+      "tagline": "💼 Ergonomic Design · 📊 Productivity Boost · 🏢 Office Solutions · ⚡ Quick Assembly",
+      "primaryCTA": "Shop Office",
+      "primaryPath": "/shop/office",
+      "secondaryCTA": "Office Spaces",
+      "secondaryPath": "/rooms/home-office"
+    },
+    {
+      "id": 5,
+      "image": "bg5.jpeg",
+      "title": "Outdoor Living, Elevated",
+      "subtitle": "Bring comfort to your outdoor spaces with our weather-resistant furniture collection. Perfect for Nairobi's beautiful climate, our outdoor pieces combine durability with stunning design for your garden, balcony, or patio.",
+      "tagline": "🌿 Weather Resistant · ☀️ UV Protected · 🌧️ All-Season Ready · 🏡 Garden Perfect",
+      "primaryCTA": "Shop Outdoor",
+      "primaryPath": "/shop/outdoor",
+      "secondaryCTA": "Outdoor Spaces",
+      "secondaryPath": "/rooms/outdoor-spaces"
+    }
+  ],
+  "settings": {
+    "slideDuration": 60000,
+    "transitionDuration": 1500,
+    "autoPlay": true,
+    "showDots": true,
+    "pauseOnHover": false
+  }
+}

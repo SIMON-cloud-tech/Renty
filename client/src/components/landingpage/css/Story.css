@@ -1,0 +1,247 @@
+/* ── About Page ── */
+.about-page {
+  max-width: 100%;
+  background-color: var(--color-brand);
+  color: var(--color-text-on-dark);
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+/* ── Hero / Intro ── */
+.about-hero {
+  position: relative;
+  border-radius: var(--radius-md);
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: opacity, transform;
+}
+
+.about-hero-overlay {
+  padding: 2rem;
+  border-radius: var(--radius-md);
+  color: var(--color-text-on-dark);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-hero h1 {
+  font-size: 2rem;
+  color: var(--color-text-on-dark);
+  margin-bottom: 0.5rem;
+}
+
+.about-hero p {
+  font-size: 1.2rem;
+  opacity: 0.85;
+  color: var(--color-text-on-dark-muted);
+}
+
+/* ── Content: Image + Text ── */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  margin-bottom: 4rem;
+  opacity: 0;
+  animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+  will-change: opacity, transform;
+}
+
+.about-image {
+  height: 350px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--neutral-100);
+  transition: box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about-image:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.about-image img[src] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.about-text h2 {
+  font-size: 2rem;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.about-text p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text-on-dark);
+  margin-bottom: 1rem;
+}
+
+.about-text .tagline {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 1px;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.about-text .tagline:hover {
+  color: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+/* ── Mission, Vision, Values ── */
+.about-mvv {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.mvv-card {
+  background: transparent;
+  padding: 2rem 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--base-bone) 5%, transparent);
+  text-align: center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: opacity, transform;
+  border: 1px solid color-mix(in srgb, var(--base-brass) 15%, transparent);
+}
+
+.mvv-card.mvv-visible {
+  animation: slideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.mvv-card:nth-child(1).mvv-visible { animation-delay: 0.08s; }
+.mvv-card:nth-child(2).mvv-visible { animation-delay: 0.22s; }
+.mvv-card:nth-child(3).mvv-visible { animation-delay: 0.36s; }
+
+.mvv-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+.mvv-card h3 {
+  font-size: 1.4rem;
+  color: var(--color-accent-hover);
+  margin-bottom: 0.75rem;
+}
+
+.mvv-card p {
+  color: var(--color-text-on-dark-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.mvv-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mvv-card ul li {
+  padding: 0.3rem 0;
+  font-weight: 500;
+  color: var(--color-text-on-dark);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.mvv-card ul li:hover {
+  color: var(--color-accent);
+  transform: translateX(2px);
+}
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+
+  .about-image {
+    height: 250px;
+    order: -1;
+  }
+
+  .about-mvv {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .about-hero p {
+    font-size: 1rem;
+  }
+  
+  .about-text h2 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-image {
+    height: 200px;
+  }
+  
+  .about-text p {
+    font-size: 0.95rem;
+  }
+  
+  .mvv-card {
+    padding: 1.5rem 1rem;
+  }
+}
