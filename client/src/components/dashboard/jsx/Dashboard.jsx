@@ -238,7 +238,7 @@ const Dashboard = ({ setUser }) => {
       <main className="dashboard-main">
         <section className="dashboard-row dashboard-row-fixed">
           <div className="welcome-banner">
-            <h1 className="welcome-title">{greeting}, {profile?.name || 'User'}! 👋</h1>
+            <h1 className="welcome-title">{greeting}, {profile?.name || 'User'}</h1>
           </div>
         </section>
 
