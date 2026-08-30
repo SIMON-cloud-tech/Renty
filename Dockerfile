@@ -14,14 +14,14 @@ RUN npm install
 
 # ── FRONTEND ──
 WORKDIR /app
-COPY frontend/ ./frontend/
-WORKDIR /app/frontend
+COPY client/ ./client/
+WORKDIR /app/client
 RUN npm install && npm run build
 
 # ── Move built frontend to backend's static folder ──
 WORKDIR /app
 RUN mkdir -p ./backend/public
-RUN cp -r ./frontend/dist/* ./backend/public/
+RUN cp -r ./client/dist/* ./backend/public/
 
 # ── Expose port ──
 EXPOSE 5000

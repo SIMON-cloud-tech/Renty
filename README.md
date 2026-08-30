@@ -1,403 +1,239 @@
-# FurniHaven
+# FurniHaven — Full-stack Furniture CMS & Storefront
 
-This project is a full-stack furniture commerce and CMS-style application for a home and office furniture brand. The repository combines a React + Vite frontend with an Express + MongoDB backend and a private admin dashboard for catalog management, lead tracking, blogging, guides, testimonials, and analytics.
+FurniHaven is a production-ready full-stack website combining a fast React + Vite storefront with an Express + MongoDB backend and a private admin dashboard. It is built for small furniture businesses who want a modern, content-driven online presence they can update without code.
 
-This README is aimed at developers working on the codebase and should be treated as the technical overview for the application architecture and runtime behavior.
-
----
-
-## 1. Project goals and domain model
-
-The application is designed around a real small-business workflow:
-
-- Sales and marketing happen on a public-facing storefront.
-- Content is editable from an admin dashboard instead of hardcoded into the frontend.
-- Product inventory and pricing live in MongoDB and are served through the API.
-- Customer interest is captured through contact and lead submissions.
-- Business decisions can be guided by analytics and content performance data.
-
-The app is not just a landing page; it is a data-driven commerce + content platform.
+This README is written to: (a) describe what the product does for potential clients, (b) show developers how to run and deploy it, and (c) document the API and integrations used.
 
 ---
 
-## 2. Architecture overview
+## What this product does (client-focused)
 
-### Frontend
-- React app with Vite
-- Client-side routing in `frontend/src/App.jsx`
-- Public layout in `frontend/src/layouts/PublicLayout.jsx`
-- Storefront components in `frontend/src/components/landingpage/jsx/*`
-- Dashboard components in `frontend/src/components/dashboard/jsx/*`
+- Provides a public storefront with product pages, categories, blog articles, and guides to drive organic search and conversions.
+- Includes an admin dashboard (single-admin model) for editing products, blogs, guides, testimonials, and bot knowledge without developer involvement.
+- Captures leads and contact enquiries and surfaces them in the dashboard for sales follow-up.
+- Includes an embeddable support chatbot backed by a database-driven knowledge base that the business can maintain from the dashboard.
+- Stores and serves images via Cloudinary for fast, CDN-backed image delivery.
+- Sends transactional emails (OTP/reset) via Resend integration.
+- Collects lightweight analytics for products, blogs, guides, and chatbot interactions to inform marketing decisions.
 
-### Backend
-- Node.js + Express API in `backend/server.js`
-- Route modules under `backend/routes/*`
-- Controller logic under `backend/controllers/*`
-- Mongoose models under `backend/models/*`
-- Middleware under `backend/middleware/*`
-- Utility modules under `backend/utils/*`
-
-### Data storage
-- MongoDB via Mongoose
-- Product, blog, guide, lead, testimonial, bot, and user documents are persisted in MongoDB collections
-- Uploaded media is sent to Cloudinary for storage and delivery
+Why clients choose FurniHaven:
+- Turn-key storefront + CMS: deploy quickly and manage content via a web dashboard.
+- SEO-friendly: blog and guide features let you publish content that attracts qualified traffic.
+- Customer-first: integrated chatbot, lead capture and testimonials build trust and reduce friction.
 
 ---
 
-## 3. Repository structure
+## Key Features (technical highlights)
+
+- Public storefront: product listing, category filters, product detail pages, SEO-friendly blog posts and guides.
+- Admin dashboard: CRUD for Products, Blogs, Guides, Testimonials, Leads, and Bot knowledge.
+- Authentication: cookie-based JWT auth for secure dashboard access.
+- File uploads: image upload middleware + Cloudinary integration.
+- Chatbot: public chat endpoint that uses a DB-backed knowledge base and records unanswered questions for later review.
+- Analytics: protected endpoints for overview metrics and model-specific analytics (products, leads, blogs, guides, bot).
+- Password reset: OTP flow with email delivery via Resend.
+
+---
+
+## Technology Stack
+
+- Frontend: React (Vite), React Router, Recharts (analytics), React Helmet (SEO)
+- Backend: Node.js, Express, Mongoose
+- Data store: MongoDB
+- Media: Cloudinary
+- Email: Resend (via `resend` package)
+- Authentication: JWT (httpOnly cookie)
+- Dev tools: Vite, nodemon, concurrently
+
+---
+
+## Quick Start — Run locally
+
+Prerequisites:
+- Node.js (18+ recommended)
+- npm
+- MongoDB (Atlas or local)
+
+1. Install dependencies (root uses concurrently to run both apps):
 
 ```bash
-Furnihaven/
-├── backend/
-│   ├── config/
-│   │   └── db.js
-│   ├── controllers/
-│   │   ├── analyticsController.js
-│   │   ├── authController.js
-│   │   ├── blogController.js
-│   │   ├── chatBotController.js
-│   │   ├── inventoryController.js
-│   │   ├── leadController.js
-│   │   ├── resetController.js
-│   │   ├── guidesController.js
-│   │   ├── testimonialController.js
-│   │   └── ...
-│   ├── data/
-│   │   └── chatbotknowledge.json
-│   ├── middleware/
-│   │   ├── authMiddleware.js
-│   │   └── uploadMiddleware.js
-│   ├── models/
-│   │   ├── Blogs.js
-│   │   ├── Bot.js
-│   │   ├── Guides.js
-│   │   ├── Lead.js
-│   │   ├── Products.js
-│   │   ├── Testimonials.js
-│   │   ├── User.js
-│   │   └── otpStore.js
-│   ├── routes/
-│   │   ├── analyticsRoute.js
-│   │   ├── authRoute.js
-│   │   ├── blogRoute.js
-│   │   ├── chatBotRoute.js
-│   │   ├── dashboardRoute.js
-│   │   ├── guideRoute.js
-│   │   ├── inventoryRoute.js
-│   │   ├── leadRoute.js
-│   │   ├── resetRoute.js
-│   │   ├── testimonialRoute.js
-│   │   └── ...
-│   ├── utils/
-│   │   ├── chatBotParser.js
-│   │   ├── cloudinary.js
-│   │   ├── errorHandler.js
-│   │   ├── sendEmail.js
-│   │   └── uploadToCloudinary.js
-│   ├── package.json
-│   ├── seedAll.js
-│   └── server.js
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   ├── components/
-│   │   │   ├── dashboard/
-│   │   │   ├── landingpage/
-│   │   │   └── SEO/
-│   │   ├── layouts/
-│   │   ├── pages/
-│   │   ├── data/
-│   │   └── utils/
-│   ├── index.html
-│   ├── package.json
-│   ├── vite.config.js
-│   └── eslint.config.js
-├── package.json
-├── README.md
-├── Dockerfile
-├── cookies.txt
-├── .gitignore
-└── .env.example (if added later)
+# from repository root
+npm install
+# then install client and backend deps (if separate install needed):
+cd client && npm install && cd ../backend && npm install && cd ..
+```
+
+2. Environment variables
+
+Create a `.env` in `backend/` with the following keys (example values):
+
+```
+MONGODB_URI=mongodb+srv://<user>:<pass>@cluster.example.mongodb.net/furnihaven
+JWT_SECRET=your_jwt_secret_here
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_key
+CLOUDINARY_API_SECRET=your_secret
+RESEND_API_KEY=your_resend_api_key
+NODE_ENV=development
+PORT=5000
+VITE_WHATSAPP_NUMBER=254700000000
+```
+
+Notes:
+- `JWT_SECRET` is required: server refuses to start without it.
+- `MONGODB_URI` must be set or the server exits.
+
+3. Run in development (root script runs both client and backend):
+
+```bash
+npm run dev
+```
+
+This runs:
+- `client` via `vite` on `http://localhost:5173` (default)
+- `backend` via `nodemon server.js` on `http://localhost:5000`
+
+To run only backend:
+
+```bash
+cd backend
+npm run dev
+```
+
+To run only frontend:
+
+```bash
+cd client
+npm run dev
 ```
 
 ---
 
-## 4. Runtime flow and data flow
+## Build & Deploy
 
-### 4.1 Frontend boot sequence
+- Frontend production build: `cd client && npm run build`. The build output can be served by any static host (Netlify, Vercel, S3, or the backend `public/` folder).
+- Backend production: set `NODE_ENV=production`, configure environment variables and use `npm start` in `backend/` or run the bundled app with a process manager (PM2, systemd, Docker).
+- The server is configured to serve the built frontend from `backend/public` when in production.
 
-The application bootstraps in `frontend/src/App.jsx`:
-
-- App initializes `user` and `loading` state.
-- It calls `/api/profile` with `credentials: 'include'` to validate the current session.
-- If the response is successful, it sets the authenticated user.
-- If not, it resets the auth state and renders the public or login flow.
-
-This means the frontend is effectively session-aware, but it does not store the JWT in localStorage. Instead, the auth state is rehydrated via the cookie-backed API.
-
-### 4.2 Public website rendering
-
-Public pages are rendered under `PublicLayout`, which manages the cart state and persists it to `localStorage`.
-
-In `frontend/src/layouts/PublicLayout.jsx`:
-
-```jsx
-const [cart, setCart] = useState(() => {
-  const saved = localStorage.getItem('cart');
-  return saved ? JSON.parse(saved) : [];
-});
-```
-
-This is a deliberate UX choice: the cart survives refreshes without requiring a backend cart table for every user session.
-
-### 4.3 Route separation
-
-The React router splits the app into public routes and protected admin routes:
-
-- Public routes include home, products, blogs, guides, about, contact, product category pages
-- Protected routes include `/dashboard/*` and `/admin`
-- A redirect is used when an unauthenticated user tries to access the dashboard
-
-This is implemented in `frontend/src/App.jsx` with `Navigate` and conditional rendering.
-
-### 4.4 Admin/auth flow
-
-The auth flow is:
-
-1. User visits `/admin`
-2. `Auth.jsx` renders login/register form
-3. Backend `/api/login` validates credentials
-4. Server creates a JWT and stores it in an HTTP-only cookie
-5. Frontend checks auth via `/api/profile`
-6. Dashboard loads and displays protected modules
-
-This is implemented using `authMiddleware.js` on the backend and JWT verification.
+Docker: a `Dockerfile` is present at the repo root — adapt it to build both client and backend or use multi-stage builds for a single container serving the app.
 
 ---
 
-## 5. Backend API design
+## Environment variables (full list)
 
-### 5.1 Route layering
-
-The backend is domain-oriented instead of page-oriented:
-
-- `authRoute.js` → auth-related requests
-- `inventoryRoute.js` → products and catalog records
-- `blogRoute.js` → blog content CRUD
-- `guideRoute.js` → guides and inspiration content
-- `leadRoute.js` → customer enquiry records
-- `testimonialRoute.js` → testimonial management
-- `chatBotRoute.js` → chatbot and knowledge entries
-- `dashboardRoute.js` → protected admin info and dashboard-specific API
-- analytic routes provide reporting endpoints
-
-This keeps the API easier to reason about as the product grows.
-
-### 5.2 Middleware responsibilities
-
-#### `authMiddleware.js`
-This middleware:
-
-- reads the JWT from the `Authorization` header first
-- falls back to the cookie token if the header is missing
-- verifies the token with `JWT_SECRET`
-- attaches `req.user` with `{ id, email }`
-- rejects unauthorized requests with `401`
-
-This protects dashboard actions and any admin-only endpoints.
-
-#### `uploadMiddleware.js`
-This handles file uploads and attaches the uploaded image to `req.file` so controllers can pass binary data to Cloudinary.
-
-### 5.3 API protection model
-
-Important pattern in the backend:
-
-- public endpoints are mounted at `/api/*`
-- admin-only routes are mounted under `/api/dashboard`
-- auth checks are applied per-route, not globally, to avoid accidentally locking down all public content
-
-This is intentional and reduces accidental breakage from blanket middleware assumptions.
+- `MONGODB_URI` — MongoDB connection string (required)
+- `JWT_SECRET` — JWT signing secret (required)
+- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` — Cloudinary credentials for image uploads
+- `RESEND_API_KEY` — API key for Resend email delivery
+- `NODE_ENV` — `development` or `production` (affects cookie settings and CORS)
+- `PORT` — backend port (default 5000)
+- `VITE_WHATSAPP_NUMBER` — (optional) exposed via `/api/config` for frontend contact links
 
 ---
 
-## 6. Database model and persistence patterns
+## API Reference (high-level)
 
-### Core models
+Base: `/api`
 
-#### `User`
-Used for admin credential storage and authentication.
+- `POST /api/register` — create the single admin account (only allowed once)
+- `POST /api/login` — login (returns httpOnly cookie)
+- `GET /api/profile` — read authenticated admin profile (protected via cookie)
+- `POST /api/logout` — clear auth cookie
 
-Important points:
-- password hashing is handled in the auth controller or similar backend logic
-- profile data is returned without exposing password hashes
+- `GET /api/inventory` — list products (public)
+- `GET /api/inventory/:id` — product detail (public)
+- `POST /api/inventory` — add product (protected) — accepts `multipart/form-data` with image
+- `PUT /api/inventory/:id` — update product (protected)
+- `DELETE /api/inventory/:id` — delete product (protected)
 
-#### `Products`
-Defined in `backend/models/Products.js`.
+- `GET /api/blogs` — list blogs (public)
+- `GET /api/blogs/:id` — blog detail (public)
+- `POST /api/blogs` — create blog (protected)
+- `PUT /api/blogs/:id` — update blog (protected)
+- `DELETE /api/blogs/:id` — delete blog (protected)
+- `POST /api/blogs/:id/view` — increment view counter for analytics
 
-Structure includes:
-- `id` as a unique UUID-like identifier
-- `userId` reference to the admin user
-- `name`
-- `price`
-- `description`
-- `status` (`normal` or `offer`)
-- `category`
-- `room`
-- `features`
-- `image`
-- timestamps
+- `POST /api/leads` — submit a lead/contact (public)
+- `GET /api/leads` — list leads (protected)
+- `GET /api/leads/:id` — get single lead (protected)
+- `GET /api/leads/stats` — lead metrics (protected)
 
-This schema is the main data source for the public storefront.
+- `POST /api/bot/chat` — public chat endpoint (consumes `message`) — responds with `reply`
+- `/api/bot` (protected) — CRUD for bot knowledge and unanswered question management
 
-#### `Blogs`, `Guides`, `Testimonials`, `Lead`, `Bot`
-These models power the editorial, marketing, customer support, and sales workflows.
+- `GET /api/analytics/overview` — protected analytics overview
+- Additional analytics endpoints under `/api/analytics/*` for products, leads, blogs, guides, bot
 
-The system keeps them database-backed so content can be updated without frontend rebuilds.
-
-### Data model summary
-
-| Model | Purpose | Key fields | Used by |
-| --- | --- | --- | --- |
-| `User` | admin identity and auth | `name`, `email`, `password` | login, dashboard access |
-| `Product` | public catalog inventory | `id`, `name`, `price`, `description`, `category`, `room`, `features`, `image`, `status` | storefront, category pages, product detail |
-| `Blog` | editorial and SEO content | `title`, `content`, `image`, `author`, `slug`, `createdAt` | blog listing and article pages |
-| `Guide` | inspiration and buying guidance | `title`, `summary`, `content`, `image`, `category` | guides section |
-| `Lead` | customer enquiries and sales leads | `name`, `email`, `phone`, `message`, `source`, `status` | contact flows and dashboard sales follow-up |
-| `Testimonial` | trust-building customer proof | `name`, `message`, `company`, `rating` | homepage and marketing sections |
-| `Bot` | chatbot knowledge entries | `question`, `answer`, `tags`, `category` | chatbot responses |
-| `otpStore` | password reset flow | `email`, `otp`, `expiresAt` | reset workflow |
-
-This table is the mental model for how the app stores business data: the public site reads from catalog and content models, while the dashboard updates those same collections.
-
-### Why only one account can be created per project
-
-This project is intentionally designed around a single-admin ownership model rather than multi-user role management.
-
-The rationale is practical:
-
-- the repository is built as a small-business operational site, not a SaaS multi-tenant platform
-- the dashboard is a business control panel, not a broad internal permissions system
-- a single admin owner is easier to reason about for a local or small deployment
-- the auth routes are built around a singular admin identity and a protected dashboard shell
-- the current system does not implement roles, permissions, or team-based access control
-
-In other words, the product assumes one business owner or one administrator managing the store. That is why there is no full RBAC (role-based access control) model in the current codebase.
-
-This is also visible in the way profile data and dashboard access are checked: the system authenticates the current user and loads their own profile, but it does not manage multiple business users or staffing permissions.
+For implementation details see `backend/routes/*` and `backend/controllers/*`.
 
 ---
 
-## 7. How the business can manage everything from the dashboard
+## Integrations
 
-The dashboard is the operational center for the business and it is intentionally built as a single management workspace.
-
-What the business can do from the dashboard:
-
-- Add, edit, and remove products
-- Manage pricing and product metadata
-- Upload and replace product images
-- Update category, room, status, and feature information
-- Publish and update blog posts and SEO-oriented articles
-- Create and manage inspiration guides
-- Add or remove testimonials for trust-building and conversion
-- Review customer leads and enquiries from the site
-- Manage bot knowledge entries used by the chatbot
-- View analytics across products, leads, blogs, guides, and bot interactions
-- Switch between sections without leaving the dashboard shell
-
-This is the key business reason the app exists: it converts the website from a static storefront into a live operational system where the owner can update business content in real time.
-
-The dashboard is not only for cosmetics. It gives the business direct control over the live storefront data and marketing content driving the site.
-
-### What the bot can manage from the dashboard
-
-The dashboard has a Bot Knowledge module that lets the business maintain the intelligence behind the support chatbot.
-
-This includes:
-
-- adding knowledge Q&A pairs
-- updating product-related answers
-- revising customer support responses
-- managing conversation topics and response content
-- refreshing the knowledge base without changing frontend code
-
-Because the bot draws from the database-backed knowledge source, the business can tune the customer experience without modifying source files directly.
-
-This is an operationally important feature because it keeps the bot aligned with current products, policies, and customer concerns.
+- Cloudinary — image uploads and serving (`backend/utils/cloudinary.js`). Environment-driven credentials.
+- Resend — transactional email delivery (`backend/utils/sendEmail.js`). Used for OTP/resets.
+- Optional SMS/WhatsApp integration — the frontend reads `VITE_WHATSAPP_NUMBER` from `/api/config`.
 
 ---
 
-## 8. Key server startup sequence
+## Security & Best Practices
 
-The backend startup logic in `backend/server.js` is important and should be understood before changing server behavior.
+- JWT is stored in an httpOnly cookie to reduce XSS risk.
+- `authMiddleware` accepts a Bearer token in `Authorization` header for API clients, with cookie fallback for browser sessions.
+- Rate limits are applied to sensitive endpoints (login and register) to mitigate brute-force attacks (`express-rate-limit`).
+- The server refuses to start without `MONGODB_URI` and `JWT_SECRET` to avoid insecure defaults.
 
-### Sequence
-
-```js
-require('dotenv').config();
-const app = express();
-const PORT = process.env.PORT || 5000;
-
-app.set('trust proxy', 1);
-
-app.use(cors({
-  origin: FRONTEND_ORIGIN,
-  credentials: true
-}));
-
-app.use(express.json());
-app.use(cookieParser());
-
-app.use('/uploads', ... express.static(...));
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/api', authRoutes);
-app.use('/api/reset', resetRoutes);
-app.use('/api/inventory', inventoryRoutes);
-app.use('/api/blogs', blogRoutes);
-app.use('/api/testimonials', testimonialsRoutes);
-app.use('/api/bot', chatbotRoutes);
-app.use('/api/guides', guideRoutes);
-app.use('/api/leads', leadRoutes);
-app.use('/api/analytics', analyticsRoutes);
-...
-app.use('/api/dashboard', dashboardRoutes);
-
-app.use((req, res, next) => {
-  if (req.path.startsWith('/api')) return next();
-  if (req.path.startsWith('/uploads')) return next();
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.use('/api', (req, res) => {
-  res.status(404).json({ message: 'Not found' });
-});
-
-app.use((err, req, res, next) => {
-  console.error('Unhandled error:', err);
-  res.status(500).json({ message: 'Server error', error: err.message });
-});
-
-connectDB().then(() => {
-  app.listen(PORT, () => console.log(...));
-});
-```
-
-### Why this order matters
-
-- environment variables must be loaded first
-- static and API routes are mounted before the SPA fallback
-- API routes are checked before falling back to frontend routing
-- MongoDB must be connected before the server accepts traffic
-
-This avoids half-started server states and reduces confusing runtime failures in deployment.
+Recommendations for production:
+- Use HTTPS and set `NODE_ENV=production` to enable secure cookies and `sameSite: none` for cross-site cookie delivery behind trusted proxies.
+- Use a robust secret for `JWT_SECRET` and rotate it responsibly.
+- Restrict `RESEND_API_KEY` to limits and monitor email usage.
 
 ---
 
-## 8. Admin dashboard detail
+## Admin / Business workflows (what clients can do)
+
+- Manage product catalog: add images, set price and status (sale/normal), add features and categories.
+- Manage editorial: publish SEO-focused blog posts and guides to attract customers.
+- Review and act on leads: contact potential buyers quickly from the dashboard.
+- Maintain the chatbot: answer unanswered questions from the dashboard so the bot becomes smarter over time.
+- Monitor performance: view analytics to learn which products and content drive leads.
+
+---
+
+## Contributing & Extending
+
+This project is organized so developers can extend modules independently:
+- Add new routes: `backend/routes/*` and corresponding controllers in `backend/controllers`.
+- Add new models: `backend/models/*` using Mongoose schemas.
+- Enhance the frontend: `client/src/components/*` and `client/src/pages/*` follow a modular layout.
+
+If you want help customizing FurniHaven for your business (branding, payment integration, multi-admin support, or full deployment), get in touch — the codebase is designed to be extended quickly for bespoke requirements.
+
+---
+
+## Support & Contact
+
+If you want a production setup, customizations, or a migration plan, contact the maintainer (project owner) for a commercial engagement. The system is shipped as a deployable starter kit that can be tailored and hosted for your business.
+
+---
+
+## Files to inspect for developers
+
+- Backend server: [backend/server.js](backend/server.js)
+- DB config: [backend/config/db.js](backend/config/db.js)
+- Routes: [backend/routes](backend/routes)
+- Controllers: [backend/controllers](backend/controllers)
+- Frontend entry: [client/src/main.jsx](client/src/main.jsx)
+- Frontend app routes: [client/src/App.jsx](client/src/App.jsx)
+
+---
+
+Thank you — FurniHaven is intended as a practical, deployable small-business platform that turns content into customers. If you'd like, I can also:
+- Prepare a production-deploy checklist (Docker + environment + HTTPS)
+- Add a `docs/` folder with API examples and Postman collection
+- Scaffold payment integration and checkout flow
+
+Tell me which of these you'd like next.
 
 The dashboard in `frontend/src/components/dashboard/jsx/Dashboard.jsx` is a single shell that swaps sections dynamically via a menu map.
 
@@ -601,3 +437,20 @@ If you are working in this codebase, the main architectural concepts to remember
 - Cloudinary-backed media
 - MongoDB-driven content and catalog persistence
 - dashboard components for operational workflows
+
+
+# 📞 Contact & Support
+- For support, custom development, or business inquiries, please  contact the maintainer directly.
+  - Name: Simon Mbithi
+  - Email: simonmbithi143@gmail.com
+  - Phone: +254 703 433 014 (Kenya)
+  - GitHub: https://github.com/SIMON-cloud-tech
+
+# If you find a bug or have a feature request, please open an issue on the GitHub repository.
+
+ # 🏗️ Project Status
+
+- This project is currently stable and feature-complete as a deployable starter kit for a furniture business. It is ready for production hosting.
+    - Current Version: 1.0.0
+    - Status: Production-ready
+    - Last Updated: August 2026
