@@ -151,9 +151,7 @@ cd frontend && npm run dev   # frontend only
 cd backend && npm run dev    # backend only
 ```
 
-*(Note: confirm whether your repository names the frontend folder `client/` or `frontend/` — earlier project notes used both; keep this README's commands matched to whichever your actual folder is named.)*
-
----
+```The entire project is deployed on Render as below. https://furnihaven.onrender.com/
 
 ## 6. Environment Variables
 
