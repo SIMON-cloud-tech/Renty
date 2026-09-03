@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaWhatsapp } from 'react-icons/fa';
 import heroData from '../../../data/hero.json';
 import '../css/Hero.css';
 
 const TEXT_EXIT_MS = 450;
-const RAIN_DROP_COUNT = 80; // Number of rain drops
+const WHATSAPP_NUMBER = '254700000000'; // TODO: replace with real number
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Hero = () => {
   const { slides, settings } = heroData;
   const {
     slideDuration = 60000,
-    transitionDuration = 1100,
+    transitionDuration = 1500,
     autoPlay = true,
     showDots = true,
   } = settings;
@@ -27,19 +28,6 @@ const Hero = () => {
   const [isFlipping, setIsFlipping] = useState(false);
   const [textIndex, setTextIndex] = useState(0);
   const [textPhase, setTextPhase] = useState('text-in');
-
-  // Generate rain drops once (memoized)
-  const rainDrops = useMemo(() => {
-    return Array.from({ length: RAIN_DROP_COUNT }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100, // Random horizontal position (%)
-      animationDuration: 0.8 + Math.random() * 0.8, // 0.8s - 1.6s
-      animationDelay: Math.random() * 2, // Random delay
-      height: 10 + Math.random() * 15, // Drop length (10-25px)
-      opacity: 0.2 + Math.random() * 0.4, // Subtle opacity (0.2-0.6)
-      width: Math.random() > 0.7 ? 2 : 1, // Some drops thicker
-    }));
-  }, []);
 
   useEffect(() => {
     heroRef.current?.style.setProperty('--flip-duration', `${transitionDuration}ms`);
@@ -104,10 +92,8 @@ const Hero = () => {
       },
       { threshold: 0.1 }
     );
-
     const currentHero = heroRef.current;
     if (currentHero) observer.observe(currentHero);
-
     return () => {
       if (currentHero) observer.unobserve(currentHero);
       clearInterval(slideIntervalRef.current);
@@ -135,87 +121,92 @@ const Hero = () => {
   const displayedTextSlide = slides[textIndex];
 
   return (
-    <section className="hero" ref={heroRef}>
-      {/* Background: current slide + flipping layer */}
-      <div className="hero-background">
-        <div
-          className="hero-bg-current ken-burns"
-          style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
-        />
+    <section className="hero-split" ref={heroRef}>
+      {/* ===== LEFT — text column, plain background ===== */}
+      <div className="hero-split__content">
+        <div className={`hero-split__text ${textPhase}`}>
+          <h2 className="hero-split__title">{displayedTextSlide.title}</h2>
+          <span className="hero-split__accent-line" aria-hidden="true" />
 
-        {outgoingSlide !== null && (
-          <div
-            className={`hero-bg-flip dir-${direction} ${isFlipping ? 'flip-out' : ''}`}
-            style={{ backgroundImage: `url(${slides[outgoingSlide].image})` }}
-            aria-hidden="true"
-          />
+          <p className="hero-split__subtitle">{displayedTextSlide.subtitle}</p>
+
+          <p className="hero-split__tagline">{displayedTextSlide.tagline}</p>
+
+          <div className="hero-split__cta">
+            {displayedTextSlide.primaryCTA && displayedTextSlide.primaryPath && (
+              <button
+                className="btn btn-primary"
+                onClick={() => handleNavigation(displayedTextSlide.primaryPath)}
+              >
+                {displayedTextSlide.primaryCTA} →
+              </button>
+            )}
+            {displayedTextSlide.secondaryCTA && displayedTextSlide.secondaryPath && (
+              <button
+                className="btn btn-secondary"
+                onClick={() => handleNavigation(displayedTextSlide.secondaryPath)}
+              >
+                {displayedTextSlide.secondaryCTA} →
+              </button>
+            )}
+          </div>
+        </div>
+
+        {showDots && (
+          <div className="hero-split__dots">
+            {slides.map((slide, index) => (
+              <button
+                key={slide.id}
+                className={`hero-dot ${index === currentSlide ? 'active' : ''}`}
+                onClick={() => goToSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                style={
+                  index === currentSlide
+                    ? { '--dot-play-state': autoPlay ? 'running' : 'paused' }
+                    : undefined
+                }
+              >
+                {index === currentSlide && (
+                  <span
+                    className="hero-dot-fill"
+                    style={{ animationDuration: `${slideDuration}ms` }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
         )}
       </div>
 
-      {/* Rain Overlay - NEW */}
-      <div className="hero-rain" aria-hidden="true">
-        {rainDrops.map((drop) => (
-          <span
-            key={drop.id}
-            className="rain-drop"
-            style={{
-              left: `${drop.left}%`,
-              animationDuration: `${drop.animationDuration}s`,
-              animationDelay: `${drop.animationDelay}s`,
-              height: `${drop.height}px`,
-              width: `${drop.width}px`,
-              opacity: drop.opacity,
-            }}
+      {/* ===== RIGHT — angled image panel ===== */}
+      <div className="hero-split__media">
+        <span className="hero-split__badge">
+          <span>Trusted</span>
+          <strong>Quality</strong>
+        </span>
+
+        <div className="hero-split__image-wrap">
+          <div className="hero-split__image-shadow" aria-hidden="true" />
+
+          <div
+            className="hero-split__image-current"
+            style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
           />
-        ))}
-      </div>
 
-      {/* Content Overlay */}
-      <div className="hero-overlay">
-        <div className="hero-content">
-          <div className={`hero-text-content ${textPhase}`}>
-            <h2 className="hero-title">{displayedTextSlide.title}</h2>
-
-            <p className="hero-subtitle">{displayedTextSlide.subtitle}</p>
-
-            <h4 className="marketing-strip">{displayedTextSlide.tagline}</h4>
-
-            <div className="hero-cta">
-              {displayedTextSlide.primaryCTA && displayedTextSlide.primaryPath && (
-                <button
-                  className="btn btn-primary"
-                  onClick={() => handleNavigation(displayedTextSlide.primaryPath)}
-                >
-                  {displayedTextSlide.primaryCTA}
-                </button>
-              )}
-
-              {displayedTextSlide.secondaryCTA && displayedTextSlide.secondaryPath && (
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => handleNavigation(displayedTextSlide.secondaryPath)}
-                >
-                  {displayedTextSlide.secondaryCTA}
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation Dots */}
-      {showDots && (
-        <div className="hero-dots">
-          {slides.map((slide, index) => (
-            <button
-              key={slide.id}
-              className={`hero-dot ${index === currentSlide ? 'active' : ''}`}
-              onClick={() => goToSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
+          {outgoingSlide !== null && (
+            <div
+              className={`hero-split__image-flip dir-${direction} ${isFlipping ? 'flip-out' : ''}`}
+              style={{ backgroundImage: `url(${slides[outgoingSlide].image})` }}
+              aria-hidden="true"
             />
-          ))}
+          )}
+
+          <div className="hero-split__vignette" aria-hidden="true" />
+          <div className="hero-split__grain" aria-hidden="true" />
         </div>
-      )}
+      </div>
+
+      {/* ===== Floating WhatsApp ===== */}
     </section>
   );
 };

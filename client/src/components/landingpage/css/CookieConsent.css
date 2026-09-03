@@ -1,8 +1,10 @@
 /* ===== COOKIE CONSENT ===== */
 .cookie-consent {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;  /* ← Changed from left to right */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 9998;
   animation: cookieSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
@@ -19,26 +21,32 @@
 }
 
 .cookie-consent__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
   background: var(--color-bg-elevated);
-  border-radius: var(--radius-md);
+  border-top: 1px solid var(--color-border);
   box-shadow: var(--shadow-md);
-  border: 1px solid var(--color-border);
-  padding: 1.25rem;
-  max-width: 380px;
+  padding: 1.25rem 2rem;
   width: 100%;
+  max-width: 100%;
 }
 
 .cookie-consent__header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  flex: 1 1 auto;
+  min-width: 200px;
 }
 
 .cookie-consent__icon {
   color: var(--color-accent);
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .cookie-consent__title {
@@ -52,11 +60,11 @@
   font-size: 0.9rem;
   color: var(--color-text-secondary);
   line-height: 1.6;
-  margin-bottom: 1rem;
+  flex: 2 1 300px;
+  margin: 0;
 }
 
 .cookie-consent__details {
-  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -64,6 +72,7 @@
   background: var(--color-bg);
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
+  flex-basis: 100%;
 }
 
 .cookie-detail {
@@ -85,7 +94,9 @@
 
 .cookie-consent__actions {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
+  flex: 0 0 auto;
   flex-wrap: wrap;
 }
 
@@ -100,6 +111,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .cookie-btn--accept {
@@ -136,15 +148,14 @@
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
-  .cookie-consent {
-    bottom: 1rem;
-    right: 1rem;
-    left: 1rem;
+  .cookie-consent__card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.25rem;
   }
 
-  .cookie-consent__card {
-    max-width: 100%;
-    padding: 1rem;
+  .cookie-consent__text {
+    flex-basis: auto;
   }
 
   .cookie-consent__actions {

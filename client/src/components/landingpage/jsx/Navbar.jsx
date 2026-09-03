@@ -72,9 +72,6 @@ const Navbar = ({ cart, setCart, cartCount = 0 }) => {
           </div>
 
           <div className="utility-right">
-            <button className="utility-icon-btn" aria-label="Search">
-              <FiSearch size={18} />
-            </button>
             <Link to="/admin" className="utility-icon-btn" aria-label="Admin login">
               <FiUser size={18} />
             </Link>

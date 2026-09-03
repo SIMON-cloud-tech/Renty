@@ -36,7 +36,7 @@ const CookieConsent = () => {
     }));
     setVisible(false);
     setShowDetails(false);
-  });
+  }, []);
 
   if (!visible) return null;
 

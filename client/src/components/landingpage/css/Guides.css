@@ -2,12 +2,16 @@
 .guides-section {
   padding: 4rem 2rem;
   background: var(--color-bg);
+  position: relative;
+  overflow: hidden;
 }
 
 .guides-container {
-  max-width: 100vw;
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 /* ===== HEADER - Centered ===== */
@@ -42,91 +46,85 @@
   gap: 2.5rem;
 }
 
-/* ===== GUIDE CARD ===== */
+/* ===== GUIDE CARD — big split, image left / content right ===== */
 .guide-card {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 300px;
+  grid-template-columns: 45% 55%;
+  align-items: stretch;
+  min-height: 480px;
   background: var(--color-bg-elevated);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid var(--color-border);
-}
-
-/* ===== READ MORE ===== */
-.guide-read-more {
-  display: inline-block;
-  margin-top: 1rem;
-  color: var(--color-accent);
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.guide-read-more:hover {
-  color: var(--color-accent-hover);
-  text-decoration: underline;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
 }
 
 .guide-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.25), var(--shadow-md);
 }
 
-/* ===== IMAGE - Fills entire grid cell ===== */
+/* ===== IMAGE — fills its column, subtle zoom on hover ===== */
 .guide-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
-  margin: 0;
-  padding: 0;
-  border: none;
-  align-self: stretch;
-  justify-self: stretch;
-  transition: transform 0.3s ease;
   min-height: 100%;
-  min-width: 100%;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .guide-card:hover .guide-image {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
-/* ===== CONTENT ===== */
+/* ===== CONTENT — generous padding, centered vertically ===== */
 .guide-content {
   display: flex;
-  width: 100%;
   flex-direction: column;
   justify-content: center;
-  padding: 1.75rem;
+  padding: 3.5rem 3rem;
   background: var(--color-bg-elevated);
-  overflow-y: auto;
+  gap: 0.25rem;
 }
 
 .guide-title {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.5px;
   color: var(--color-text-primary);
-  margin-bottom: 0.75rem;
-  line-height: 1.3;
+  margin-bottom: 0.9rem;
+  position: relative;
+}
+
+/* Accent underline — our stand-in for the two-tone title treatment,
+   using the mood's own accent color instead of a hardcoded hue */
+.guide-title::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  margin-top: 1rem;
 }
 
 .guide-description {
-  font-size: 0.95rem;
+  font-size: 1.02rem;
   color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin-bottom: 1.25rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+  max-width: 520px;
 }
 
 /* ===== FEATURES LIST ===== */
 .guide-features {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1.75rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -136,7 +134,7 @@
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--color-text-secondary);
   line-height: 1.5;
 }
@@ -147,6 +145,48 @@
   line-height: 1.5;
   flex-shrink: 0;
   margin-top: -2px;
+}
+
+/* ===== READ MORE — now styled as a solid CTA button, matching "Shop Now" ===== */
+.guide-read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  padding: 0.85rem 1.9rem;
+  background: var(--color-text-primary);
+  color: var(--color-bg);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.guide-read-more::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.65s ease;
+  pointer-events: none;
+}
+
+.guide-read-more:hover::before {
+  left: 130%;
+}
+
+.guide-read-more:hover {
+  background: var(--color-accent);
+  color: var(--color-text-on-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--color-accent) 40%, transparent);
 }
 
 /* ===== VIEW ALL BUTTON ===== */
@@ -203,6 +243,11 @@
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+  .guide-title { font-size: 1.7rem; }
+  .guide-content { padding: 2.5rem 2rem; }
+}
+
 @media (max-width: 768px) {
   .guides-section {
     padding: 3rem 1rem;
@@ -214,17 +259,19 @@
 
   .guide-card {
     grid-template-columns: 1fr;
-    grid-auto-rows: auto;
+    min-height: unset;
   }
 
   .guide-image {
-    height: 220px;
-    min-height: 220px;
+    height: 260px;
+    min-height: 260px;
   }
 
   .guide-content {
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
   }
+
+  .guide-title { font-size: 1.6rem; }
 }
 
 @media (max-width: 480px) {
@@ -233,7 +280,7 @@
   }
 
   .guide-title {
-    font-size: 1.1rem;
+    font-size: 1.35rem;
   }
 
   .guide-description {
@@ -243,4 +290,18 @@
   .guide-feature-item {
     font-size: 0.85rem;
   }
+
+  .guide-read-more {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  .guide-card { transition: none; }
+  .guide-card:hover { transform: none; }
+  .guide-image { transition: none; }
+  .guide-card:hover .guide-image { transform: none; }
+  .guide-read-more::before { display: none; }
 }

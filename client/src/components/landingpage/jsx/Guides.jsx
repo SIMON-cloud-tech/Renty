@@ -2,37 +2,19 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../css/Guides.css';
 
-const LIGHT_COUNT = 2;
+const LIGHT_COUNT = 1;
 const INITIAL_FULL_COUNT = 6;
 const LOAD_MORE_COUNT = 3;
 
 const GuideCard = ({ guide }) => (
   <div
     className="guide-card"
-    style={{
-      display: 'grid',
-      gridTemplateColumns: '3fr 1fr',
-      gridAutoRows: '400px',
-      alignItems: 'stretch',
-      margin: 0,
-      padding: 0,
-    }}
   >
     <img
       src={guide.image}
       alt={guide.title}
       className="guide-image"
       loading="lazy"
-      style={{
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        objectPosition: 'center',
-        display: 'block',
-        margin: 0,
-        padding: 0,
-        border: 'none',
-      }}
     />
 
     <div className="guide-content">

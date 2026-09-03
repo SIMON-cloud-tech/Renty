@@ -12,24 +12,43 @@
   color: var(--color-text-primary);
 }
 
-/* ── Subtle texture ── */
+/* ── Ambient light glow (top-left) — replaces the flat hairline texture ── */
 .contact-section::before {
   content: "";
   position: absolute;
-  inset: 0;
-  opacity: 0.02;
+  top: -12%;
+  left: -12%;
+  width: 55%;
+  height: 60%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent) 18%, transparent) 0%,
+    transparent 70%
+  );
+  filter: blur(60px);
   pointer-events: none;
-  background-image:
-    repeating-linear-gradient(
-      45deg,
-      var(--base-ink) 0px,
-      var(--base-ink) 1px,
-      transparent 1px,
-      transparent 4px
-    );
+  z-index: 0;
 }
 
-/* ── Ensure content sits above ── */
+/* ── Ambient light glow (bottom-right), softer and cooler for balance ── */
+.contact-section::after {
+  content: "";
+  position: absolute;
+  bottom: -18%;
+  right: -10%;
+  width: 48%;
+  height: 55%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent) 12%, transparent) 0%,
+    transparent 70%
+  );
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Ensure content sits above the glow ── */
 .contact-section > * {
   position: relative;
   z-index: 1;
@@ -46,12 +65,15 @@
 
 .contact-title {
   font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
   color: var(--color-text-primary);
   margin-bottom: 0.5rem;
 }
 
 .contact-subtitle {
   font-size: 1.05rem;
+  line-height: 1.6;
   color: var(--color-text-secondary);
   max-width: 650px;
   margin: 0 auto;
@@ -68,30 +90,46 @@
   margin-bottom: 2rem;
 }
 
-/* ── Left ── */
-.contact-left {
-  background: var(--color-bg-elevated);
-  padding: 1.5rem;
+/* ── Left & Right shared "lifted glass card" treatment ── */
+.contact-left,
+.contact-right {
+  background: color-mix(in srgb, var(--color-bg-elevated) 94%, transparent);
+  backdrop-filter: blur(10px);
+  padding: 1.75rem;
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+  box-shadow:
+    0 20px 45px -22px rgba(0, 0, 0, 0.22),
+    var(--shadow-sm);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
 }
 
-.contact-left h3 {
+.contact-left:hover,
+.contact-right:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 26px 55px -22px rgba(0, 0, 0, 0.28),
+    var(--shadow-sm);
+}
+
+.contact-left h3,
+.contact-right h3 {
   font-size: 1.3rem;
+  font-weight: 700;
   color: var(--color-text-primary);
   margin-bottom: 1rem;
 }
 
+/* ── Detail rows ── */
 .detail-row {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.5rem 0;
+  padding: 0.65rem 0;
   text-decoration: none;
   color: var(--color-text-secondary);
-  transition: color 0.3s;
-  border-bottom: 1px solid var(--neutral-100);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+  transition: color 0.3s ease, transform 0.3s ease, padding-left 0.3s ease;
 }
 
 .detail-row:last-child {
@@ -100,18 +138,29 @@
 
 .detail-row:hover {
   color: var(--color-accent);
+  padding-left: 0.35rem;
 }
 
 .detail-row__icon {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: var(--color-accent);
   min-width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.detail-row:hover .detail-row__icon {
+  transform: scale(1.12);
 }
 
 .detail-row strong {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
   color: var(--color-text-muted);
+  letter-spacing: 0.2px;
 }
 
 .detail-row p {
@@ -120,66 +169,77 @@
   color: var(--color-text-primary);
 }
 
+/* ── Hours & delivery sub-cards ── */
 .hours-card,
 .delivery-areas {
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed color-mix(in srgb, var(--color-border) 70%, transparent);
 }
 
 .hours-card h4,
 .delivery-areas h4 {
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: var(--color-text-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
 .hours-card p {
   font-size: 0.9rem;
   color: var(--color-text-secondary);
-  margin: 0.2rem 0;
+  margin: 0.25rem 0;
+  display: flex;
+  justify-content: space-between;
+  max-width: 280px;
 }
 
 .delivery-areas p {
   font-size: 0.9rem;
   color: var(--color-text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-/* ── Right (Form) ── */
-.contact-right {
-  background: var(--color-bg-elevated);
-  padding: 1.5rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
-}
+/* ════════════════════════════════════════
+   RIGHT — FORM
+   ════════════════════════════════════════ */
 
 .contact-right h3 {
-  font-size: 1.3rem;
-  color: var(--color-text-primary);
   margin-bottom: 0.5rem;
 }
 
+/* ── Success state — fixed to use success tokens, not danger ── */
 .success {
-  background: var(--danger-200);
-  color: var(--danger-700);
-  padding: 0.5rem 1rem;
+  background: color-mix(in srgb, var(--success-200, #d4f4dd) 100%, transparent);
+  color: var(--success-700, #1e7a3c);
+  padding: 0.65rem 1rem;
   border-radius: var(--radius-sm);
-  margin-bottom: 0.75rem;
-  border: 1px solid var(--danger-200);
+  margin-bottom: 0.85rem;
+  border: 1px solid var(--success-200, #b8ecc6);
+  font-size: 0.9rem;
+  font-weight: 600;
+  animation: successPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes successPop {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 0.65rem 0.8rem;
-  margin-bottom: 0.75rem;
-  background: var(--color-bg);
+  padding: 0.75rem 0.9rem;
+  margin-bottom: 0.85rem;
+  background: color-mix(in srgb, var(--color-bg) 92%, transparent);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-size: 0.9rem;
   color: var(--color-text-primary);
   box-sizing: border-box;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .contact-form input::placeholder,
@@ -201,29 +261,60 @@
 }
 
 .contact-form button {
+  position: relative;
+  overflow: hidden;
   width: 100%;
-  padding: 0.7rem;
+  padding: 0.8rem;
   background: var(--color-accent);
   color: var(--color-text-on-dark);
   border: none;
   border-radius: var(--radius-sm);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
+  transition: background 0.3s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--color-accent) 35%, transparent);
 }
 
-.contact-form button:hover {
+.contact-form button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.65s ease;
+  pointer-events: none;
+}
+
+.contact-form button:hover:not(:disabled)::before {
+  left: 130%;
+}
+
+.contact-form button:hover:not(:disabled) {
   background: var(--color-accent-hover);
-  transform: scale(1.01);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--color-accent) 45%, transparent);
 }
 
-/* ── Map ── */
+.contact-form button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ════════════════════════════════════════
+   MAP
+   ════════════════════════════════════════ */
+
 .contact-map {
   margin-top: 2rem;
   border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--color-border);
+  box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.2);
 }
 
 .contact-map iframe {
@@ -231,6 +322,7 @@
   height: 300px;
   border: none;
   display: block;
+  filter: grayscale(15%) contrast(1.02);
 }
 
 /* ════════════════════════════════════════
@@ -248,7 +340,12 @@
   }
 
   .contact-section {
-    padding: 2rem 1rem;
+    padding: 3rem 1rem 0;
+  }
+
+  .contact-section::before,
+  .contact-section::after {
+    filter: blur(45px);
   }
 }
 
@@ -256,17 +353,50 @@
   .contact-title {
     font-size: 1.5rem;
   }
-  
+
   .contact-subtitle {
     font-size: 0.95rem;
   }
-  
+
   .contact-left,
   .contact-right {
-    padding: 1rem;
+    padding: 1.25rem;
   }
-  
+
   .contact-map iframe {
     height: 200px;
+  }
+
+  .contact-section::before,
+  .contact-section::after {
+    display: none; /* skip blur compositing cost on small devices */
+  }
+}
+
+/* ════════════════════════════════════════
+   REDUCED MOTION
+   ════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-left,
+  .contact-right {
+    transition: none;
+  }
+  .contact-left:hover,
+  .contact-right:hover {
+    transform: none;
+  }
+  .detail-row,
+  .detail-row__icon {
+    transition: none;
+  }
+  .success {
+    animation: none;
+  }
+  .contact-form button {
+    transition: none;
+  }
+  .contact-form button::before {
+    display: none;
   }
 }

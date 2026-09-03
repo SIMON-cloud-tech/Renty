@@ -25,7 +25,7 @@ function Home() {
       <Process />     
       <Story />
       <Guides variant="light" /> 
-      <Testimonial />
+      <Testimonial /> 
       <BlogSection /> 
       <Reach />
     </>
