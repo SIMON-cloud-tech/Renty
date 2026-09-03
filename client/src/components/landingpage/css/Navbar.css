@@ -107,15 +107,15 @@
 .navbar-logo {
   text-decoration: none;
   font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--color-text-on-dark);
+  font-weight:bolder;
   display: flex;
+  background-color:none;
   align-items: center;
   flex-shrink: 0;
 }
 
 .navbar-logo-img {
-  height: 60px;
+  height: 80px;
   width: auto;
   margin-right: 0.5rem;
 }
