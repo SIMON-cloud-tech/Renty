@@ -7,6 +7,7 @@ const {
   deleteGuide
 } = require('../controllers/guidesController');
 const authMiddleware = require('../middleware/authMiddleware');
+const upload = require('../middleware/uploadMiddleware');
 
 const router = express.Router();
 //public /Get method
