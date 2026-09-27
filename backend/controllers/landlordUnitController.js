@@ -15,6 +15,16 @@ const parseMoney = (value, { min, label }) => {
   return n;
 };
 
+// Coordinates are optional. '' or undefined → null. Otherwise must be a valid number.
+const parseCoord = (value, { min, max, label }) => {
+  if (value === undefined || value === null || value === '') return null;
+  const n = Number(value);
+  if (!Number.isFinite(n) || n < min || n > max) {
+    throw new AppError(`${label} is invalid`, 400);
+  }
+  return n;
+};
+
 // ─── PROTECTED: the logged-in landlord's own units ───
 exports.getMyUnits = asyncHandler(async (req, res) => {
   const units = await Unit.find({ userId: req.user.id })
@@ -26,12 +36,16 @@ exports.getMyUnits = asyncHandler(async (req, res) => {
 
 // ─── PROTECTED: add a unit ───
 exports.addUnit = asyncHandler(async (req, res) => {
-  const { houseType, rent, deposit, location, description } = req.body;
+  const { houseType, rent, deposit, location, latitude, longitude, description } = req.body;
 
   if (!HOUSE_TYPES.includes(houseType)) throw new AppError('Invalid house type', 400);
   const rentNumber = parseMoney(rent, { min: 1, label: 'Rent' });
   const depositNumber = parseMoney(deposit || 0, { min: 0, label: 'Deposit' });
   if (!location || !location.trim()) throw new AppError('Location is required', 400);
+
+  // Optional pin — captured from the landlord's device when they list.
+  const lat = parseCoord(latitude,  { min: -90,  max: 90,  label: 'Latitude' });
+  const lng = parseCoord(longitude, { min: -180, max: 180, label: 'Longitude' });
 
   const images = await uploadImages(req.files);
 
@@ -42,6 +56,8 @@ exports.addUnit = asyncHandler(async (req, res) => {
     rent: rentNumber,
     deposit: depositNumber,
     location: location.trim(),
+    latitude: lat,
+    longitude: lng,
     description: description || '',
     images,
   });
@@ -51,7 +67,7 @@ exports.addUnit = asyncHandler(async (req, res) => {
 
 // ─── PROTECTED: update one of the landlord's own units ───
 exports.updateUnit = asyncHandler(async (req, res) => {
-  const { houseType, rent, deposit, location, description } = req.body;
+  const { houseType, rent, deposit, location, latitude, longitude, description } = req.body;
 
   const unit = await Unit.findOne({ id: req.params.id, userId: req.user.id });
   if (!unit) throw new AppError('Unit not found or unauthorized', 404);
@@ -65,6 +81,12 @@ exports.updateUnit = asyncHandler(async (req, res) => {
   if (location !== undefined) {
     if (!location.trim()) throw new AppError('Location is required', 400);
     unit.location = location.trim();
+  }
+  if (latitude !== undefined) {
+    unit.latitude = parseCoord(latitude, { min: -90, max: 90, label: 'Latitude' });
+  }
+  if (longitude !== undefined) {
+    unit.longitude = parseCoord(longitude, { min: -180, max: 180, label: 'Longitude' });
   }
   if (description !== undefined) unit.description = description;
 

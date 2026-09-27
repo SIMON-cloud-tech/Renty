@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Client = require('../models/Client');
+const Landlord = require('../models/Landlord');
 const { asyncHandler, AppError } = require('../utils/errorHandler');
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -15,19 +17,24 @@ const COOKIE_OPTIONS = {
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
-// Only these roles can be chosen at signup. 'business' is never self-registered.
 const SIGNUP_ROLES = ['client', 'landlord'];
 
 const signToken = (user) =>
   jwt.sign({ id: user._id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
 
-const publicUser = (user) => ({ id: user._id, name: user.name, email: user.email, role: user.role });
+const publicUser = (user) => ({
+  id: user._id,
+  name: user.name,
+  email: user.email,
+  phone: user.phone,
+  role: user.role,
+});
 
 // ========== REGISTER ==========
 exports.register = asyncHandler(async (req, res) => {
-  const { fullName, email, password, role } = req.body;
+  const { fullName, email, phone, password, role } = req.body;
 
-  if (!fullName || !email || !password || !role) {
+  if (!fullName || !email || !phone || !password || !role) {
     throw new AppError('All fields are required', 400);
   }
   if (!SIGNUP_ROLES.includes(role)) {
@@ -35,6 +42,9 @@ exports.register = asyncHandler(async (req, res) => {
   }
   if (password.length < 8) {
     throw new AppError('Password must be at least 8 characters', 400);
+  }
+  if (!/^254\d{9}$/.test(phone)) {
+    throw new AppError('Phone must be in format 2547XXXXXXXX', 400);
   }
 
   const normalizedEmail = email.toLowerCase().trim();
@@ -44,12 +54,28 @@ exports.register = asyncHandler(async (req, res) => {
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
+
+  // 1. Create the User (identity: name, email, phone, password, role)
   const newUser = await new User({
     name: fullName,
     email: normalizedEmail,
+    phone,
     password: hashedPassword,
     role,
   }).save();
+
+  // 2. Create the role-specific profile (Client or Landlord).
+  try {
+    if (role === 'client') {
+      await new Client({ userId: newUser._id, name: fullName, phone }).save();
+    } else if (role === 'landlord') {
+      await new Landlord({ userId: newUser._id, name: fullName, phone }).save();
+    }
+  } catch (profileErr) {
+    // Roll back the User so a failed profile doesn't leave a half-made account.
+    await User.deleteOne({ _id: newUser._id });
+    throw profileErr;
+  }
 
   res.cookie('token', signToken(newUser), COOKIE_OPTIONS);
   res.status(201).json({ user: publicUser(newUser) });
@@ -83,7 +109,13 @@ exports.getProfile = asyncHandler(async (req, res) => {
   if (!user) {
     throw new AppError('User not found', 404);
   }
-  res.json({ id: user._id, name: user.name, email: user.email, role: user.role });
+  res.json({
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    phone: user.phone,
+    role: user.role,
+  });
 });
 
 // ========== LOGOUT ==========

@@ -14,6 +14,8 @@ const unitSchema = new mongoose.Schema({
   location: { type: String, required: true, trim: true, maxlength: 150 },
   description: { type: String, default: '', trim: true, maxlength: 5000 },
   images: { type: [String], default: [] },
+   latitude:  { type: Number, default: null, min: -90,  max: 90 },
+  longitude: { type: Number, default: null, min: -180, max: 180 },
 
   // 'reserved' holds the unit while an M-Pesa prompt is pending
   status: { type: String, enum: ['vacant', 'reserved', 'occupied'], default: 'vacant' },
@@ -23,5 +25,6 @@ const unitSchema = new mongoose.Schema({
 
 unitSchema.index({ userId: 1 });
 unitSchema.index({ status: 1, location: 1 });
+unitSchema.index({ status: 1, latitude: 1, longitude: 1 });
 
 module.exports = mongoose.model('Unit', unitSchema);

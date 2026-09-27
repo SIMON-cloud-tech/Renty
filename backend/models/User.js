@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true, maxlength: 100 },
   email: { type: String, required: true, unique: true, trim: true, lowercase: true },
   password: { type: String, required: true }, // bcrypt hash, never plain text
+  phone: { type: String, required: true, trim: true, match: /^254\d{9}$/ },
   role: { type: String, enum: ['business', 'landlord', 'client'], default: 'client' },
 }, { timestamps: true });
 
