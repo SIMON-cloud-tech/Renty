@@ -10,6 +10,7 @@ import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import HousesPage from './pages/HousesPage.jsx';
 import Contact from './pages/Contact.jsx';
+import Affordability from './components/LandingPage/jsx/Affordability.jsx';
 import Blog from './components/LandingPage/jsx/BlogSection.jsx';
 import Guides from './components/LandingPage/jsx/Guides.jsx';
 import Privacy from './components/LandingPage/jsx/Privacy.jsx';
@@ -77,6 +78,7 @@ function App() {
         <Route path="/houses/:id" element={<HouseDetail />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/affordability" element={<Affordability />} />
       </Route>
 
       {/* One login/signup form for all roles */}

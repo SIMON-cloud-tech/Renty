@@ -8,6 +8,7 @@ import Testimonials from '../components/LandingPage/jsx/Testimonials.jsx';
 import Reach from '../components/LandingPage/jsx/Reach.jsx';
 import Guides from '../components/LandingPage/jsx/Guides.jsx';
 import BlogSection from '../components/LandingPage/jsx/BlogSection.jsx';
+import Affordability from '../components/LandingPage/jsx/Affordability.jsx';
 
 function Home() {
   return (
@@ -21,6 +22,7 @@ function Home() {
       <House />
       <Process />
       <Videos />
+      <Affordability />
       <Houses variant="light" />
       <Testimonials />
       <Reach />

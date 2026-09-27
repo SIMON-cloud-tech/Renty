@@ -1,0 +1,341 @@
+/* ============================================================
+   Affordability Tool — uses root design tokens
+   ============================================================ */
+
+.afford {
+  padding: 4rem 1.5rem;
+  background: var(--color-bg);
+}
+
+.afford-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ── Left: input panel ── */
+.afford-left {
+  position: sticky;
+  top: 2rem;
+}
+
+.afford-tag {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background: color-mix(in srgb, var(--color-accent) 15%, transparent);
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.afford-title {
+  font-size: 2rem;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  margin: 0 0 1rem;
+}
+
+.afford-lead {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.75rem;
+}
+
+.afford-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.afford-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.afford-field span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.afford-field input {
+  padding: 0.85rem 1rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+  transition: border-color 0.2s;
+}
+
+.afford-field input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* ── Result summary ── */
+.afford-summary {
+  margin-top: 1.5rem;
+  padding: 1.1rem 1.2rem;
+  background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-elevated));
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  color: var(--color-accent);
+}
+
+.afford-summary-line {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--color-text-primary);
+}
+
+.afford-summary-line strong {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.afford-summary-sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.afford-note {
+  display: flex;
+  gap: 0.45rem;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+.afford-note svg {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* ── Right: results ── */
+.afford-right {
+  min-height: 320px;
+}
+
+.afford-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  background: var(--color-bg-elevated);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+}
+
+.afford-state h3 {
+  color: var(--color-text-primary);
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.afford-state p {
+  max-width: 360px;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.afford-state.error {
+  border-color: color-mix(in srgb, var(--color-danger) 30%, var(--color-border));
+  color: var(--color-danger);
+}
+
+.afford-results-title {
+  font-size: 1.15rem;
+  color: var(--color-text-primary);
+  margin: 0 0 1rem;
+}
+
+.afford-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.afford-list.stretch {
+  margin-top: 1rem;
+}
+
+/* ── Card ── */
+.afford-card {
+  padding: 1.1rem 1.2rem;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.afford-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.afford-card.stretched {
+  opacity: 0.9;
+  border-style: dashed;
+}
+
+.afford-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.afford-card-title {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.afford-card-rent {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.afford-card-rent em {
+  font-style: normal;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-left: 2px;
+}
+
+.afford-card-location {
+  margin: 0 0 0.9rem;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.afford-card-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 0.75rem;
+}
+
+.afford-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.afford-stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+}
+
+.afford-stat-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.afford-card-reason {
+  margin: 0 0 0.85rem;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.afford-card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.1rem;
+  background: var(--color-brand);
+  color: var(--color-text-on-dark);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.afford-card-btn:hover {
+  background: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+/* ── Stretch section ── */
+.afford-stretch {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 2px dashed var(--color-border);
+}
+
+.afford-stretch-title {
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+  margin: 0 0 0.35rem;
+}
+
+.afford-stretch-sub {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .afford-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .afford-left {
+    position: static;
+  }
+  .afford-title {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .afford {
+    padding: 2.5rem 1rem;
+  }
+  .afford-card-stats {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
