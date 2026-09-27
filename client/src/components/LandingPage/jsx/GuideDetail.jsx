@@ -105,10 +105,10 @@ const GuideDetail = () => {
   return (
     <>
       <SEO
-        title={`${guide.title ?? 'Guide'} | FurniHaven Guides`}
-        description={guide.description ?? 'Furniture guide from FurniHaven — expert tips and advice.'}
+        title={guide.title ?? 'Guide'}
+        description={guide.description ?? 'A renting guide from Renty — practical tips and advice.'}
         ogImage={guide.image ?? ''}
-        keywords="furniture guide, home decor tips, office furniture advice, Nairobi"
+        keywords="renting guide, house hunting tips, tenant advice, Nairobi rentals"
       />
 
       <div className="guide-detail">

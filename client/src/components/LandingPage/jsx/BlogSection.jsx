@@ -94,10 +94,10 @@ const BlogSection = () => {
     return (
       <section className="blog-section">
         <div className="blog-header">
-          <h2>Furniture Insights & Tips</h2>
+          <h2>Renting Tips & Insights</h2>
         </div>
         <div className="no-blogs">
-          <p>No articles available. Check back soon for furniture tips and inspiration!</p>
+          <p>No articles available. Check back soon for tips on renting and finding your next home!</p>
         </div>
       </section>
     );
@@ -106,14 +106,14 @@ const BlogSection = () => {
   return (
     <>
       <SEO
-        title="Furniture Tips & Inspiration | FurniHaven Blog"
-        description="Read our latest articles on furniture selection, home styling tips, office setup ideas, and interior design inspiration for Nairobi homes and businesses."
-        keywords="furniture blog, home styling, office furniture tips, interior design Kenya, furniture care"
+        title="Renting Tips & Insights"
+        description="Read our latest articles on finding a house, moving tips, budgeting for rent, and making the most of your rental in Nairobi."
+        keywords="renting tips, house hunting Kenya, moving tips Nairobi, rental budgeting, tenant advice Kenya"
       />
       <section className="blog-section">
         <div className="blog-header">
           <div className="blog-head">
-            <h2>Furniture Tips & Inspiration</h2>
+            <h2>Renting Tips & Insights</h2>
           </div>
           {hasMore && (
             <div className="loadmore">

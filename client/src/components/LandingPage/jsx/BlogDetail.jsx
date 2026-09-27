@@ -91,10 +91,10 @@ const BlogDetail = () => {
   return (
     <>
       <SEO
-        title={`${blog.title ?? 'Article'} | FurniHaven Blog`}
-        description={blog.description ?? 'Furniture tips, home styling ideas, and interior design inspiration from FurniHaven.'}
+        title={blog.title ?? 'Article'}
+        description={blog.description ?? 'Renting tips, house hunting advice, and moving guidance from Renty.'}
         ogImage={blog.image ?? ''}
-        keywords={blog.keywords ?? 'furniture tips, home styling, interior design Kenya'}
+        keywords={blog.keywords ?? 'renting tips, house hunting Kenya, moving advice'}
       />
 
       <div className="blog-detail">
@@ -122,7 +122,7 @@ const BlogDetail = () => {
 
           <div className="blog-detail-actions">
             <button className="back-home-btn" onClick={handleNavigateContact}>
-              Get a Free Consultation 🪑
+              Get in Touch 🏠
             </button>
             <button className="back-blog-btn" onClick={handleNavigateBack}>
               ← Back to Articles
