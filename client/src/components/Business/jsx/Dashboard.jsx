@@ -247,7 +247,7 @@ const Dashboard = ({ setUser }) => {
         </section>
 
         <footer className="dashboard-footer">
-          <p>© {new Date().getFullYear()} Business Dashboard. All Rights Reserved. <Link to='/'>Go back</Link></p>
+          <p>© {new Date().getFullYear()} Business Dashboard. All Rights Reserved. <Link to='/houses'>Go back</Link></p>
         </footer>
       </main>
     </div>

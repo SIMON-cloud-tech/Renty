@@ -6,6 +6,7 @@
 .env.*.local
 backend/.env
 frontend/.env
+backend/seed.js
 
 # ============================================
 # DEPENDENCIES
@@ -79,3 +80,4 @@ coverage/
 *.keybackend/data/*.json
 .env
 node_modules/
+backend/seed.js
