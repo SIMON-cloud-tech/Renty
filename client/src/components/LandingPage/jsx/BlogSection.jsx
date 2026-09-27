@@ -1,16 +1,22 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import SEO from '../../SEO/Seo';
 import '../css/BlogSection.css';
 
 const BLOGS_PER_LOAD = 3;
+const LIGHT_COUNT = 3;
 
-const BlogSection = () => {
+const BlogSection = ({ variant = 'full' }) => {
   const [allBlogs, setAllBlogs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterDate, setFilterDate] = useState('');
-  const [visibleCount, setVisibleCount] = useState(BLOGS_PER_LOAD);
+  const [visibleCount, setVisibleCount] = useState(
+    variant === 'light' ? LIGHT_COUNT : BLOGS_PER_LOAD
+  );
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const isFull = variant === 'full';
 
   // ── Fetch blogs ──
   useEffect(() => {
@@ -33,8 +39,10 @@ const BlogSection = () => {
     fetchBlogs();
   }, []);
 
-  // ── Filter blogs ──
+  // ── Filter blogs — full variant only; light just shows the latest ones ──
   const filteredBlogs = useMemo(() => {
+    if (!isFull) return allBlogs;
+
     const term = searchTerm.toLowerCase().trim();
     return allBlogs.filter((blog) => {
       if (!blog) return false; // Guard 3: skip nulls
@@ -49,14 +57,14 @@ const BlogSection = () => {
 
       return titleMatch && dateMatch;
     });
-  }, [searchTerm, filterDate, allBlogs]);
+  }, [searchTerm, filterDate, allBlogs, isFull]);
 
-  const visibleBlogs = useMemo(
-    () => filteredBlogs.slice(0, visibleCount),
-    [filteredBlogs, visibleCount]
-  );
+  const visibleBlogs = useMemo(() => {
+    const limit = isFull ? visibleCount : LIGHT_COUNT;
+    return filteredBlogs.slice(0, limit);
+  }, [filteredBlogs, visibleCount, isFull]);
 
-  const hasMore = visibleCount < filteredBlogs.length;
+  const hasMore = isFull && visibleCount < filteredBlogs.length;
 
   // ── Handlers ──
   const handleSearch = useCallback((e) => {
@@ -78,6 +86,10 @@ const BlogSection = () => {
     () => setVisibleCount((prev) => prev + BLOGS_PER_LOAD),
     []
   );
+
+  const handleViewAll = useCallback(() => {
+    navigate('/blogs');
+  }, [navigate]);
 
   // ── Loading ──
   if (loading) {
@@ -105,17 +117,19 @@ const BlogSection = () => {
 
   return (
     <>
-      <SEO
-        title="Renting Tips & Insights"
-        description="Read our latest articles on finding a house, moving tips, budgeting for rent, and making the most of your rental in Nairobi."
-        keywords="renting tips, house hunting Kenya, moving tips Nairobi, rental budgeting, tenant advice Kenya"
-      />
+      {isFull && (
+        <SEO
+          title="Renting Tips & Insights"
+          description="Read our latest articles on finding a house, moving tips, budgeting for rent, and making the most of your rental in Nairobi."
+          keywords="renting tips, house hunting Kenya, moving tips Nairobi, rental budgeting, tenant advice Kenya"
+        />
+      )}
       <section className="blog-section">
         <div className="blog-header">
           <div className="blog-head">
-            <h2>Renting Tips & Insights</h2>
+            <h2>{isFull ? 'Renting Tips & Insights' : 'From the Blog'}</h2>
           </div>
-          {hasMore && (
+          {isFull && hasMore && (
             <div className="loadmore">
               <button className="load-more-btn" onClick={handleLoadMore}>
                 Load More
@@ -124,36 +138,38 @@ const BlogSection = () => {
           )}
         </div>
 
-        <div className="blog-filters">
-          <div className="filter-wrapper">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search articles..."
-              value={searchTerm}
-              onChange={handleSearch}
-              aria-label="Search blog posts"
-            />
-            <input
-              type="date"
-              className="date-input"
-              value={filterDate}
-              onChange={handleDateFilter}
-              aria-label="Filter by date"
-            />
-            {filterDate && (
-              <button
-                className="clear-filter"
-                onClick={handleClearDate}
-                aria-label="Clear date filter"
-              >
-                ✕
-              </button>
-            )}
+        {isFull && (
+          <div className="blog-filters">
+            <div className="filter-wrapper">
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Search articles..."
+                value={searchTerm}
+                onChange={handleSearch}
+                aria-label="Search blog posts"
+              />
+              <input
+                type="date"
+                className="date-input"
+                value={filterDate}
+                onChange={handleDateFilter}
+                aria-label="Filter by date"
+              />
+              {filterDate && (
+                <button
+                  className="clear-filter"
+                  onClick={handleClearDate}
+                  aria-label="Clear date filter"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
-        {filteredBlogs.length === 0 ? (
+        {isFull && filteredBlogs.length === 0 ? (
           <div className="no-blogs">
             <p>No articles match your search. Try a different keyword.</p>
           </div>
@@ -195,6 +211,14 @@ const BlogSection = () => {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {!isFull && (
+          <div className="blog-cta">
+            <button className="view-all-guides-btn" onClick={handleViewAll}>
+              View All Articles →
+            </button>
           </div>
         )}
       </section>

@@ -25,7 +25,7 @@ function Home() {
       <Testimonials />
       <Reach />
       <Guides />
-      <BlogSection />
+      <BlogSection variant="light" />
     </>
   );
 }
