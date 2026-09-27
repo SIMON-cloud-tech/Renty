@@ -11,12 +11,12 @@ export default defineConfig({
   define: {
     'import.meta.env.VITE_API_BASE_URL': JSON.stringify(
       process.env.NODE_ENV === 'production'
-        ? 'https://energen-6t0a.onrender.com/api'
+        ? 'https://renty-bfhf.onrender.com/api'
         : 'http://localhost:5000/api'
     ),
     'import.meta.env.VITE_IMAGE_BASE_URL': JSON.stringify(
       process.env.NODE_ENV === 'production'
-        ? 'https://energen-6t0a.onrender.com'
+        ? 'https://renty-bfhf.onrender.com'
         : 'http://localhost:5000'
     ),
   }
