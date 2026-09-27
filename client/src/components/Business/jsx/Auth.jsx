@@ -4,7 +4,13 @@ import { FiEye, FiEyeOff, FiSun } from 'react-icons/fi';
 import '../css/Auth.css';
 
 // ── Constants ──
-const INITIAL_FORM = { fullName: '', email: '', password: '', role: 'client' };
+const INITIAL_FORM = {
+  fullName: '',
+  email: '',
+  phone: '',
+  password: '',
+  role: 'client',
+};
 const ENDPOINTS = { login: '/api/login', register: '/api/register' };
 const HOME = { business: '/business', landlord: '/landlord', client: '/client' };
 const SIGNUP_ROLES = [
@@ -37,7 +43,9 @@ const Auth = ({ setUser }) => {
     setMessage('');
 
     const endpoint = isLogin ? ENDPOINTS.login : ENDPOINTS.register;
-    const body = isLogin ? { email: form.email, password: form.password } : form;
+    const body = isLogin
+      ? { email: form.email, password: form.password }
+      : form;
 
     try {
       const res = await fetch(endpoint, {
@@ -65,7 +73,7 @@ const Auth = ({ setUser }) => {
   }, [isLogin, form, setUser, navigate]);
 
   // ── Render helpers ──
-  const renderField = ({ label, name, type = 'text', placeholder = '', required = false }) => (
+  const renderField = ({ label, name, type = 'text', placeholder = '', required = false, pattern }) => (
     <div className="form-group" key={name}>
       <label>{label}</label>
       {name === 'password' ? (
@@ -74,7 +82,15 @@ const Auth = ({ setUser }) => {
           <span className="password-toggle" onClick={togglePassword}>{showPassword ? <FiEyeOff /> : <FiEye />}</span>
         </div>
       ) : (
-        <input type={type} name={name} value={form[name] || ''} onChange={handleChange} placeholder={placeholder} required={required} />
+        <input
+          type={type}
+          name={name}
+          value={form[name] || ''}
+          onChange={handleChange}
+          placeholder={placeholder}
+          required={required}
+          pattern={pattern}
+        />
       )}
     </div>
   );
@@ -82,17 +98,28 @@ const Auth = ({ setUser }) => {
   const fieldConfigs = [
     { label: 'Full Name', name: 'fullName', placeholder: 'John Doe', required: true },
     { label: 'Email Address', name: 'email', type: 'email', placeholder: 'john@example.com', required: true },
+    {
+      label: 'M-Pesa Phone Number',
+      name: 'phone',
+      type: 'tel',
+      placeholder: '254712345678',
+      required: true,
+      pattern: '^254\\d{9}$',
+    },
     { label: 'Password', name: 'password', placeholder: '••••••••', required: true },
   ];
 
-  const visibleFields = isLogin ? fieldConfigs.slice(1) : fieldConfigs;
+  // On login only email + password are shown; on signup all four.
+  const visibleFields = isLogin
+    ? fieldConfigs.filter(f => f.name === 'email' || f.name === 'password')
+    : fieldConfigs;
 
   return (
     <div className="auth">
       {/* ── Left ── */}
       <div className="auth-left">
         <div className="logo-container"><FiSun size={80} color="var(--color-accent)" /></div>
-        <h1>Your App Name</h1>
+        <h1>Renty</h1>
         <p>Find, list and manage rental homes in one place.</p>
       </div>
 

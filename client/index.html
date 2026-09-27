@@ -1,16 +1,67 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<link rel="icon" type="image/png" sizes="32x32" href="/logo.png" />
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/logo.png" />
 
   <!-- Android Chrome -->
   <link rel="manifest" href="/site.webmanifest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Renty Rental Properties Platform</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <meta name="theme-color" content="#0f172a" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO — real estate / rentals -->
+  <title>Renty — Find Houses, Bedsitters & Apartments for Rent</title>
+  <meta
+    name="description"
+    content="Renty connects tenants with landlords. Browse verified bedsitters, single rooms, 1–3 bedroom houses and apartments for rent, view photos, and book directly with M-Pesa."
+  />
+  <meta
+    name="keywords"
+    content="houses for rent, apartments for rent, bedsitters, single rooms, rental properties, Kenya rentals, Nairobi houses, M-Pesa rent payment"
+  />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Renty" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://renty.co.ke/" />
+
+  <!-- Open Graph — social share cards -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Renty" />
+  <meta property="og:title" content="Renty — Find Your Next Home to Rent" />
+  <meta
+    property="og:description"
+    content="Browse verified rental listings across Kenya. Filter by location and budget, view real photos, and reserve your house with M-Pesa."
+  />
+  <meta property="og:image" content="/logo.png" />
+  <meta property="og:url" content="https://renty.co.ke/" />
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Renty — Find Your Next Home to Rent" />
+  <meta
+    name="twitter:description"
+    content="Verified houses, bedsitters and apartments for rent. Reserve with M-Pesa."
+  />
+  <meta name="twitter:image" content="/logo.png" />
+
+  <!-- Structured data — helps Google show rental listings -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "name": "Renty",
+    "description": "Rental property marketplace connecting tenants and landlords in Kenya.",
+    "url": "https://renty.co.ke/",
+    "areaServed": "Kenya",
+    "priceRange": "KES",
+    "serviceType": "Rental Property Listings"
+  }
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
 </html>

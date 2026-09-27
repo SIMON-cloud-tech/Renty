@@ -6,7 +6,7 @@ import '../css/Chatbot.css';
 function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hello! Welcome to FurniHaven. How can I help you find the perfect furniture today?", sender: 'bot' }
+    { text: "Hello! Welcome to Renty. How can I help you find the perfect home today?", sender: 'bot' }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -33,7 +33,7 @@ function Chatbot() {
       });
       const data = await res.json();
       setMessages(prev => [...prev, {
-        text: data.reply || "I'm not sure how to respond. Please contact us directly at info@furnihaven.co.ke or +254727713219.",
+        text: data.reply || "I'm not sure how to respond. Please contact us directly at info@renty.co.ke or +254727713219.",
         sender: 'bot'
       }]);
     } catch {
@@ -66,7 +66,7 @@ function Chatbot() {
           <div className="chatbot-header">
             <div className="chatbot-header-info">
               <FaRobot size={18} />
-              <span>FurniHaven Assistant</span>
+              <span>Renty Assistant</span>
             </div>
             <div className="chatbot-header-actions">
               <button onClick={toggleMinimize} className="chatbot-minimize-btn" aria-label="Minimize">
@@ -110,7 +110,7 @@ function Chatbot() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask about furniture, pricing, delivery..."
+                  placeholder="Ask about houses, pricing, M-Pesa payments..."
                   disabled={loading}
                 />
                 <button onClick={handleSend} disabled={loading || !input.trim()} aria-label="Send">

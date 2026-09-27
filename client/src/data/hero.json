@@ -1,13 +1,12 @@
 {
   "settings": {
     "slideDuration": 10000,
-    "fadeDuration": 0.9
+    "fadeDuration": 0.9,
+    "video": "/bg2.mp4"
   },
   "slides": [
     {
       "id": 1,
-      "video": "/bg1.mp4",
-      "poster": "/bg.jpeg",
       "title": "Find a home you'll love",
       "subtitle": "Browse houses from bedsitters to family homes, all in one place.",
       "tagline": "Bedsitter • 1 Bedroom • 2 Bedroom • 3 Bedroom",
@@ -18,8 +17,6 @@
     },
     {
       "id": 2,
-      "video": "/bg2.mp4",
-      "poster": "/bg.jpeg",
       "title": "Book securely with M-Pesa",
       "subtitle": "Pay to reserve your house, then approve the payment once you're happy.",
       "tagline": "Pay by M-Pesa • Approve when you move in",
@@ -30,8 +27,6 @@
     },
     {
       "id": 3,
-      "video": "/bg3.mp4",
-      "poster": "/bg.jepg",
       "title": "Landlords, list with us",
       "subtitle": "Put your units in front of renters and track every payment in one dashboard.",
       "tagline": "List units • Track payments • Manage tenants",

@@ -705,3 +705,157 @@
   color: var(--color-accent);
   border-left-color: var(--color-accent);
 }
+
+/* ── Near Me button — matches dashboard theme ── */
+.near-me-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.65rem 1rem;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.near-me-btn:hover {
+  background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-elevated));
+  border-color: var(--color-accent);
+}
+
+.near-me-btn:active {
+  transform: scale(0.97);
+}
+
+.near-me-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-brand);
+}
+
+.near-me-btn.active:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+/* ── Status text under the button ── */
+.near-me-status {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.near-me-clear-inline {
+  background: none;
+  border: none;
+  color: var(--color-danger);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.near-me-clear-inline:hover {
+  color: var(--color-danger-hover, var(--color-danger));
+  opacity: 0.85;
+}
+
+/* ── Distance badge on each house card ── */
+.house-distance-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: color-mix(in srgb, var(--color-brand) 85%, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: var(--color-text-on-dark);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  z-index: 2;
+}
+
+.house-image {
+  position: relative;
+}
+
+/* ── Row layout: search + near-me + load-more ── */
+.search-loadmore-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.search-loadmore-wrapper .searchbar {
+  flex: 1 1 260px;
+  min-width: 200px;
+}
+
+.search-loadmore-wrapper .near-me-btn,
+.search-loadmore-wrapper .load-more-btn {
+  flex: 0 0 auto;
+}
+
+/* ── Mobile tuning ── */
+@media (max-width: 768px) {
+  .search-loadmore-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-loadmore-wrapper .searchbar,
+  .search-loadmore-wrapper .near-me-btn,
+  .search-loadmore-wrapper .load-more-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .near-me-status {
+    font-size: 0.75rem;
+  }
+}
+
+/* ── Dark theme — matches the rest of the dashboard rules ── */
+.dashboard.dark .near-me-btn {
+  background: var(--walnut-600);
+  border-color: var(--walnut-500);
+  color: var(--color-text-on-dark);
+}
+
+.dashboard.dark .near-me-btn:hover {
+  background: color-mix(in srgb, var(--color-accent) 15%, var(--walnut-600));
+  border-color: var(--color-accent);
+}
+
+.dashboard.dark .near-me-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-brand);
+}
+
+.dashboard.dark .near-me-status {
+  color: var(--color-text-on-dark-muted);
+}
+
+.dashboard.dark .near-me-clear-inline {
+  color: var(--color-danger);
+}
+
+.dashboard.dark .house-distance-badge {
+  background: color-mix(in srgb, var(--base-ink) 85%, transparent);
+  color: var(--color-text-on-dark);
+}

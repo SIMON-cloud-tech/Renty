@@ -10,7 +10,7 @@ const Loader = () => {
         <span className="dot"></span>
         <span className="dot"></span>
       </div>
-      <p className="loader-text">Loading FurniHaven...</p>
+      <p className="loader-text">Loading Renty...</p>
     </div>
   );
 };

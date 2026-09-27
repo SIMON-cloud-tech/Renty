@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   FiHome, FiUser, FiUsers, FiXCircle, FiSettings, FiLogOut, FiSun, FiMoon,
   FiMenu, FiX, FiChevronDown, FiChevronRight, FiEdit, FiBookOpen, FiMessageCircle, FiBarChart2
@@ -18,7 +18,6 @@ import GuideAnalytics from './GuideAnalytics.jsx';
 import BotAnalytics from './BotAnalytics.jsx';
 import Lead from './Lead.jsx';
 import Testimonials from './TestimonialManage.jsx';
-
 
 const MENU_ICONS = {
   unit: FiHome,
@@ -152,6 +151,11 @@ const Dashboard = ({ setUser }) => {
     [activeMenuItem]
   );
 
+  const goHome = useCallback(() => {
+     closeMobileSidebar();
+     navigate('/');
+     }, [navigate, closeMobileSidebar]);
+
   const greeting = useMemo(getGreeting, []);
 
   // ── Loading ──
@@ -247,7 +251,9 @@ const Dashboard = ({ setUser }) => {
         </section>
 
         <footer className="dashboard-footer">
-          <p>© {new Date().getFullYear()} Business Dashboard. All Rights Reserved. <Link to='/houses'>Go back</Link></p>
+          <p>© {new Date().getFullYear()} Business Dashboard. All Rights Reserved. 
+          <button onClick={goHome}>Go back</button>
+          </p>
         </footer>
       </main>
     </div>

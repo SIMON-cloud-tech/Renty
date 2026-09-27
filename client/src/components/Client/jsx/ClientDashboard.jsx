@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   FiHome, FiCreditCard, FiSettings, FiLogOut, FiSun, FiMoon,
   FiMenu, FiX, FiChevronDown, FiChevronRight
@@ -85,6 +85,11 @@ const ClientDashboard = ({ setUser }) => {
       closeMobileSidebar();
     }
   }, [closeMobileSidebar, toggleExpand]);
+
+  const goHome = useCallback(() => {
+       closeMobileSidebar();
+       navigate('/');
+       }, [navigate, closeMobileSidebar]);
 
   // ── Memoized values ──
   const activeLabel = useMemo(() => {
@@ -198,7 +203,9 @@ const ClientDashboard = ({ setUser }) => {
         </section>
 
         <footer className="dashboard-footer">
-          <p>© {new Date().getFullYear()} Client Dashboard. All Rights Reserved. <Link to='/houses'>Go back</Link></p>
+          <p>© {new Date().getFullYear()} Client Dashboard. All Rights Reserved. 
+          <button onClick={goHome}>Go back</button>
+          </p>
         </footer>
       </main>
     </div>

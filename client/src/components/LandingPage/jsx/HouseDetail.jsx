@@ -161,7 +161,7 @@ const HouseDetail = () => {
             ) : (
               <div className="placeholder-image">No Image</div>
             )}
-            {house.status && <span className="house-status-badge">{house.status}</span>}
+            {house.status && <span className="status-badge">{house.status}</span>}
           </div>
 
           <div className="house-detail-info">

@@ -51,7 +51,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const FRONTEND_ORIGIN = process.env.NODE_ENV === 'production'
-  ? 'https://furnihaven.onrender.com' // <-- change to your new production frontend URL
+  ? 'https://renty-bfhf.onrender.com/' // <-- change to your new production frontend URL
   : 'http://localhost:5173';
 
 // Behind a reverse proxy (Render etc.) this makes req.ip and express-rate-limit work correctly

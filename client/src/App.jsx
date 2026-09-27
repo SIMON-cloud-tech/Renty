@@ -63,7 +63,7 @@ function App() {
     <Routes>
       {/* Public pages */}
       <Route element={<PublicLayout />}>
-        <Route path="/" element={homePath ? <Navigate to={homePath} replace /> : <Home />} />
+        <Route path="/" element={ <Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/houses" element={<HousesPage />} />
         <Route path="/contact" element={<Contact />} />

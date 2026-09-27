@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useReducer } from 'react';
-import { FiPlus, FiEdit, FiTrash2, FiX } from 'react-icons/fi';
+import { FiPlus, FiEdit, FiTrash2, FiX, FiMapPin } from 'react-icons/fi';
 import '../../Business/css/BlogManage.css'; // keep this file: it supplies the card grid and modal styles reused here
 import '../../Business/css/Unit.css'; // keep this file: it supplies the form styles reused here
 
@@ -9,7 +9,16 @@ const LOAD_MORE = 6;
 const MAX_IMAGES = 4;
 // Must match the houseType enum in models/Unit.js exactly
 const HOUSE_TYPES = ['single room', 'bedsitter', '1 bedroom', '2 bedroom', '3 bedroom'];
-const INITIAL_FORM = { houseType: HOUSE_TYPES[0], rent: '', deposit: '', location: '', description: '', images: [] };
+const INITIAL_FORM = {
+  houseType: HOUSE_TYPES[0],
+  rent: '',
+  deposit: '',
+  location: '',
+  description: '',
+  images: [],
+  latitude: null,
+  longitude: null,
+};
 
 // ── Reducer ──
 const formReducer = (state, action) => {
@@ -24,9 +33,10 @@ const formReducer = (state, action) => {
 
 // ── Unit Card ──
 const UnitCard = ({ unit, confirmDeleteId, onEdit, onDelete }) => {
-  const { id, houseType, rent, location, images, status } = unit;
+  const { id, houseType, rent, location, images, status, latitude } = unit;
   const cover = images?.[0];
   const canDelete = status === 'vacant';
+  const hasPin = latitude != null;
 
   return (
     <div className="project-card">
@@ -35,7 +45,10 @@ const UnitCard = ({ unit, confirmDeleteId, onEdit, onDelete }) => {
       </div>
       <div className="project-info">
         <h3>{houseType || 'Unit'}</h3>
-        <p className="project-short">{location || 'No location'}</p>
+        <p className="project-short">
+          {location || 'No location'}
+          {hasPin && <span className="pin-badge" title="Location pinned"> 📍</span>}
+        </p>
         <div className="unit-meta">
           <span className="unit-rent">KES {rent != null ? Number(rent).toLocaleString() : '—'} / month</span>
           <span className={`unit-status ${status || ''}`}>{status || ''}</span>
@@ -67,6 +80,7 @@ const LandlordUnits = () => {
   const [formData, dispatchForm] = useReducer(formReducer, INITIAL_FORM);
   const [previewUrls, setPreviewUrls] = useState([]);
   const [formError, setFormError] = useState('');
+  const [pinStatus, setPinStatus] = useState('');
 
   // ── Fetch ──
   const fetchUnits = useCallback(async () => {
@@ -94,7 +108,44 @@ const LandlordUnits = () => {
       setPreviewUrls(files.map(f => URL.createObjectURL(f)));
     }
   }, []);
-  const resetForm = useCallback(() => { dispatchForm({ type: 'RESET' }); setPreviewUrls([]); setFormError('') }, []);
+
+  // ── Pin location (uses the device's GPS, no paid API) ──
+  const handlePinLocation = useCallback(() => {
+    if (!navigator.geolocation) {
+      setPinStatus('Location is not supported on this device.');
+      return;
+    }
+    setPinStatus('Getting your location…');
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        dispatchForm({ type: 'SET_FIELD', field: 'latitude', value: latitude });
+        dispatchForm({ type: 'SET_FIELD', field: 'longitude', value: longitude });
+        setPinStatus(`Pinned: ${latitude.toFixed(5)}, ${longitude.toFixed(5)}`);
+      },
+      (err) => {
+        setPinStatus(
+          err.code === err.PERMISSION_DENIED
+            ? 'Permission denied. You can still list without a pin.'
+            : 'Could not get location. Try again outdoors.'
+        );
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  }, []);
+
+  const clearPin = useCallback(() => {
+    dispatchForm({ type: 'SET_FIELD', field: 'latitude', value: null });
+    dispatchForm({ type: 'SET_FIELD', field: 'longitude', value: null });
+    setPinStatus('');
+  }, []);
+
+  const resetForm = useCallback(() => {
+    dispatchForm({ type: 'RESET' });
+    setPreviewUrls([]);
+    setFormError('');
+    setPinStatus('');
+  }, []);
   const handleCancel = useCallback(() => { setShowForm(false); setEditingId(null); resetForm() }, [resetForm]);
   const handleLoadMore = useCallback(() => setVisibleCount(p => p + LOAD_MORE), []);
 
@@ -105,8 +156,14 @@ const LandlordUnits = () => {
     try {
       const url = editingId ? `/api/landlord/units/${editingId}` : '/api/landlord/units';
       const form = new FormData();
-      ['houseType', 'rent', 'deposit', 'location', 'description'].forEach(f => form.append(f, formData[f] ?? ''));
+      ['houseType', 'rent', 'deposit', 'location', 'description'].forEach(f =>
+        form.append(f, formData[f] ?? '')
+      );
+      // Coords are optional — only append if captured
+      if (formData.latitude != null) form.append('latitude', formData.latitude);
+      if (formData.longitude != null) form.append('longitude', formData.longitude);
       formData.images.forEach(file => form.append('images', file));
+
       const res = await fetch(url, { method: editingId ? 'PUT' : 'POST', credentials: 'include', body: form });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
@@ -134,11 +191,27 @@ const LandlordUnits = () => {
 
   // ── Edit ──
   const handleEdit = useCallback((unit) => {
-    const { id, houseType, rent, deposit, location, description } = unit;
+    const { id, houseType, rent, deposit, location, description, latitude, longitude } = unit;
     setEditingId(id);
-    dispatchForm({ type: 'SET_FORM', data: { houseType, rent, deposit: deposit ?? '', location, description: description || '' } });
+    dispatchForm({
+      type: 'SET_FORM',
+      data: {
+        houseType,
+        rent,
+        deposit: deposit ?? '',
+        location,
+        description: description || '',
+        latitude: latitude ?? null,
+        longitude: longitude ?? null,
+      },
+    });
     setPreviewUrls(unit.images || []);
     setFormError('');
+    setPinStatus(
+      latitude != null
+        ? `Pinned: ${latitude.toFixed(5)}, ${longitude.toFixed(5)}`
+        : ''
+    );
     setShowForm(true);
   }, []);
 
@@ -188,6 +261,29 @@ const LandlordUnits = () => {
               <div className="form-group">
                 <label>Location</label>
                 <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="e.g. Kitengela" required />
+              </div>
+
+              {/* ── Pin location ── */}
+              <div className="form-group">
+                <label>Pin the house location</label>
+                <div className="pin-actions">
+                  <button
+                    type="button"
+                    className="pin-location-btn"
+                    onClick={handlePinLocation}
+                  >
+                    <FiMapPin /> Use my current location
+                  </button>
+                  {formData.latitude != null && formData.longitude != null && (
+                    <button type="button" className="clear-pin-btn" onClick={clearPin}>
+                      Clear pin
+                    </button>
+                  )}
+                </div>
+                {pinStatus && <p className="pin-status">{pinStatus}</p>}
+                <p className="pin-hint">
+                  Stand at the house when you tap this so the pin is accurate. Optional — but listings with a pin appear in "near me" searches.
+                </p>
               </div>
 
               <div className="form-group">

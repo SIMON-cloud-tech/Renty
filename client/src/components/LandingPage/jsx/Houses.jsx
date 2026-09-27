@@ -3,10 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import SEO from '../../SEO/Seo';
 import '../css/Houses.css';
 import { cacheUtil } from '../../../utils/cacheUtils';
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight, FiMapPin, FiX } from 'react-icons/fi';
 
 const UNITS_PER_LOAD = 6;
 const LIGHT_UNITS_COUNT = 3;
+const NEAR_RADIUS_KM = 5; // how far "near me" reaches
+
+// ── Haversine: distance between two lat/lng points, in km ──
+const distanceKm = (lat1, lng1, lat2, lng2) => {
+  const R = 6371; // earth radius in km
+  const toRad = (d) => (d * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+};
 
 const Houses = ({ variant = 'full' }) => {
   const navigate = useNavigate();
@@ -17,6 +30,10 @@ const Houses = ({ variant = 'full' }) => {
   );
   const [loading, setLoading] = useState(true);
   const loadMoreRef = useRef(null);
+
+  // ── Near-me state ──
+  const [nearMe, setNearMe] = useState(null);        // { lat, lng } when active
+  const [nearStatus, setNearStatus] = useState('');   // hint / error text
 
   const isLight = variant === 'light';
   const isFull = variant === 'full';
@@ -49,16 +66,71 @@ const Houses = ({ variant = 'full' }) => {
     fetchData();
   }, [isLight]);
 
-  // ── Filter — full variant uses search only ──
-  const filteredHouses = useMemo(() => {
-    if (isLight) return allHouses;
-    const term = searchTerm.toLowerCase().trim();
-    if (!term) return allHouses;
-    return allHouses.filter((h) =>
-      (h.houseType || '').toLowerCase().includes(term) ||
-      (h.location || '').toLowerCase().includes(term)
+  // ── Near me: capture the client's coordinates ──
+  const handleNearMe = useCallback(() => {
+    // Toggle off if already active
+    if (nearMe) {
+      setNearMe(null);
+      setNearStatus('');
+      return;
+    }
+
+    if (!navigator.geolocation) {
+      setNearStatus('Location is not supported on this device.');
+      return;
+    }
+
+    setNearStatus('Getting your location…');
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setNearMe({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setNearStatus('');
+      },
+      (err) => {
+        setNearStatus(
+          err.code === err.PERMISSION_DENIED
+            ? 'Location permission denied. Enable it in your browser to use Near Me.'
+            : 'Could not get your location. Try again outdoors.'
+        );
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
     );
-  }, [searchTerm, allHouses, isLight]);
+  }, [nearMe]);
+
+  const clearNearMe = useCallback(() => {
+    setNearMe(null);
+    setNearStatus('');
+  }, []);
+
+  // ── Filter: search term, then near-me radius, then distance sort ──
+  const filteredHouses = useMemo(() => {
+    let list = allHouses;
+
+    // Light variant: no filters, just the first N
+    if (!isLight) {
+      const term = searchTerm.toLowerCase().trim();
+      if (term) {
+        list = list.filter((h) =>
+          (h.houseType || '').toLowerCase().includes(term) ||
+          (h.location || '').toLowerCase().includes(term)
+        );
+      }
+    }
+
+    // Near-me: keep only units with coords within the radius, add distance, sort
+    if (nearMe) {
+      list = list
+        .filter((h) => h.latitude != null && h.longitude != null)
+        .map((h) => ({
+          ...h,
+          _distanceKm: distanceKm(nearMe.lat, nearMe.lng, h.latitude, h.longitude),
+        }))
+        .filter((h) => h._distanceKm <= NEAR_RADIUS_KM)
+        .sort((a, b) => a._distanceKm - b._distanceKm);
+    }
+
+    return list;
+  }, [searchTerm, allHouses, isLight, nearMe]);
 
   // ── Visible slice ──
   const visibleHouses = useMemo(() => {
@@ -168,12 +240,35 @@ const Houses = ({ variant = 'full' }) => {
                     aria-label="Search houses"
                   />
                 </div>
+
+                <button
+                  className={`near-me-btn ${nearMe ? 'active' : ''}`}
+                  onClick={handleNearMe}
+                  aria-pressed={nearMe}
+                  title={nearMe ? 'Showing homes near you' : 'Show homes near me'}
+                >
+                  {nearMe ? <FiX size={15} /> : <FiMapPin size={15} />}
+                  {nearMe ? 'Clear' : 'Near Me'}
+                </button>
+
                 {hasMore && (
                   <button className="load-more-btn" onClick={handleLoadMore}>
                     Load More
                   </button>
                 )}
               </div>
+
+              {/* Status line: hint, error, or active-near-me summary */}
+              {nearStatus && <p className="near-me-status">{nearStatus}</p>}
+              {nearMe && !nearStatus && (
+                <p className="near-me-status">
+                  Showing homes within {NEAR_RADIUS_KM} km of you.
+                  {filteredHouses.length === 0 && ' No pinned homes in this radius.'}
+                  <button type="button" className="near-me-clear-inline" onClick={clearNearMe}>
+                    Clear
+                  </button>
+                </p>
+              )}
             </>
           )}
         </div>
@@ -190,6 +285,13 @@ const Houses = ({ variant = 'full' }) => {
                   <img src={house.images[0]} alt={house.houseType} loading="lazy" />
                 ) : (
                   <div className="placeholder-image">No Image</div>
+                )}
+                {house._distanceKm != null && (
+                  <span className="house-distance-badge">
+                    {house._distanceKm < 1
+                      ? `${Math.round(house._distanceKm * 1000)} m`
+                      : `${house._distanceKm.toFixed(1)} km`}
+                  </span>
                 )}
               </div>
 
@@ -227,7 +329,11 @@ const Houses = ({ variant = 'full' }) => {
 
         {visibleHouses.length === 0 && (
           <div className="no-houses">
-            <p>No results. Try a different search.</p>
+            <p>
+              {nearMe
+                ? `No pinned homes within ${NEAR_RADIUS_KM} km. Try a different area or clear the filter.`
+                : 'No results. Try a different search.'}
+            </p>
           </div>
         )}
       </div>

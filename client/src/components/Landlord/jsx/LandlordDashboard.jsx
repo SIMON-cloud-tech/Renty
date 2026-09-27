@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   FiHome, FiCreditCard, FiUsers, FiXCircle, FiAlertCircle, FiSettings,
   FiLogOut, FiSun, FiMoon, FiMenu, FiX, FiChevronDown, FiChevronRight
@@ -58,13 +58,23 @@ const LandlordDashboard = ({ setUser }) => {
     setExpandedItems(prev => ({ ...prev, [id]: !prev[id] }));
   }, []);
 
+  // ── Go to public home ──
+  const goHome = useCallback(() => {
+    closeMobileSidebar();
+    navigate('/');
+  }, [navigate, closeMobileSidebar]);
+
   // ── Fetch profile ──
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const res = await fetch('/api/profile', { credentials: 'include' });
         if (!res.ok) {
-          if (res.status === 401) navigate('/admin');
+          if (res.status === 401) {
+            setUser(null);
+            navigate('/admin');
+            return;
+          }
           throw new Error('Failed to fetch profile');
         }
         setProfile(await res.json());
@@ -75,7 +85,7 @@ const LandlordDashboard = ({ setUser }) => {
       }
     };
     fetchProfile();
-  }, [navigate]);
+  }, [navigate, setUser]);
 
   // ── Logout ──
   const handleLogout = useCallback(async () => {
@@ -120,7 +130,7 @@ const LandlordDashboard = ({ setUser }) => {
   // ── Loading ──
   if (loading) return <div className="dashboard-status"><p>Loading dashboard...</p></div>;
 
-  // ── Render helpers ──
+  // ── Render helpers (no hooks in here — just JSX) ──
   const renderMenuItem = ({ id, label, children }) => {
     const Icon = MENU_ICONS[id] || FiSettings;
     const isActive = activeMenuItem === id;
@@ -210,7 +220,8 @@ const LandlordDashboard = ({ setUser }) => {
         </section>
 
         <footer className="dashboard-footer">
-          <p>© {new Date().getFullYear()} Landlord Dashboard. All Rights Reserved. <Link to='/houses'>Go back</Link></p>
+          <p>© {new Date().getFullYear()} Landlord Dashboard. All Rights Reserved.
+          <button onClick={goHome}>Go back</button></p>
         </footer>
       </main>
     </div>
