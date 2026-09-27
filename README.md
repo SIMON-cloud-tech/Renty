@@ -1,174 +1,223 @@
-# Renty — Rental Marketplace & Payment Flow Platform
+# Renty — Rental Marketplace, House Listings & Secure Payment Platform
 
 **Status:** Production-ready | **Version:** 1.0.0 | **Last Updated:** September 2026
 
-Renty is a full-stack rental marketplace that helps clients discover available homes, visit listings, reserve a unit, and pay securely for a rental through the platform. It combines a React + Vite frontend with an Express + MongoDB backend and a role-based admin dashboard for landlords and operations.
+Renty is a full-stack rental platform built for a modern housing marketplace. Clients can browse available homes, visit listings, reserve units, and pay securely through the platform using M-Pesa-based rental payment flows. The system includes public property pages, role-based dashboards for landlords and business users, payment tracking, and operational analytics for rental management.
 
-This README is written to: (a) explain how Renty works for clients and landlords, (b) show developers how to run and deploy the platform, and (c) document the API and the payment flow.
-
----
-
-## 1. What This Product Does (Client-Focused)
-
-- Public property listing experience for searching homes by location, budget, and type.
-- Client-facing flow for viewing available units, contacting landlords, and arranging a visit.
-- Rental reservation and payment initiation using the platform's secure M-Pesa flow.
-- Admin and landlord dashboards for managing units, leads, payments, and property records.
-- Escrow-style handling for rental funds so the money is protected while the unit is being confirmed.
-- Image uploads and property media storage via Cloudinary.
-- Transactional notifications and analytics for leads, enquiries, and payment activity.
-
-**Why clients choose Renty:**
-- **Simple property search** — clients can browse available homes instead of chasing listings manually.
-- **Trust-first rental process** — the platform holds funds during the onboarding and move-in confirmation period.
-- **Clear payment journey** — clients can reserve, pay, and track their rental status from one place.
-- **Operationally easier** — landlords and admins manage listings and payments without custom code.
-
-### 1.1 How a client visits, rents, and pays for a house on Renty
-
-The rental journey on Renty is designed to be simple and safe for both the client and the landlord:
-
-1. A client visits the Renty platform and browses available houses by location, house type, rent range, and other criteria.
-2. They choose a property they like, review details, and can contact the landlord or arrange a physical visit through the platform workflow.
-3. If the client wants the house, they start the rental process from the property page. The backend verifies the unit is still vacant and reserves it for a short time to prevent double-booking.
-4. The system creates a payment record and triggers a payment request using the client's M-Pesa phone number. This is where the house is effectively being secured while the client completes the transaction.
-5. Once the M-Pesa prompt is confirmed, the payment is marked as paid and waits for the final approval flow. The funds are held in a protected flow until the move-in is confirmed.
-6. After the client confirms the property and the landlord completes the handover, the payment can be released to the landlord, while the platform keeps the payment trail and account status transparent.
-
-This flow protects both sides: the client is not paying into a questionable listing, and the landlord is protected from a unit being reserved without a valid payment trail.
+This README explains how the app works for clients and landlords, how the rental flow is managed, how to run the project locally, and how the payment and API architecture are organized.
 
 ---
 
-## 2. Key Features (Technical Highlights)
+## 1. What Renty Does
 
-- **Public rental marketplace:** property listings, location-based filtering, and house detail pages for clients searching for homes.
-- **Landlord & admin dashboard:** full CRUD for units, landlord profiles, leads, payments, and bot knowledge.
-- **Authentication:** cookie-based JWT auth for secure client, landlord, and admin access.
-- **File uploads:** image upload middleware with Cloudinary integration for listing photos.
-- **Chatbot:** public chat endpoint using a DB-backed knowledge base; records unanswered questions for later review and improvement.
-- **Analytics:** protected endpoints for overview metrics and property-specific analytics for leads, units, and payment activity.
-- **Payments:** M-Pesa-style payment flows for reservations and rental confirmations, with protected payout handling.
+Renty is built around a simple rental lifecycle:
+
+- A client browses available houses by location, property type, and rent range.
+- A client can view a listing, check the details, and arrange a visit or contact the landlord.
+- A client can reserve a unit and start the payment flow.
+- The platform validates availability and secures the unit temporarily.
+- The landlord and business admin can review and manage the transaction.
+- The platform keeps a record of each payment, status change, and rental outcome.
+
+### Primary user roles
+
+- **Client:** searches for homes, reserves units, and pays for the rental.
+- **Landlord:** manages units, reviews interest, and receives approved payouts.
+- **Business/Admin:** oversees listings, clients, payment flow, and rental operations.
 
 ---
 
-## 3. Technology Stack
+## 2. The Renty Rental Flow
+
+This is the main customer journey supported by the platform:
+
+1. A client visits the platform and browses available rental homes.
+2. They select a property, review the unit details, and may arrange a viewing or contact the landlord.
+3. If the client is interested, they start the rental flow from the listing page.
+4. The backend checks whether the unit is still available and reserves it briefly to prevent double-booking.
+5. The platform creates a payment record and sends a payment request to the client's M-Pesa number.
+6. Once the payment is confirmed, the system marks it as paid and keeps it in the validation flow.
+7. After move-in confirmation or final approval, the payment is released to the landlord and the transaction is recorded as complete.
+
+This flow is designed to protect both sides:
+
+- the client is not sending money to an unavailable property
+- the landlord is protected from a listing being reserved without a valid payment trail
+- the business can track the lifecycle of each reservation and payment
+
+---
+
+## 3. Key System Features
+
+- **Property marketplace:** listing cards, search, filtering, and detailed unit pages
+- **House management:** create, update, and remove rental listings
+- **Client booking flow:** reserve a property and trigger a payment request
+- **M-Pesa payment processing:** payment initiation and payment status tracking
+- **Landlord payment view:** monitor payments tied to their listings
+- **Admin dashboards:** manage listings, clients, landlords, and platform records
+- **Chatbot support:** knowledge-based assistant for common rental enquiries
+- **Analytics:** monitor leads, unit activity, payment flow, and platform performance
+- **Media handling:** image uploads through Cloudinary
+- **Email and OTP flows:** password reset and account-related communication
+
+---
+
+## 4. Platform Structure
+
+The application is split into a public frontend, a backend API, and multiple role-based management areas.
+
+### Frontend
+
+The client-facing UI is built with React + Vite and provides the rental marketplace experience.
+
+### Backend
+
+The backend is built with Node.js + Express and stores most operational data in MongoDB.
+
+### Role-based modules
+
+The app includes separate API sections for:
+
+- public home and property pages
+- business dashboard operations
+- landlord operations
+- client rental and payment operations
+- webhook handling for payment callbacks
+- analytics endpoints
+
+This separation helps keep the rental logic organized and reduces operational risk between user roles.
+
+---
+
+## 5. Technology Stack
 
 | Layer | Technology |
 |---|---|
-| Frontend | React (Vite), React Router, Recharts (analytics), React Helmet Async (SEO) |
-| Backend | Node.js, Express, Mongoose |
-| Data store | MongoDB |
+| Frontend | React, Vite, React Router |
+| Backend | Node.js, Express |
+| Database | MongoDB with Mongoose |
+| Auth | JWT with cookie-based session handling |
+| Payment | M-Pesa / Daraja-style STK integration |
 | Media | Cloudinary |
-| Email | Resend (`resend` package) |
-| Authentication | JWT (httpOnly cookie) |
-| Dev tools | Vite, nodemon, concurrently |
+| Email | Resend / nodemailer |
+| Security | express-rate-limit, route-level auth checks |
+| Dev tooling | nodemon, concurrently |
 
 ---
 
-## 4. Architecture Notes
+## 6. Main Application Flow
 
-### Admin dashboard structure
-The dashboard (`frontend/src/components/dashboard/jsx/Dashboard.jsx`) is a single shell that swaps sections dynamically via a menu map, making it straightforward to extend by adding new entries:
+### Public side
 
-```js
-const MENU_ITEMS = [
-  { id: 'products', label: 'Product Management' },
-  { id: 'blog', label: 'Blog Management' },
-  { id: 'guide', label: 'Inspiration Guides' },
-  { id: 'bot', label: 'Bot Knowledge' },
-  { id: 'leads', label: 'Customer Leads' },
-  { id: 'inventory', label: 'Inventory' },
-  { id: 'testimonials', label: 'Testimonials' },
-  {
-    id: 'analytics',
-    label: 'Analytics',
-    children: [
-      { id: 'analytics-overview', label: 'Overview' },
-      { id: 'analytics-products', label: 'Products' },
-      { id: 'analytics-leads', label: 'Leads' },
-      { id: 'analytics-blogs', label: 'Blogs' },
-      { id: 'analytics-guides', label: 'Guides' },
-      { id: 'analytics-bot', label: 'Bot' },
-    ]
-  },
-];
+- users browse houses
+- users inspect property details and landlord information
+- users make enquiries or contact the platform
 
-const COMPONENT_MAP = {
-  products: ProductManage,
-  blog: BlogManage,
-  guide: GuidesManage,
-  bot: Bot,
-  leads: Lead,
-  inventory: Inventory,
-  testimonials: TestimonialsManage,
-  'analytics-overview': AnalyticsOverview,
-  'analytics-products': ProductAnalytics,
-  'analytics-leads': LeadAnalytics,
-  'analytics-blogs': BlogAnalytics,
-  'analytics-guides': GuideAnalytics,
-  'analytics-bot': BotAnalytics,
-};
-```
+### Client side
 
-### Route-level auth guard
-```jsx
-<Route
-  path="/dashboard/*"
-  element={
-    isAuthenticated ? <Dashboard setUser={setUser} /> : <Navigate to="/admin" replace />
-  }
-/>
-```
+- client profile is completed
+- unit is reserved
+- payment request is initiated
+- payment status is monitored and updated
 
-### Public storefront
-Organized around browsing and conversion: product listing and category filters, detail pages with features and pricing, browser-persisted cart, WhatsApp-based sales flow, blog/guide marketing sections, testimonial display, and the chatbot widget for support and product discovery.
+### Landlord side
 
-### Performance & UX optimizations
-- **Memoization** — `useMemo`, `useCallback`, and `React.memo` where it reduces unnecessary rerenders.
-- **Lazy image loading** — `loading="lazy"` on product and content images.
-- **Progressive loading** — `IntersectionObserver` for list-heavy UI, rendering more items only as needed.
-- **Local cart persistence** — browser storage avoids refetching and reduces friction on refresh.
-- **Cloudinary-offloaded media** — upload-heavy content doesn't burden the app server.
-- **Dynamic SEO metadata** — `react-helmet-async` sets page titles/metadata per public page.
+- landlord manages units
+- landlord reviews rental interest and payment activity
+- landlord receives approved payouts after the relevant workflow completes
+
+### Business side
+
+- manages listings and records
+- reviews clients and landlord data
+- monitors analytics and operational trends
+- handles cancellations and payment-related business processes
 
 ---
 
-## 5. Quick Start — Run Locally
+## 7. Repository Layout
 
-**Prerequisites:** Node.js 18+, npm, MongoDB (Atlas or local)
+```text
+Renty/
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── utils/
+│   ├── package.json
+│   └── server.js
+├── client/
+│   ├── src/
+│   ├── package.json
+│   ├── vite.config.js
+│   └── index.html
+├── package.json
+├── Dockerfile
+├── render.yaml
+├── README.md
+└── cookies.txt
+```
+
+The app is separated into a client UI and backend API to keep the rental workflow maintainable and scalable.
+
+---
+
+## 8. Local Setup
+
+### Prerequisites
+
+- Node.js 18+
+- npm
+- MongoDB running locally or via MongoDB Atlas
+- M-Pesa/Daraja payment credentials for live payment flows
+
+### Install dependencies
+
+From the project root:
 
 ```bash
-# from repository root
 npm install
-cd frontend && npm install && cd ../backend && npm install && cd ..
+cd client && npm install
+cd ../backend && npm install
+cd ..
 ```
 
-Root `package.json` runs both apps together:
-```json
-{
-  "scripts": {
-    "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\""
-  }
-}
-```
+### Run locally
+
+From the root:
 
 ```bash
 npm run dev
 ```
 
-This runs the frontend via Vite on `http://localhost:5173` and the backend via `nodemon server.js` on `http://localhost:5000`.
+This starts the frontend and backend together through the root script.
 
-To run either individually:
+If you want to run them separately:
+
 ```bash
-cd frontend && npm run dev   # frontend only
-cd backend && npm run dev    # backend only
+cd client && npm run dev
+cd backend && npm run dev
 ```
 
-The project is deployed on Render and can be configured for production hosting through the root app and backend environment settings.
+The frontend usually runs on:
 
-## 6. Environment Variables
+```text
+http://localhost:5173
+```
 
-Create a `.env` in `backend/`:
+The backend usually runs on:
+
+```text
+http://localhost:5000
+```
+
+---
+
+## 9. Environment Variables
+
+Create a `.env` file inside the `backend` folder before starting the app.
 
 ```env
 PORT=5000
@@ -183,138 +232,221 @@ CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 ```
 
+### Variable notes
+
 | Variable | Required | Purpose |
 |---|---|---|
-| `MONGODB_URI` | Yes — server exits without it | MongoDB connection string |
-| `JWT_SECRET` | Yes — server refuses to start without it | JWT signing secret |
-| `CLOUDINARY_CLOUD_NAME` / `_API_KEY` / `_API_SECRET` | Yes, for uploads | Cloudinary credentials |
-| `RESEND_API_KEY` | Yes, for email | Transactional email (OTP/reset) delivery |
-| `NODE_ENV` | Recommended | `development` or `production` — affects cookie settings and CORS |
-| `PORT` | Optional (default 5000) | Backend port |
-| `VITE_WHATSAPP_NUMBER` | Optional | Exposed via `/api/config` for frontend contact links |
+| `MONGODB_URI` | Yes | MongoDB connection string |
+| `JWT_SECRET` | Yes | Signs authentication tokens |
+| `CLIENT_URL` | Recommended | Frontend origin used by CORS and cookies |
+| `CLOUDINARY_*` | Yes for uploads | Stores listing images |
+| `RESEND_API_KEY` | Yes for email flows | Sends OTP and account emails |
+| `VITE_WHATSAPP_NUMBER` | Optional | Used for direct WhatsApp/contact links |
+| `PORT` | Optional | Defaults to 5000 |
 
 ---
 
-## 7. Build & Deploy
+## 10. How the Payment Flow Works in Renty
 
-- **Frontend:** `cd frontend && npm run build` — output can be served by any static host (Netlify, Vercel, S3) or from the backend's `public/` folder.
-- **Backend:** set `NODE_ENV=production`, configure environment variables, run via `npm start`, PM2, systemd, or Docker.
-- The server is configured to serve the built frontend from `backend/public` in production.
-- A `Dockerfile` is present at the repo root — adapt for multi-stage builds serving both apps from a single container.
+The project includes a transaction flow designed around rental reservation and fund protection.
 
----
+### Payment lifecycle
 
-## 8. API Reference (High-Level)
+1. A client chooses a house.
+2. The unit is checked for availability.
+3. The unit is reserved for a short period so it is not double-booked.
+4. A `Payment` record is created in the database.
+5. The backend calls the payment provider to initiate an M-Pesa STK push or payment request.
+6. The provider confirms the payment asynchronously through a webhook.
+7. The payment status updates from pending to paid.
+8. The client confirms or approves the payout flow when the move-in condition is met.
+9. The landlord receives the approved payout.
 
-Base: `/api`
+### Backend implementation notes
 
-**Auth**
-- `POST /api/register` — create the single admin account (allowed once only)
-- `POST /api/login` — login, returns httpOnly cookie
-- `GET /api/profile` — authenticated admin profile (protected)
-- `POST /api/logout` — clear auth cookie
+The actual flow is handled in these modules:
 
-**Inventory**
-- `GET /api/inventory` / `GET /api/inventory/:id` — public
-- `POST` / `PUT` / `DELETE /api/inventory/:id` — protected, `POST` accepts `multipart/form-data` with image
+- `backend/controllers/clientPaymentController.js`
+- `backend/controllers/landlordPaymentController.js`
+- `backend/utils/mpesaUtil.js`
+- `backend/utils/paymentsUtil.js`
+- `backend/routes/clientRentRoutes.js`
+- `backend/routes/clientPaymentRoutes.js`
+- `backend/routes/webhookRoutes.js`
+- `backend/models/Payment.js`
 
-**Blogs**
-- `GET /api/blogs` / `GET /api/blogs/:id` — public
-- `POST` / `PUT` / `DELETE /api/blogs/:id` — protected
-- `POST /api/blogs/:id/view` — increments view counter for analytics
-
-**Leads**
-- `POST /api/leads` — public submission
-- `GET /api/leads`, `GET /api/leads/:id`, `GET /api/leads/stats` — protected
-
-**Chatbot**
-- `POST /api/bot/chat` — public, takes `message`, returns `reply`
-- `/api/bot` — protected CRUD for bot knowledge and unanswered-question management
-
-**Analytics**
-- `GET /api/analytics/overview` and further endpoints under `/api/analytics/*` for products, leads, blogs, guides, bot — all protected
-
-Implementation details live in `backend/routes/*` and `backend/controllers/*`.
+The reservation logic ensures that a property is not accidentally sold twice while a client is confirming payment.
 
 ---
 
-## 9. Integrations
+## 11. Public and Protected Routes
 
-- **Cloudinary** — image uploads and serving (`backend/utils/cloudinary.js`), environment-driven credentials.
-- **Resend** — transactional email delivery (`backend/utils/sendEmail.js`), used for OTP/resets.
-- **WhatsApp (optional)** — frontend reads `VITE_WHATSAPP_NUMBER` from `/api/config` for a direct contact link.
+### Public rental routes
 
----
+These routes expose the marketplace to the public.
 
-## 10. Security & Best Practices
+Examples:
 
-- JWT stored in an httpOnly cookie to reduce XSS risk.
-- `authMiddleware` accepts a Bearer token in the `Authorization` header for API clients, with cookie fallback for browser sessions, and is route-scoped rather than global.
-- Rate limiting on sensitive endpoints (login, register) via `express-rate-limit` to mitigate brute-force attacks.
-- Server refuses to start without `MONGODB_URI` and `JWT_SECRET`, preventing insecure defaults.
+- `GET /api/houses/search`
+- `GET /api/houses/units`
+- `GET /api/houses/units/all`
+- `GET /api/houses/units/:id`
+- `GET /api/houses/units/landlord/:landlordId`
 
-**Recommended for production:**
-- Use HTTPS; set `NODE_ENV=production` to enable secure cookies and `sameSite: none` for cross-site cookie delivery behind trusted proxies.
-- Use a strong, rotated `JWT_SECRET`.
-- Monitor and rate-limit `RESEND_API_KEY` usage.
+### Client routes
 
----
+Protected routes for signed-in clients.
 
-## 11. Design Decisions Worth Preserving
+Examples:
 
-- JWT auth is cookie-based, not localStorage-based.
-- Public and admin routes are intentionally split.
-- `authMiddleware` is route-scoped, not global.
-- Product uploads are handled as multipart form data, sent to Cloudinary.
-- Frontend components fetch from the backend rather than embedding business data directly.
-- MongoDB is the source of truth for content and catalog persistence — the frontend is a consumer of the API, not a source of durable data.
+- `POST /api/client/rent`
+- `GET /api/client/payments`
+- `GET /api/client/payments/:paymentId/status`
 
----
+### Landlord routes
 
-## 12. Admin / Business Workflows
+Examples:
 
-- Manage the product catalog: images, pricing, sale status, features, categories.
-- Publish SEO-focused blog posts and guides to attract customers.
-- Review and act on leads directly from the dashboard.
-- Maintain the chatbot by answering unanswered questions, making it smarter over time.
-- Monitor analytics to see which products and content drive leads.
+- `GET /api/landlord/payments`
+- `GET /api/landlord/units`
+- `GET /api/landlord/clients`
 
----
+### Business routes
 
-## 13. Extension Points
+Examples:
 
-- Add new product taxonomy values in `Products.js`.
-- Add new admin dashboard sections by updating the menu and component map in `Dashboard.jsx`.
-- Expose new public pages via routes in `App.jsx`.
-- Add new controllers/routes under the appropriate domain folder.
-- Add new analytics endpoints following the existing analytics route/controller pattern.
+- `GET /api/business/units`
+- `GET /api/business/clients`
+- `GET /api/business/landlords`
+- `GET /api/business/cancellations`
+
+### Webhook route
+
+- `POST /api/webhooks`
+
+This is used to receive payment confirmations and update the payment state in the system.
 
 ---
 
-## 14. Notes for Maintainers
+## 12. API Overview
 
-- The backend is the source of truth for product and data changes.
-- Because content is stored in MongoDB, the site is easier to maintain long-term than a static HTML-only build.
-- The admin dashboard must remain behind auth checks at both the route and controller level.
-- Any changes to auth cookies, `trust proxy`, or CORS behavior should be tested carefully in production-like hosting environments before deploying.
+### Auth
+
+- `POST /api/register`
+- `POST /api/login`
+- `GET /api/profile`
+- `POST /api/logout`
+- `POST /api/reset/request`
+- `POST /api/reset/confirm`
+
+### Houses / listings
+
+- `GET /api/houses/search`
+- `GET /api/houses/units`
+- `GET /api/houses/units/all`
+- `GET /api/houses/units/:id`
+- `POST /api/houses`
+- `PUT /api/houses/:id`
+- `DELETE /api/houses/:id`
+
+### Client payment flow
+
+- `POST /api/client/rent`
+- `GET /api/client/payments/:paymentId/status`
+- `GET /api/client/payments`
+
+### Landlord payment data
+
+- `GET /api/landlord/payments`
+
+### Analytics
+
+- `/api/analytics/blogs`
+- `/api/analytics/bot`
+- `/api/analytics/guides`
+- `/api/analytics/leads`
 
 ---
 
-## 15. Summary
+## 13. Business and Admin Use Cases
 
-This repository is best understood as a **commerce + CMS application**, not a simple storefront. The public site is customer-facing and sales-oriented; the dashboard is the operational control plane for content and business processes. The backend is domain-driven, MongoDB-backed, and the frontend consumes it through a clean API boundary. Core concepts to remember when working in this codebase: public vs. protected route separation, cookie-based JWT auth, API-first data flow, Cloudinary-backed media, MongoDB-driven content, and dashboard components built for real operational workflows.
+Renty is not only a listing app; it is also an operational management system.
+
+Typical admin tasks include:
+
+- add and update rental units
+- manage landlord profiles
+- review client leads and enquiries
+- supervise payment records and payout states
+- review complaints and cancellations
+- monitor analytics and property performance
+- maintain chatbot knowledge content
+
+This makes the platform suitable for a real rental business that needs a single operational layer for both the public marketplace and internal management.
 
 ---
 
-## 📞 Contact & Support
+## 14. Security & Production Notes
 
-For support, customization, or business inquiries, contact the maintainer directly:
+- JWT tokens are stored in secure cookies when used in browser sessions.
+- Route-level access checks ensure protected endpoints are only available to authorized users.
+- Sensitive routes are protected by authentication and role enforcement.
+- Payment routes are guarded by role restrictions so only valid client or landlord flows are allowed.
+- The app is designed to run behind a trusted reverse proxy environment such as Render while preserving correct `req.ip` and rate limiting behavior.
+- Server startup will fail without critical environment variables such as MongoDB and JWT configuration.
+
+### Recommended production practices
+
+- use HTTPS in production
+- set secure cookie settings for hosting behind proxies
+- protect payment credentials and provider secrets
+- test webhook callbacks in staging before production release
+- review logs and payment states regularly
+
+---
+
+## 15. Deployment
+
+The project includes Docker and Render configuration files for deployment.
+
+Typical deployment flow:
+
+1. configure environment variables in the host
+2. ensure MongoDB is reachable from the deploy environment
+3. configure payment credentials and webhook URLs
+4. build the frontend and serve the backend appropriately
+5. deploy and test the live rental flow end to end
+
+---
+
+## 16. Summary
+
+Renty is a rental marketplace and operations platform built to manage the full lifecycle of a property transaction:
+
+- discovery
+- visit arrangement
+- reservation
+- secure payment
+- owner payout
+- operational oversight
+
+The project combines a public-facing property marketplace with business logic for clients, landlords, and platform staff, and it is structured to support a real rental business rather than a simple static listing site.
+
+---
+
+## 17. Contact & Support
+
+For support, customization, or deployment questions, contact the maintainer:
 
 - **Name:** Simon Mbithi
 - **Email:** simonmbithi143@gmail.com
-- **Phone:** +254 703 433 014 (Kenya)
+- **Phone:** +254 703 433 014
 - **GitHub:** [github.com/SIMON-cloud-tech](https://github.com/SIMON-cloud-tech)
 
-Found a bug or have a feature request? Open an issue on the GitHub repository.
+If you want to extend the platform further, the most natural next improvements are:
 
-If you'd like a production-deploy checklist, a `docs/` folder with API examples and a Postman collection, or a scaffolded payment/checkout flow, get in touch — the codebase is designed to be extended quickly for bespoke requirements.
+- richer rental filters and saved searches
+- landlord onboarding workflow
+- stronger payout approval dashboard
+- automated reminders and move-in confirmations
+- more advanced analytics and reporting
