@@ -32,7 +32,7 @@ exports.getGuideById = asyncHandler(async (req, res) => {
 // ─── PROTECTED: add a new guide ───
 exports.addGuide = asyncHandler(async (req, res) => {
   const userId = req.user.id;
-  const { title, description, features, room } = req.body; 
+  const { title, description, features } = req.body;
   const imageFile = req.file;
 
   if (!title || !description) {
@@ -42,7 +42,7 @@ exports.addGuide = asyncHandler(async (req, res) => {
   // ── Upload image to Cloudinary if provided ──
   let imageUrl = '';
   if (imageFile) {
-    imageUrl = await uploadToCloudinary(imageFile.buffer, 'furniture/guides');
+    imageUrl = await uploadToCloudinary(imageFile.buffer, 'renty/guides');
   }
 
   // ── Parse features safely ──
@@ -55,7 +55,6 @@ exports.addGuide = asyncHandler(async (req, res) => {
     description,
     features: featuresArray,
     image: imageUrl,
-    room: room || 'living-room', 
   });
 
   await newGuide.save();
@@ -66,7 +65,7 @@ exports.addGuide = asyncHandler(async (req, res) => {
 exports.updateGuide = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const guideId = req.params.id;
-  const { title, description, features, room } = req.body;
+  const { title, description, features } = req.body;
   const imageFile = req.file;
 
   const guide = await Guide.findOne({ id: guideId, userId });
@@ -75,7 +74,6 @@ exports.updateGuide = asyncHandler(async (req, res) => {
   }
 
   if (title) guide.title = title;
-  if (room) guide.room = room;
   if (description) guide.description = description;
 
   if (features !== undefined) {
@@ -84,7 +82,7 @@ exports.updateGuide = asyncHandler(async (req, res) => {
 
   // ── If a new image is uploaded, upload to Cloudinary ──
   if (imageFile) {
-    guide.image = await uploadToCloudinary(imageFile.buffer, 'furniture/guides');
+    guide.image = await uploadToCloudinary(imageFile.buffer, 'renty/guides');
   }
 
   await guide.save();

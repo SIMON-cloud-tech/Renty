@@ -1,25 +1,16 @@
 import { useState, useEffect, useMemo, useCallback, useReducer } from 'react';
-import { FiPlus, FiEdit, FiTrash2, FiX, FiFolder, FiList } from 'react-icons/fi';
+import { FiPlus, FiEdit, FiTrash2, FiX, FiList } from 'react-icons/fi';
 import '../css/GuidesManage.css';
 
 // ── Constants ──
 const INITIAL_VISIBLE = 3;
 const LOAD_MORE = 3;
 
-const ROOM_OPTIONS = [
-  { value: 'living-room', label: 'Living Room' },
-  { value: 'bedroom', label: 'Bedroom' },
-  { value: 'kitchen', label: 'Kitchen' },
-  { value: 'home-office', label: 'Home Office' },
-  { value: 'outdoor-spaces', label: 'Outdoor Spaces' },
-];
-
-const INITIAL_FORM = { 
-  title: '', 
-  description: '', 
-  features: '', 
-  room: 'living-room', 
-  image: null 
+const INITIAL_FORM = {
+  title: '',
+  description: '',
+  features: '',
+  image: null,
 };
 
 // ── Reducer ──
@@ -35,7 +26,7 @@ const formReducer = (state, action) => {
 
 // ── Guide Card ──
 const GuideCard = ({ guide, confirmDeleteId, onEdit, onDelete }) => {
-  const { id, title, description, features, room, image } = guide;
+  const { id, title, description, features, image } = guide;
   const truncate = (str, len = 100) => str?.length > len ? `${str.substring(0, len)}...` : str || 'No description';
 
   return (
@@ -45,16 +36,11 @@ const GuideCard = ({ guide, confirmDeleteId, onEdit, onDelete }) => {
       </div>
       <div className="gm-info">
         <h3>{title || 'Untitled'}</h3>
-        {room && (
-          <span className="gm-room">
-            <FiFolder size={14} /> {room}
-          </span>
-        )}
         <p className="gm-description">{truncate(description)}</p>
         {features && features.length > 0 && (
           <div className="gm-features-preview">
             <span className="gm-features-count">
-              <FiList size={14} /> {features.length} features
+              <FiList size={14} /> {features.length} tips
             </span>
             <ul className="gm-features-list">
               {features.slice(0, 3).map((feature, idx) => <li key={idx}>{feature}</li>)}
@@ -103,26 +89,26 @@ const GuidesManage = () => {
   const handleChange = useCallback((e) => {
     dispatchForm({ type: 'SET_FIELD', field: e.target.name, value: e.target.value });
   }, []);
-  
+
   const handleFileChange = useCallback((e) => {
     const file = e.target.files[0];
-    if (file) { 
-      dispatchForm({ type: 'SET_IMAGE', file }); 
-      setPreviewUrl(URL.createObjectURL(file)); 
+    if (file) {
+      dispatchForm({ type: 'SET_IMAGE', file });
+      setPreviewUrl(URL.createObjectURL(file));
     }
   }, []);
-  
-  const resetForm = useCallback(() => { 
-    dispatchForm({ type: 'RESET' }); 
-    setPreviewUrl(''); 
+
+  const resetForm = useCallback(() => {
+    dispatchForm({ type: 'RESET' });
+    setPreviewUrl('');
   }, []);
-  
-  const handleCancel = useCallback(() => { 
-    setShowForm(false); 
-    setEditingId(null); 
-    resetForm(); 
+
+  const handleCancel = useCallback(() => {
+    setShowForm(false);
+    setEditingId(null);
+    resetForm();
   }, [resetForm]);
-  
+
   const handleLoadMore = useCallback(() => setVisibleCount(p => p + LOAD_MORE), []);
 
   // ── Submit ──
@@ -131,7 +117,7 @@ const GuidesManage = () => {
     try {
       const url = editingId ? `/api/guides/${editingId}` : '/api/guides';
       const form = new FormData();
-      ['title', 'description', 'features', 'room'].forEach(f => form.append(f, formData[f] || ''));
+      ['title', 'description', 'features'].forEach(f => form.append(f, formData[f] || ''));
       if (formData.image) form.append('image', formData.image);
       const res = await fetch(url, { method: editingId ? 'PUT' : 'POST', credentials: 'include', body: form });
       if (!res.ok) throw new Error('Failed to save');
@@ -154,16 +140,15 @@ const GuidesManage = () => {
 
   // ── Edit ──
   const handleEdit = useCallback((guide) => {
-    const { id, title, description, features, room } = guide;
+    const { id, title, description, features } = guide;
     setEditingId(id);
-    dispatchForm({ 
-      type: 'SET_FORM', 
-      data: { 
-        title, 
-        description, 
-        features: features ? features.join(', ') : '', 
-        room: room || 'living-room' 
-      } 
+    dispatchForm({
+      type: 'SET_FORM',
+      data: {
+        title,
+        description,
+        features: features ? features.join(', ') : '',
+      },
     });
     setPreviewUrl(guide.image || '');
     setShowForm(true);
@@ -172,9 +157,8 @@ const GuidesManage = () => {
   // ── Form fields config ──
   const formFields = [
     { label: 'Title', name: 'title' },
-    { label: 'Room', name: 'room', type: 'select', options: ROOM_OPTIONS },
     { label: 'Description', name: 'description', type: 'textarea' },
-    { label: 'Features (comma-separated)', name: 'features', type: 'text', placeholder: 'e.g. Measure your space, Consider fabric' },
+    { label: 'Tips (comma-separated)', name: 'features', type: 'text', placeholder: 'e.g. Check the water pressure, Ask about the deposit terms' },
   ];
 
   // ── Loading ──
@@ -203,15 +187,11 @@ const GuidesManage = () => {
               <button className="close-modal" onClick={handleCancel}><FiX size={18} /></button>
             </div>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
-              {formFields.map(({ label, name, type = 'text', placeholder = '', options = [] }) => (
+              {formFields.map(({ label, name, type = 'text', placeholder = '' }) => (
                 <div className="form-group" key={name}>
                   <label>{label}</label>
                   {type === 'textarea' ? (
                     <textarea name={name} value={formData[name] || ''} onChange={handleChange} rows="4" required />
-                  ) : type === 'select' ? (
-                    <select name={name} value={formData[name] || ''} onChange={handleChange}>
-                      {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                    </select>
                   ) : (
                     <input type={type} name={name} value={formData[name] || ''} onChange={handleChange} placeholder={placeholder} required={name !== 'features'} />
                   )}

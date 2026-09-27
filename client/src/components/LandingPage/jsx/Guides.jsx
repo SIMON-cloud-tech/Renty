@@ -144,13 +144,13 @@ const Guides = ({ variant = 'light' }) => {
   }
 
   return (
-    <section className="guides-section" aria-label="Furniture Guides">
+    <section className="guides-section" aria-label="Renting Guides">
       <div className="guides-container">
         <div className="guides-header">
-          <h2>{isFull ? 'All Furniture Guides' : 'Furniture Guides'}</h2>
+          <h2>{isFull ? 'All Renting Guides' : 'Renting Guides'}</h2>
           <p>
-            Expert tips and advice to help you choose the perfect furniture
-            for your home and office
+            Practical tips and advice to help you find, rent, and settle
+            into your next home with confidence
           </p>
         </div>
 
