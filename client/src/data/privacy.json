@@ -1,7 +1,7 @@
 {
   "title": "Privacy Policy",
   "lastUpdated": "September 2026",
-  "intro": "At Renty, we take your privacy seriously. This Privacy Policy explains how we collect, use, hold, and protect your personal and payment information when you use our website and services. Because Renty holds rent payments on behalf of renters and landlords, we also explain how that money is handled.",
+  "intro": "At Renty, we take your privacy seriously. This Privacy Policy explains how we collect, use, hold, and protect your personal and payment information when you use our website and services. Because Renty holds rent payments on behalf of renters and landlords, we also explain in detail how that money is handled, held, and released.",
   "sections": [
     {
       "id": "information-we-collect",
@@ -14,13 +14,14 @@
         {
           "type": "list",
           "items": [
-            "Name, email address, and phone number when you fill our contact or enquiry form",
+            "Name, email address, and phone number when you register, fill our contact form, or make an enquiry",
             "Your rental search details — preferred location, budget, and unit type",
-            "Payment details needed to process rent, such as your M-Pesa number or bank reference. Card numbers and PINs are never stored on our servers",
+            "The M-Pesa phone number used to pay rent. We do not receive or store your M-Pesa PIN — it is entered directly with Safaricom",
             "Confirmation details after you move in, so we know when to release funds to the landlord",
             "Chatbot conversation history when you interact with our assistant",
-            "Browsing behavior and preferences through cookies",
-            "Landlord identity and payout information for landlords using the platform"
+            "Browsing behavior, device information, and IP address, partly through cookies",
+            "For landlords: identity details and the M-Pesa number funds are paid out to",
+            "For all account types: your account role (renter, landlord, or platform administrator), since this determines what data you can see"
           ]
         }
       ]
@@ -36,12 +37,14 @@
         {
           "type": "list",
           "items": [
-            "Respond to your enquiries and connect you with landlords",
-            "Process rent payments and hold funds in trust until the move-in is confirmed",
+            "Respond to your enquiries and connect you with landlords or listings",
+            "Reserve a unit on your behalf while your payment is being processed, and release it again if payment fails or is not completed",
+            "Process rent payments and hold funds on trust until your move-in is confirmed or the holding period ends",
             "Calculate and deduct the Renty commission on each completed transaction",
-            "Remit the balance to the landlord once the renter confirms the house",
-            "Resolve disputes between renters and landlords",
-            "Improve our platform and services",
+            "Remit the balance to the landlord once the renter confirms the house, or automatically once the holding period has passed",
+            "Investigate and resolve complaints or disputes raised by either party",
+            "Detect and prevent fraud, including duplicate bookings and double-charging",
+            "Improve our platform, dashboards, and services",
             "Send you updates about new listings and offers (only if you opt in)",
             "Comply with Kenyan tax, anti-money laundering, and financial reporting obligations"
           ]
@@ -54,25 +57,73 @@
       "content": [
         {
           "type": "text",
-          "text": "When a renter pays rent through Renty, the money does not go directly to the landlord. Instead it moves through a three-step process:"
+          "text": "When a renter pays rent through Renty, the money does not go directly to the landlord. Instead it moves through the following process:"
         },
         {
           "type": "list",
           "items": [
-            "Step 1 — Payment. The renter pays rent through M-Pesa, bank transfer, or another supported method. The full amount is received by Renty.",
-            "Step 2 — Commission. Renty deducts its commission from the payment. This is the only amount Renty keeps.",
-            "Step 3 — Escrow. The remaining balance is held by Renty on the landlord's behalf. It is not released until the renter has physically moved in and confirmed the unit matches what was listed."
+            "Step 1 — Reservation. When you choose to rent a unit, it is temporarily reserved for you so no one else can book it while your payment is in progress.",
+            "Step 2 — Payment. You receive an M-Pesa prompt on your phone. The full rent amount is paid directly to Renty through our payment processing partner.",
+            "Step 3 — Commission. Once payment is confirmed, Renty deducts its commission. This is the only amount Renty keeps.",
+            "Step 4 — Holding period. The remaining balance is held on the landlord's behalf for a fixed period after payment (currently 72 hours). This period is set by Renty and cannot be extended or shortened by either party.",
+            "Step 5 — Release. You can approve the release to the landlord at any time from your dashboard once you have confirmed the unit is as described. If you take no action, the funds are released automatically to the landlord once the holding period ends.",
+            "Step 6 — Payout. Once released, funds are sent directly to the landlord's registered M-Pesa number."
           ]
         },
         {
           "type": "text",
-          "text": "This protects both sides. The renter is not exposed to a landlord who disappears with the money, and the landlord is protected from renters who pay and then refuse to move in. If the renter never confirms the unit, the funds are returned to the renter minus any costs already incurred."
+          "text": "This protects both sides. The renter has a fixed window to confirm the unit before funds are released, and the landlord is guaranteed payment once that window closes, without depending on the renter to take any action."
+        },
+        {
+          "type": "text",
+          "text": "If your payment fails, is cancelled, or is not completed on your phone, the unit reservation is released automatically and no funds are held. If a payment is disputed after release, contact us using the details in Section 12."
+        }
+      ]
+    },
+    {
+      "id": "disputes-and-cancellations",
+      "heading": "4. Cancellations, Complaints & Refunds",
+      "content": [
+        {
+          "type": "text",
+          "text": "Renty keeps a record of every cancelled or disputed transaction. Specifically:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "If a booking is cancelled before funds are released to the landlord, the reason for cancellation is recorded and visible to both the renter, the landlord, and Renty's administrators",
+            "Renters can raise a complaint about a unit or a landlord directly through their dashboard",
+            "Landlords are notified of complaints and can respond to renters directly, including through WhatsApp, using contact details Renty facilitates for that purpose only",
+            "Complaint records, including their resolution status, are retained so repeated issues with the same unit or account can be identified"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "account-roles",
+      "heading": "5. Account Roles & Who Can See Your Data",
+      "content": [
+        {
+          "type": "text",
+          "text": "Renty has three types of accounts, and access to your data is limited according to which type applies to you:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Renters can see their own bookings, payments, and the contact details of landlords they have transacted with. They cannot see other renters' data.",
+            "Landlords can see their own units, the renters who have booked them, and payments due to or received by them. They cannot see other landlords' listings or renters they have not transacted with.",
+            "Renty's administrators can see platform-wide data — all units, all renters, all landlords, and all transactions — solely to operate the platform, resolve disputes, and meet legal and financial reporting obligations."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "No account type can access another user's payment credentials, M-Pesa PIN, or account password at any time."
         }
       ]
     },
     {
       "id": "cookies",
-      "heading": "4. Cookies & Tracking",
+      "heading": "6. Cookies & Tracking",
       "content": [
         {
           "type": "text",
@@ -81,45 +132,45 @@
         {
           "type": "list",
           "items": [
+            "Keep you securely logged in to your account between visits",
             "Remember your preferences and saved searches",
-            "Keep you logged in to your account",
-            "Analyze how you use our website",
-            "Improve site performance"
+            "Analyze how you use our website so we can improve it",
+            "Improve site performance and loading speed"
           ]
         },
         {
           "type": "text",
-          "text": "You can control cookies through your browser settings. Disabling essential cookies may affect site functionality."
+          "text": "Our login cookie is set as HTTP-only, meaning it cannot be read or accessed by scripts running in your browser. You can control cookies through your browser settings, though disabling essential cookies will prevent you from staying logged in."
         }
       ]
     },
     {
       "id": "third-parties",
-      "heading": "5. Third-Party Services",
+      "heading": "7. Third-Party Services",
       "content": [
         {
           "type": "text",
-          "text": "We use the following third-party services:"
+          "text": "We share the minimum data necessary with the following third-party services in order to operate:"
         },
         {
           "type": "list",
           "items": [
-            "M-Pesa and banking partners — to receive rent payments and remit funds",
+            "Safaricom Daraja (M-Pesa) — to send payment prompts, confirm rent payments, and pay out funds to landlords. Safaricom processes your M-Pesa PIN directly; Renty never receives or stores it",
             "Cloudinary — for storing and serving unit images",
-            "WhatsApp — for direct communication between renters, landlords, and Renty",
-            "MongoDB Atlas — for secure data storage",
-            "Google Maps — for displaying unit locations"
+            "WhatsApp — used only to let landlords respond to a specific complaint you have raised; it is not used for general marketing",
+            "MongoDB Atlas — for secure storage of account, listing, and transaction data",
+            "Google Maps — for displaying unit locations, where enabled"
           ]
         },
         {
           "type": "text",
-          "text": "These services have their own privacy policies and may collect data as described in their respective policies."
+          "text": "These services have their own privacy policies and process data under their own terms in addition to this policy."
         }
       ]
     },
     {
       "id": "data-security",
-      "heading": "6. Data Security",
+      "heading": "8. Data Security",
       "content": [
         {
           "type": "text",
@@ -128,22 +179,43 @@
         {
           "type": "list",
           "items": [
-            "Stored securely in MongoDB with access controls",
+            "Stored securely in MongoDB with role-based access controls, as described in Section 5",
             "Protected during transmission using HTTPS",
-            "Held on encrypted escrow accounts separate from Renty's operating funds",
-            "Only accessible to authorized personnel bound by confidentiality",
+            "Protected by passwords that are hashed and never stored in plain text",
+            "Held in escrow, separate from Renty's own operating funds, during the holding period described in Section 3",
+            "Only accessible to authorized personnel bound by confidentiality obligations",
             "Never sold to third parties"
           ]
         },
         {
           "type": "text",
-          "text": "We do not store card PINs, M-Pesa PINs, or full card numbers on our servers. Payments are processed through regulated payment partners."
+          "text": "We do not store card numbers, card PINs, or M-Pesa PINs on our servers. All PIN entry happens directly between you and Safaricom."
+        }
+      ]
+    },
+    {
+      "id": "international-transfers",
+      "heading": "9. International Data Transfers",
+      "content": [
+        {
+          "type": "text",
+          "text": "Some of our service providers, including our cloud database and image storage providers, may store or process data on servers located outside Kenya. Where this happens, we require these providers to maintain security standards consistent with this policy."
+        }
+      ]
+    },
+    {
+      "id": "data-breach",
+      "heading": "10. Data Breach Notification",
+      "content": [
+        {
+          "type": "text",
+          "text": "If we become aware of a data breach that is likely to affect your personal or payment information, we will notify affected users and, where required, the Office of the Data Protection Commissioner, without undue delay."
         }
       ]
     },
     {
       "id": "your-rights",
-      "heading": "7. Your Rights",
+      "heading": "11. Your Rights",
       "content": [
         {
           "type": "text",
@@ -168,17 +240,17 @@
     },
     {
       "id": "data-retention",
-      "heading": "8. Data Retention",
+      "heading": "12. Data Retention",
       "content": [
         {
           "type": "text",
-          "text": "We retain your personal information only for as long as necessary to fulfill the purposes described in this policy. Payment records are kept for the period required by Kenyan tax law, even after you stop using Renty."
+          "text": "We retain your personal information only for as long as necessary to fulfill the purposes described in this policy. Transaction and payment records are kept for the period required under Kenyan tax and financial regulations, even after you stop using Renty. Complaint and dispute records are retained for as long as needed to resolve the matter and to maintain a record for future reference."
         }
       ]
     },
     {
       "id": "children",
-      "heading": "9. Children's Privacy",
+      "heading": "13. Children's Privacy",
       "content": [
         {
           "type": "text",
@@ -188,7 +260,7 @@
     },
     {
       "id": "changes",
-      "heading": "10. Changes to This Policy",
+      "heading": "14. Changes to This Policy",
       "content": [
         {
           "type": "text",
@@ -198,7 +270,7 @@
     },
     {
       "id": "contact",
-      "heading": "11. Contact Us",
+      "heading": "15. Contact Us",
       "content": [
         {
           "type": "text",

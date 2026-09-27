@@ -16,6 +16,8 @@ import Privacy from './components/LandingPage/jsx/Privacy.jsx';
 import GuideDetail from './components/LandingPage/jsx/GuideDetail.jsx';
 import BlogDetail from './components/LandingPage/jsx/BlogDetail.jsx';
 import HouseDetail from './components/LandingPage/jsx/HouseDetail.jsx';
+import Partners from './components/LandingPage/jsx/Partners.jsx';
+import Terms from './components/LandingPage/jsx/Terms.jsx';
 
 // Auth
 import Auth from './components/Business/jsx/Auth.jsx';
@@ -73,6 +75,8 @@ function App() {
         <Route path="/guides/:id" element={<GuideDetail />} />
         <Route path="/blogs/:id" element={<BlogDetail />} />
         <Route path="/houses/:id" element={<HouseDetail />} />
+        <Route path="/partners" element={<Partners />} />
+        <Route path="/terms" element={<Terms />} />
       </Route>
 
       {/* One login/signup form for all roles */}

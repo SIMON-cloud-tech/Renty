@@ -1,0 +1,301 @@
+{
+  "title": "Terms and Conditions",
+  "lastUpdated": "September 2026",
+  "intro": "These Terms and Conditions ('Terms') govern your access to and use of Renty, including our website, dashboards, and payment services. By creating an account, listing a unit, or booking a rental through Renty, you agree to be bound by these Terms. If you do not agree, you must not use the platform.",
+  "sections": [
+    {
+      "id": "definitions",
+      "heading": "1. Definitions",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "'Renty', 'we', 'us', or 'our' means the operator of this platform.",
+            "'Renter' or 'Client' means a person who registers an account to search for and book rental units.",
+            "'Landlord' means a person who registers an account to list rental units for booking.",
+            "'Unit' means a single rental property or room listed on the platform.",
+            "'Booking' means a reservation of a Unit initiated by a Renter through the platform.",
+            "'Commission' means the percentage of each completed rent payment retained by Renty as its fee.",
+            "'Holding Period' means the fixed period of time, currently 72 hours from confirmed payment, during which a payment is held by Renty before being released to a Landlord.",
+            "'Platform' means the Renty website, dashboards, and any associated mobile or web applications."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eligibility",
+      "heading": "2. Eligibility & Accounts",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "You must be at least 18 years old to create an account or use the Platform.",
+            "You must provide accurate, current, and complete information when registering, including a valid, reachable M-Pesa number for Renters, and a valid payout M-Pesa number for Landlords.",
+            "You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account.",
+            "You must notify us immediately at the contact details in Section 17 if you suspect unauthorized access to your account.",
+            "Renty reserves the right to suspend or terminate any account that provides false information, is used fraudulently, or violates these Terms.",
+            "Each account is assigned exactly one role — Renter, Landlord, or Business Administrator — and you may not misrepresent your role or attempt to access functionality reserved for another role."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listings",
+      "heading": "3. Landlord Listings",
+      "content": [
+        {
+          "type": "text",
+          "text": "If you list a Unit as a Landlord, you agree to the following:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "You confirm that you are the legal owner of the Unit, or are authorized by the owner to list and manage it.",
+            "All information you provide — including house type, rent amount, deposit, location, description, and photographs — must be accurate and current.",
+            "You must keep a Unit's availability status accurate. Marking a Unit as vacant when it is not available for a genuine booking is a violation of these Terms.",
+            "You are solely responsible for the physical condition, safety, legality, and habitability of any Unit you list.",
+            "Renty does not inspect, verify, or guarantee the condition of any Unit and is not a party to the tenancy agreement between you and any Renter.",
+            "You must respond to booking confirmations, complaints, and disputes raised through the Platform in good faith and within a reasonable time.",
+            "Renty may remove any listing at its sole discretion if it is found to be inaccurate, misleading, fraudulent, or in violation of these Terms."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bookings",
+      "heading": "4. Bookings & Reservations",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "When you initiate a Booking, the selected Unit is temporarily reserved and marked unavailable to other Renters while your payment is being processed.",
+            "A reservation is provisional and expires automatically if payment is not completed within the timeframe communicated on the Platform.",
+            "If payment fails, is cancelled, or times out, the reservation is released immediately and the Unit becomes available again to other Renters.",
+            "Only one active reservation can exist on a Unit at any given time. A duplicate or overlapping booking attempt will be rejected by the Platform.",
+            "A completed Booking does not itself constitute a tenancy agreement. Any lease, rental agreement, or house rules are a matter between the Renter and the Landlord."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "payments",
+      "heading": "5. Payments, Commission & Escrow",
+      "content": [
+        {
+          "type": "text",
+          "text": "All rent payments made through the Platform are processed as follows:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Renters pay the full rent amount via M-Pesa through Renty's payment processing partner (currently Safaricom Daraja).",
+            "Upon confirmed payment, Renty deducts its Commission. The Commission percentage is disclosed to you before you complete a Booking and may vary by listing or promotion.",
+            "The remaining balance is held by Renty on the Landlord's behalf for the duration of the Holding Period.",
+            "The Renter may approve early release of funds to the Landlord at any time during the Holding Period, once satisfied that the Unit matches its listing.",
+            "If the Renter takes no action, funds are released automatically to the Landlord once the Holding Period ends.",
+            "Once funds are released to a Landlord, the transaction is final and cannot be reversed by the Renter through the Platform.",
+            "Renty is not a bank and does not pay interest on any amount held during the Holding Period.",
+            "You are responsible for any charges levied by your mobile network operator or payment provider in connection with a transaction."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cancellations-refunds",
+      "heading": "6. Cancellations & Refunds",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "A payment that fails or is not completed on the Renter's phone does not result in any charge and requires no refund.",
+            "If a Booking is cancelled before the Holding Period ends and before funds are released to the Landlord, the Renter may be eligible for a refund, less any costs already incurred by Renty in processing the transaction.",
+            "Refund requests must be raised through the Platform or by contacting us using the details in Section 17, stating the reason for cancellation.",
+            "Renty reserves the right to withhold a refund, in whole or in part, where there is evidence of misuse, fraud, or a Renter's failure to honor a confirmed Booking without reasonable cause.",
+            "Once funds have been released to a Landlord — whether by Renter approval or automatically at the end of the Holding Period — no refund can be processed through the Platform. Any dispute at that stage must be resolved directly between the Renter and Landlord, though Renty may assist in good faith per Section 7."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "disputes-complaints",
+      "heading": "7. Complaints & Disputes",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "A Renter may raise a complaint about a Unit or a Landlord directly through their dashboard.",
+            "Landlords are notified of complaints and are expected to respond and attempt resolution directly with the Renter, including via WhatsApp where contact is facilitated by the Platform for that purpose.",
+            "Renty is not obligated to mediate every dispute but may, at its discretion, review complaint records to identify repeated issues, suspend accounts, or remove listings associated with a pattern of unresolved complaints.",
+            "Renty's decision on any account suspension, listing removal, or Commission dispute arising from a complaint is final."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "renter-obligations",
+      "heading": "8. Renter Obligations",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Provide accurate personal and contact information.",
+            "Only initiate a Booking with a genuine intention to rent the Unit.",
+            "Complete payment promptly once a Booking is initiated, and avoid repeated failed or abandoned attempts that lock a Unit from other Renters.",
+            "Communicate with Landlords and Renty respectfully and in good faith.",
+            "Report any discrepancy between a Unit's listing and its actual condition promptly, and before approving release of funds where possible."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "landlord-obligations",
+      "heading": "9. Landlord Obligations",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Maintain accurate, truthful, and up-to-date listings at all times.",
+            "Honor confirmed Bookings and make the Unit available to the Renter as described.",
+            "Provide a valid, active M-Pesa number capable of receiving payouts.",
+            "Respond to complaints and enquiries raised through the Platform in a timely and professional manner.",
+            "Not solicit or accept payment for a listed Unit outside the Platform in a manner intended to avoid Renty's Commission."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prohibited-conduct",
+      "heading": "10. Prohibited Conduct",
+      "content": [
+        {
+          "type": "text",
+          "text": "You must not, in connection with your use of the Platform:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Provide false, misleading, or fraudulent information about yourself or a Unit",
+            "Attempt to bypass, disable, or interfere with the Platform's reservation, payment, or security systems",
+            "Use the Platform to launder money or facilitate any transaction unrelated to a genuine rental",
+            "Harass, threaten, or discriminate against any other user based on race, ethnicity, gender, religion, disability, or any other protected characteristic",
+            "Attempt to access another user's account, data, or dashboard without authorization",
+            "Use automated tools to scrape, copy, or extract listings or data from the Platform without our written permission",
+            "List or attempt to book a Unit you do not have the legal right to list or rent"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Violation of this section may result in immediate suspension or termination of your account, forfeiture of any pending payout, and, where applicable, referral to law enforcement."
+        }
+      ]
+    },
+    {
+      "id": "platform-role",
+      "heading": "11. Renty's Role & Limitation of Liability",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Renty is a technology and payment-facilitation platform. We connect Renters and Landlords and process payments on their behalf; we are not a real estate broker, letting agent, or party to any tenancy agreement.",
+            "We do not guarantee the accuracy of any listing, the conduct of any Renter or Landlord, or the outcome of any tenancy.",
+            "To the maximum extent permitted by Kenyan law, Renty is not liable for any indirect, incidental, or consequential loss arising from your use of the Platform, including loss of income, loss of a tenancy opportunity, or property damage.",
+            "Our total liability to you for any claim arising from your use of the Platform is limited to the Commission earned by Renty on the specific transaction giving rise to the claim.",
+            "Nothing in these Terms excludes or limits liability that cannot lawfully be excluded or limited under Kenyan law, including liability for fraud."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "indemnity",
+      "heading": "12. Indemnification",
+      "content": [
+        {
+          "type": "text",
+          "text": "You agree to indemnify and hold Renty, its officers, and employees harmless from any claim, loss, liability, or expense (including reasonable legal fees) arising from your breach of these Terms, your listing or Booking of a Unit, or your violation of any law or the rights of a third party."
+        }
+      ]
+    },
+    {
+      "id": "intellectual-property",
+      "heading": "13. Intellectual Property",
+      "content": [
+        {
+          "type": "text",
+          "text": "The Renty name, logo, platform design, and underlying software are the property of Renty and may not be copied, reproduced, or used without our written permission. By uploading a photograph or description of a Unit, a Landlord grants Renty a non-exclusive, royalty-free license to display that content on the Platform for the purpose of listing the Unit."
+        }
+      ]
+    },
+    {
+      "id": "termination",
+      "heading": "14. Suspension & Termination",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "You may close your account at any time by contacting us, subject to the completion of any pending Booking or payout.",
+            "Renty may suspend or terminate your account, with or without notice, if you breach these Terms, if required by law, or if we reasonably believe your account poses a risk to the Platform or other users.",
+            "Termination of your account does not affect any payment obligation, Commission owed, or dispute already in progress at the time of termination."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "changes-to-terms",
+      "heading": "15. Changes to These Terms",
+      "content": [
+        {
+          "type": "text",
+          "text": "We may update these Terms from time to time to reflect changes in our services, legal requirements, or business practices. When we do, we will update the date at the top of this page. Continued use of the Platform after changes take effect constitutes your acceptance of the revised Terms. Where changes are significant — including changes to the Commission structure or Holding Period — we will make reasonable efforts to notify you in advance."
+        }
+      ]
+    },
+    {
+      "id": "governing-law",
+      "heading": "16. Governing Law & Dispute Resolution",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "These Terms are governed by the laws of the Republic of Kenya.",
+            "Any dispute arising from these Terms or your use of the Platform that cannot be resolved informally shall first be submitted to good-faith negotiation between the parties.",
+            "If a dispute cannot be resolved through negotiation, it shall be subject to the exclusive jurisdiction of the courts of Kenya.",
+            "Nothing in this section prevents either party from seeking urgent injunctive relief where necessary."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "general",
+      "heading": "17. General Provisions",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Severability: if any provision of these Terms is found unenforceable, the remaining provisions remain in full effect.",
+            "Entire agreement: these Terms, together with our Privacy Policy, constitute the entire agreement between you and Renty regarding your use of the Platform.",
+            "No waiver: our failure to enforce any provision of these Terms is not a waiver of our right to do so later.",
+            "Assignment: you may not transfer your rights or obligations under these Terms without our written consent. Renty may assign these Terms in connection with a merger, acquisition, or sale of assets."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "heading": "18. Contact Us",
+      "content": [
+        {
+          "type": "text",
+          "text": "If you have questions about these Terms, contact us at:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Email: simonmbithi143@gmail.com",
+            "Phone/WhatsApp: +254 700 000 000",
+            "Location: Nairobi, Kenya"
+          ]
+        }
+      ]
+    }
+  ]
+}

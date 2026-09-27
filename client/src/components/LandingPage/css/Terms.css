@@ -1,0 +1,132 @@
+/* ============================================================
+   Terms & Conditions / Policy pages
+   Same shell pattern as Guides.css / Houses.css:
+   4rem section padding, content capped at a readable width
+   ============================================================ */
+
+.policy-page {
+  padding: 4rem max(2rem, calc((100% - 900px) / 2));
+  background: var(--color-bg);
+  min-height: 60vh;
+  width: 90%;
+}
+
+/* ── Header ── */
+.policy-header {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.policy-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.policy-updated {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+}
+
+.policy-intro {
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  max-width: 720px;
+}
+
+/* ── Body ── */
+.policy-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+}
+
+.policy-section h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+  scroll-margin-top: 5rem; /* keeps the heading clear of a sticky navbar when linked via #id */
+}
+
+.policy-section p {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.policy-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Lists ── */
+.policy-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.policy-list:last-child {
+  margin-bottom: 0;
+}
+
+.policy-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+.policy-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .policy-page {
+    padding: 3rem 1.25rem;
+  }
+
+  .policy-header h1 {
+    font-size: 2rem;
+  }
+
+  .policy-section h2 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .policy-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .policy-intro {
+    font-size: 0.95rem;
+  }
+
+  .policy-section p,
+  .policy-list li {
+    font-size: 0.95rem;
+  }
+}

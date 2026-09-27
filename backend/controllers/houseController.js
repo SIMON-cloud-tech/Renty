@@ -48,7 +48,7 @@ exports.searchHouse = asyncHandler(async (req, res) => {
 // ─── PUBLIC: preview of 3 vacant houses ───
 // Used by the light variant of Products.jsx
 exports.getHousesPreview = asyncHandler(async (req, res) => {
-  const units = await Unit.find({ status: 'vacant' })
+  const units = await Unit.find()
     .sort({ createdAt: -1 })
     .limit(3)
     .lean();
