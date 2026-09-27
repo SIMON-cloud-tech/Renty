@@ -1,17 +1,22 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiTrendingUp, FiAlertCircle, FiArrowRight, FiInfo } from 'react-icons/fi';
-import '../css/Affordability.css';
+import { FiTrendingUp, FiAlertCircle, FiArrowRight, FiInfo, FiTruck } from 'react-icons/fi';
+import '../css/AffordabilityTool.css';
 
 const CACHE_KEY = 'renty_units_all';
 
-// Conservative rent-to-income ceiling. Landlords and financial advisors
-// usually place this at 30% of net monthly income.
+// Conservative rent-to-income ceiling — 30% of net income.
 const RENT_RATIO = 0.3;
 
-// Small safety margin — we don't want to show units that push someone
-// right up against the ceiling and leave no room for deposits or emergencies.
+// Small safety margin so we don't push people to the edge of the ceiling.
 const SAFETY_FACTOR = 0.95;
+
+// Stretch ceiling — up to 35% if the user is willing to push it.
+const STRETCH_RATIO = 0.35;
+
+// Rough moving-cost estimate in KES. Covers a small van, fuel, and a
+// couple of hours of loading help. Users can adjust in future versions.
+const MOVING_COST = 5000;
 
 const formatKES = (n) =>
   `KES ${Number(n || 0).toLocaleString('en-KE', { maximumFractionDigits: 0 })}`;
@@ -24,15 +29,16 @@ const AffordabilityTool = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // ── Fetch units once, reuse the same cache key as Houses.jsx ──
+  // ── Fetch units once, reuse the same cache as Houses.jsx ──
   useEffect(() => {
     const fetchUnits = async () => {
       try {
         const cached = localStorage.getItem(CACHE_KEY);
         if (cached) {
           const parsed = JSON.parse(cached);
-          if (Array.isArray(parsed?.value ?? parsed)) {
-            setUnits(parsed.value ?? parsed);
+          const list = Array.isArray(parsed?.value ?? parsed) ? (parsed.value ?? parsed) : null;
+          if (list) {
+            setUnits(list);
             setLoading(false);
             return;
           }
@@ -56,13 +62,13 @@ const AffordabilityTool = () => {
   const otherNum = Number(String(otherIncome).replace(/[^\d]/g, '')) || 0;
   const totalIncome = incomeNum + otherNum;
 
-  // The monthly rent someone can comfortably pay.
   const maxRent = useMemo(
     () => Math.floor(totalIncome * RENT_RATIO * SAFETY_FACTOR),
     [totalIncome]
   );
+  const stretchCeiling = Math.floor(totalIncome * STRETCH_RATIO);
 
-  // Units they can afford, sorted cheapest-first.
+  // ── Affordable units ──
   const affordable = useMemo(() => {
     if (!incomeNum || !units.length) return [];
     return units
@@ -70,8 +76,7 @@ const AffordabilityTool = () => {
       .sort((a, b) => Number(a.rent) - Number(b.rent));
   }, [units, maxRent, incomeNum]);
 
-  // Their "stretch" range — units slightly above comfort, up to 35%.
-  const stretchCeiling = Math.floor(totalIncome * 0.35);
+  // ── Stretch units ──
   const stretchable = useMemo(() => {
     if (!incomeNum || !units.length) return [];
     return units
@@ -79,9 +84,13 @@ const AffordabilityTool = () => {
       .sort((a, b) => Number(a.rent) - Number(b.rent));
   }, [units, maxRent, stretchCeiling, incomeNum]);
 
-  const handleCalculate = useCallback((e) => {
-    e.preventDefault();
-  }, []);
+  // ── Cheapest affordable unit — for the "cash to move in" summary ──
+  const cheapestAffordable = affordable[0] || null;
+  const cheapestMoveInCost = cheapestAffordable
+    ? Number(cheapestAffordable.rent) + Number(cheapestAffordable.deposit || 0) + MOVING_COST
+    : 0;
+
+  const handleCalculate = useCallback((e) => e.preventDefault(), []);
 
   const handleViewHouse = useCallback(
     (id) => navigate(`/houses/${id}`),
@@ -101,8 +110,8 @@ const AffordabilityTool = () => {
           </h2>
           <p className="afford-lead">
             Enter your monthly income and we'll show you the homes that fit
-            comfortably in your budget — with room left for food, transport,
-            and emergencies. No signup required.
+            comfortably in your budget — including what you'll need to move in.
+            No signup required.
           </p>
 
           <form className="afford-form" onSubmit={handleCalculate}>
@@ -147,6 +156,43 @@ const AffordabilityTool = () => {
             </div>
           )}
 
+          {/* ── Day-one cash requirement ── */}
+          {showResults && cheapestAffordable && (
+            <div className="afford-dayone">
+              <div className="afford-dayone-head">
+                <FiTruck size={18} />
+                <span>What you'll need on day one</span>
+              </div>
+              <p className="afford-dayone-detail">
+                For the cheapest home in your range —{' '}
+                <strong>{cheapestAffordable.houseType}</strong> in{' '}
+                {cheapestAffordable.location} — you'll need roughly:
+              </p>
+              <ul className="afford-dayone-list">
+                <li>
+                  <span>First month's rent</span>
+                  <span>{formatKES(cheapestAffordable.rent)}</span>
+                </li>
+                <li>
+                  <span>Deposit</span>
+                  <span>{formatKES(cheapestAffordable.deposit || 0)}</span>
+                </li>
+                <li>
+                  <span>Moving cost (est.)</span>
+                  <span>{formatKES(MOVING_COST)}</span>
+                </li>
+                <li className="total">
+                  <span>Total to move in</span>
+                  <span>{formatKES(cheapestMoveInCost)}</span>
+                </li>
+              </ul>
+              <p className="afford-dayone-note">
+                The moving cost is an estimate — it varies with distance and how
+                much you own.
+              </p>
+            </div>
+          )}
+
           <p className="afford-note">
             <FiInfo size={14} /> This is a guide, not financial advice. If your
             situation is different — for example, you split rent with a partner
@@ -175,7 +221,7 @@ const AffordabilityTool = () => {
               <h3>Your results will appear here</h3>
               <p>
                 Enter your monthly income on the left and we'll match you with
-                homes you can afford — and explain why.
+                homes you can afford — including what you'll need to move in.
               </p>
             </div>
           )}
@@ -252,13 +298,16 @@ const AffordCard = ({ unit, maxRent, totalIncome, onView, stretched = false }) =
   const rent = Number(unit.rent) || 0;
   const deposit = Number(unit.deposit) || 0;
   const pctOfIncome = totalIncome > 0 ? Math.round((rent / totalIncome) * 100) : 0;
-  const totalMove = rent + deposit;
+  const moveInCost = rent + deposit + MOVING_COST;
 
   return (
     <div className={`afford-card ${stretched ? 'stretched' : ''}`}>
       <div className="afford-card-top">
         <h4 className="afford-card-title">{unit.houseType}</h4>
-        <span className="afford-card-rent">{formatKES(rent)}<em>/mo</em></span>
+        <span className="afford-card-rent">
+          {formatKES(rent)}
+          <em>/mo</em>
+        </span>
       </div>
       <p className="afford-card-location">📍 {unit.location}</p>
 
@@ -269,7 +318,7 @@ const AffordCard = ({ unit, maxRent, totalIncome, onView, stretched = false }) =
         </div>
         <div className="afford-stat">
           <span className="afford-stat-label">To move in</span>
-          <span className="afford-stat-value">{formatKES(totalMove)}</span>
+          <span className="afford-stat-value">{formatKES(moveInCost)}</span>
         </div>
       </div>
 
