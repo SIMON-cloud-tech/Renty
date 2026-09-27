@@ -1,40 +1,53 @@
-# FurniHaven — Full-Stack Furniture CMS & Storefront
+# Renty — Rental Marketplace & Payment Flow Platform
 
-**Status:** Production-ready | **Version:** 1.0.0 | **Last Updated:** August 2026
+**Status:** Production-ready | **Version:** 1.0.0 | **Last Updated:** September 2026
 
-FurniHaven is a production-ready full-stack website combining a fast React + Vite storefront with an Express + MongoDB backend and a private admin dashboard. It's built for small furniture businesses who want a modern, content-driven online presence they can update without touching code.
+Renty is a full-stack rental marketplace that helps clients discover available homes, visit listings, reserve a unit, and pay securely for a rental through the platform. It combines a React + Vite frontend with an Express + MongoDB backend and a role-based admin dashboard for landlords and operations.
 
-This README is written to: (a) describe what the product does for potential clients, (b) show developers how to run and deploy it, and (c) document the API and integrations used.
+This README is written to: (a) explain how Renty works for clients and landlords, (b) show developers how to run and deploy the platform, and (c) document the API and the payment flow.
 
 ---
 
 ## 1. What This Product Does (Client-Focused)
 
-- Public storefront with product pages, categories, blog articles, and buying guides to drive organic search and conversions.
-- Admin dashboard (single-admin model) for editing products, blogs, guides, testimonials, and chatbot knowledge — no developer involvement required.
-- Lead and enquiry capture, surfaced in the dashboard for sales follow-up.
-- Embeddable support chatbot backed by a database-driven knowledge base the business can maintain from the dashboard.
-- Image storage and delivery via Cloudinary (fast, CDN-backed).
-- Transactional emails (OTP / password reset) via Resend.
-- Lightweight analytics across products, blogs, guides, leads, and chatbot interactions to inform marketing decisions.
+- Public property listing experience for searching homes by location, budget, and type.
+- Client-facing flow for viewing available units, contacting landlords, and arranging a visit.
+- Rental reservation and payment initiation using the platform's secure M-Pesa flow.
+- Admin and landlord dashboards for managing units, leads, payments, and property records.
+- Escrow-style handling for rental funds so the money is protected while the unit is being confirmed.
+- Image uploads and property media storage via Cloudinary.
+- Transactional notifications and analytics for leads, enquiries, and payment activity.
 
-**Why clients choose FurniHaven:**
-- **Turn-key storefront + CMS** — deploy quickly, manage content via a web dashboard.
-- **SEO-friendly** — blog and guide features let the business publish content that attracts qualified organic traffic.
-- **Customer-first** — integrated chatbot, lead capture, and testimonials build trust and reduce friction.
-- **Easier to maintain than a static site** — content lives in MongoDB, not hardcoded in markup.
+**Why clients choose Renty:**
+- **Simple property search** — clients can browse available homes instead of chasing listings manually.
+- **Trust-first rental process** — the platform holds funds during the onboarding and move-in confirmation period.
+- **Clear payment journey** — clients can reserve, pay, and track their rental status from one place.
+- **Operationally easier** — landlords and admins manage listings and payments without custom code.
+
+### 1.1 How a client visits, rents, and pays for a house on Renty
+
+The rental journey on Renty is designed to be simple and safe for both the client and the landlord:
+
+1. A client visits the Renty platform and browses available houses by location, house type, rent range, and other criteria.
+2. They choose a property they like, review details, and can contact the landlord or arrange a physical visit through the platform workflow.
+3. If the client wants the house, they start the rental process from the property page. The backend verifies the unit is still vacant and reserves it for a short time to prevent double-booking.
+4. The system creates a payment record and triggers a payment request using the client's M-Pesa phone number. This is where the house is effectively being secured while the client completes the transaction.
+5. Once the M-Pesa prompt is confirmed, the payment is marked as paid and waits for the final approval flow. The funds are held in a protected flow until the move-in is confirmed.
+6. After the client confirms the property and the landlord completes the handover, the payment can be released to the landlord, while the platform keeps the payment trail and account status transparent.
+
+This flow protects both sides: the client is not paying into a questionable listing, and the landlord is protected from a unit being reserved without a valid payment trail.
 
 ---
 
 ## 2. Key Features (Technical Highlights)
 
-- **Public storefront:** product listing, category filters, product detail pages, SEO-friendly blog posts and guides.
-- **Admin dashboard:** full CRUD for Products, Blogs, Guides, Testimonials, Leads, and Bot knowledge.
-- **Authentication:** cookie-based JWT auth for secure dashboard access.
-- **File uploads:** image upload middleware with Cloudinary integration.
+- **Public rental marketplace:** property listings, location-based filtering, and house detail pages for clients searching for homes.
+- **Landlord & admin dashboard:** full CRUD for units, landlord profiles, leads, payments, and bot knowledge.
+- **Authentication:** cookie-based JWT auth for secure client, landlord, and admin access.
+- **File uploads:** image upload middleware with Cloudinary integration for listing photos.
 - **Chatbot:** public chat endpoint using a DB-backed knowledge base; records unanswered questions for later review and improvement.
-- **Analytics:** protected endpoints for overview metrics and model-specific analytics (products, leads, blogs, guides, bot).
-- **Password reset:** OTP flow with email delivery via Resend.
+- **Analytics:** protected endpoints for overview metrics and property-specific analytics for leads, units, and payment activity.
+- **Payments:** M-Pesa-style payment flows for reservations and rental confirmations, with protected payout handling.
 
 ---
 
@@ -151,7 +164,7 @@ cd frontend && npm run dev   # frontend only
 cd backend && npm run dev    # backend only
 ```
 
-```The entire project is deployed on Render as below. https://furnihaven.onrender.com/
+The project is deployed on Render and can be configured for production hosting through the root app and backend environment settings.
 
 ## 6. Environment Variables
 
@@ -160,7 +173,7 @@ Create a `.env` in `backend/`:
 ```env
 PORT=5000
 NODE_ENV=development
-MONGODB_URI=mongodb://localhost:27017/furnihaven
+MONGODB_URI=mongodb://localhost:27017/renty
 JWT_SECRET=super_secret_key
 CLIENT_URL=http://localhost:5173
 VITE_WHATSAPP_NUMBER=2547XXXXXXXX
