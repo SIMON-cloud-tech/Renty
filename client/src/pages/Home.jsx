@@ -13,9 +13,9 @@ function Home() {
   return (
     <>
       <SEO
-        title="Modern Furniture & Home Essentials in Kenya"
-        description="FurniHaven offers stylish furniture, home decor, storage solutions, and functional everyday pieces for homes and offices across Kenya."
-        keywords="furniture Kenya, home decor, sofas, dining sets, bedroom furniture, office furniture, FurniHaven"
+        title="Find a Home to Rent in Kenya"
+        description="Renty connects you to verified houses, bedsitters, and apartments for rent across Nairobi. Book securely with M-Pesa and manage everything from one dashboard."
+        keywords="houses for rent Kenya, apartments Nairobi, bedsitter Nairobi, rental platform, book a house M-Pesa"
       />
       <Hero />
       <House />
@@ -24,7 +24,7 @@ function Home() {
       <Houses variant="light" />
       <Testimonials />
       <Reach />
-      <Guides />
+      <Guides variant="light" />
       <BlogSection variant="light" />
     </>
   );

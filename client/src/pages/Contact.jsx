@@ -1,14 +1,15 @@
 import SEO from '../components/SEO/Seo.jsx';
 import Reach from '../components/LandingPage/jsx/Reach.jsx';
-export default function Contact(){
-  return(
+
+export default function Contact() {
+  return (
     <>
       <SEO
-        title="Contact FurniHaven"
-        description="Get in touch with FurniHaven for furniture enquiries, product recommendations, and home styling support across Kenya."
-        keywords="contact FurniHaven, furniture enquiry Kenya, home decor support, furniture consultation"
+        title="Contact Renty"
+        description="Get in touch with Renty for rental enquiries, house viewings, and support finding a home across Nairobi and surrounding areas."
+        keywords="contact Renty, rental enquiry Kenya, house viewing Nairobi, renting support"
       />
       <Reach />
     </>
-  )
+  );
 }
