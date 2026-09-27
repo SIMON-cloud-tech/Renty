@@ -5,13 +5,12 @@
      five via color-mix(). Change a base, the whole ramp shifts
      in proportion — nothing downstream needs manual retouching.
      ============================================================ */
-  --base-walnut: #3B2A20; /* primary dark — wood */
-  --base-brass:  #A97C50; /* accent — aged metal */
-  --base-sage:   #6B7860; /* secondary accent — natural counterpoint */
-  --base-bone:   #F2EDE4; /* background — linen/raw wood */
-  --base-ink:    #1C1A18; /* text — warm near-black */
-  --base-danger: #A6402D; /* muted brick-red — destructive actions only (remove item, delete) */
-
+   --base-walnut: #0F1A14; /* primary dark — brand black (Rent buttons, dark surfaces) */
+  --base-brass:  #15803D; /* accent — green (main buttons, prices, links) */
+  --base-sage:   #5B7266; /* secondary accent — muted grey-green (tags) */
+  --base-bone:   #F6F8F7; /* background — soft off-white */
+  --base-ink:    #0C1210; /* text — near-black */
+  --base-danger: #DC2626; /* red — destructive actions and errors only */
   /* ============================================================
      WALNUT RAMP — derived by mixing the base toward white (light
      end) or black (dark end) in fixed percentage steps. The step

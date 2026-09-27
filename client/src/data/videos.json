@@ -1,0 +1,27 @@
+{
+  "strip": "Live the space before you rent it",
+  "title": "See Your Next Home in Motion",
+  "description": "Browse real walkthroughs of available units across Nairobi. Find your match, then reserve it in minutes.",
+  "cta": "Rent Now",
+  "ctaPath": "/house",
+  "videos": [
+    {
+      "id": "v1",
+      "src": "/bg2.mp4",
+      "poster": "/hero.jpg",
+      "title": "Living Room Walkthrough"
+    },
+    {
+      "id": "v2",
+      "src": "/bg2.mp4",
+      "poster": "/hero.jpg",
+      "title": "Bedroom Tour"
+    },
+    {
+      "id": "v3",
+      "src": "/bg3.mp4",
+      "poster": "/hero.jpg",
+      "title": "Kitchen Overview"
+    }
+  ]
+}

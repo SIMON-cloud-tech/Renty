@@ -15,6 +15,7 @@
     "concurrently": "^10.0.3"
   },
   "dependencies": {
+    "framer-motion": "^13.4.0",
     "react-helmet-async": "^3.0.0"
   }
 }

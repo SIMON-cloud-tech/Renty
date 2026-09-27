@@ -1,6 +1,6 @@
 
 import SEO from '../components/SEO/Seo.jsx';
-import Story from '../components/landingpage/jsx/Story.jsx';
+import Story from '../components/LandingPage/jsx/Story.jsx';
 function About(){
   return(
     <>

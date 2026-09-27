@@ -1,0 +1,207 @@
+/* ── Shell ── */
+.hero {
+  position: relative;
+  isolation: isolate;
+  height: 88vh;
+  height: 88svh;
+  min-height: 560px;
+  max-height: 900px;
+  overflow: hidden;
+  background: #0b1220; /* shows until the first frame loads */
+  color: var(--color-text-on-dark, #fff);
+}
+
+/* ── Videos ── */
+.hero__videos,
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__video {
+  object-fit: cover;
+  will-change: opacity, transform;
+}
+
+/* ── Darkening + blur: left side only, the right stays clear ── */
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(8, 12, 20, 0.72) 0%,
+    rgba(8, 12, 20, 0.45) 45%,
+    rgba(8, 12, 20, 0.05) 100%
+  );
+}
+
+.hero__blur {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 2;
+  width: 62%;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  -webkit-mask-image: linear-gradient(to right, #000 55%, transparent);
+  mask-image: linear-gradient(to right, #000 55%, transparent);
+  pointer-events: none;
+}
+
+/* ── Text ── */
+.hero__inner {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: min(100%, 640px);
+  height: 100%;
+  padding: 3rem 6% 4.5rem;
+}
+
+.hero__title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2.1rem, 5.2vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+}
+
+.hero__accent {
+  display: block;
+  width: 64px;
+  height: 5px;
+  margin-bottom: 1.25rem;
+  border-radius: var(--radius-pill, 999px);
+  background: var(--color-accent, #2563eb);
+}
+
+.hero__subtitle {
+  max-width: 480px;
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  opacity: 0.92;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hero__tagline {
+  margin: 0 0 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  line-height: 1.8;
+  color: var(--color-accent, #60a5fa);
+}
+
+/* ── Buttons ── */
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hero__btn {
+  padding: 0.85rem 1.75rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill, 999px);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hero__btn--primary {
+  background: var(--color-accent, #2563eb);
+  color: var(--color-text-on-dark, #fff);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.hero__btn--secondary {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.hero__btn:focus-visible,
+.hero__bar:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ── Progress bars ── */
+.hero__progress {
+  position: absolute;
+  left: 6%;
+  bottom: 1.5rem;
+  z-index: 3;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hero__bar {
+  width: 44px;
+  padding: 0.6rem 0; /* bigger tap target than the thin bar itself */
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.hero__bar-track {
+  display: block;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.hero__bar-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--color-accent, #fff);
+  transform-origin: left center;
+}
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  .hero__blur { width: 72%; }
+}
+
+/* ── Mobile: text spans the full width, so blur and shade cover it all ── */
+@media (max-width: 860px) {
+  .hero {
+    height: 82vh;
+    height: 82svh;
+    min-height: 520px;
+  }
+
+  .hero__shade {
+    background: linear-gradient(180deg, rgba(8, 12, 20, 0.35) 0%, rgba(8, 12, 20, 0.8) 100%);
+  }
+
+  .hero__blur {
+    width: 100%;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .hero__inner {
+    justify-content: flex-end;
+    width: 100%;
+    padding: 2rem 1.25rem 4.5rem;
+  }
+
+  .hero__progress { left: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .hero__subtitle { font-size: 0.95rem; }
+  .hero__cta { flex-direction: column; align-items: stretch; }
+  .hero__btn { text-align: center; }
+}

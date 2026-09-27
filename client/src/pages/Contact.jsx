@@ -1,5 +1,5 @@
 import SEO from '../components/SEO/Seo.jsx';
-import Reach from '../components/landingpage/jsx/Reach.jsx';
+import Reach from '../components/LandingPage/jsx/Reach.jsx';
 export default function Contact(){
   return(
     <>

@@ -1,0 +1,399 @@
+/* ============================================================
+   Houses Page — Full + Light variants
+   Spacing mirrors Guides.css: 4rem 2rem section padding,
+   1400px max content width, 3rem below the header
+   ============================================================ */
+
+/* ── Shared section shell ── */
+/* Same as .guides-section + .guides-container in one rule:
+   4rem top/bottom, at least 2rem at the sides, content never wider than 1400px,
+   background still runs full width */
+.houses-page {
+  padding: 4rem max(2rem, calc((100% - 1400px) / 2));
+  background: var(--color-bg);
+}
+
+.houses-full {
+  min-height: 60vh;
+}
+
+/* ── Full Variant Header (same as .guides-header) ── */
+.houses-full .houses-header {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+}
+
+.houses-full .houses-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.houses-full .houses-header p {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── Search & Load More (Full only) ── */
+.search-loadmore-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.searchbar {
+  flex: 1 1 260px;
+  max-width: 480px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-muted);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.load-more-btn {
+  padding: 0.5rem 1.5rem;
+  background: var(--color-accent);
+  color: var(--color-text-on-dark);
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+
+.load-more-btn:hover {
+  background: var(--color-accent-hover);
+  transform: scale(1.02);
+}
+
+/* ── Light Variant Header ── */
+.houses-light .houses-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+.houses-light .houses-strip {
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.houses-light .houses-title {
+  font-size: 2.5rem;
+  color: var(--color-text-primary);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.houses-light .houses-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 42rem;
+}
+
+/* View All link on the top right */
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  transition: color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+  align-self: flex-end;
+}
+
+.view-all-link:hover {
+  color: var(--color-accent-hover);
+  transform: translateX(3px);
+}
+
+/* ── Grid (the header's margin-bottom already provides the space above) ── */
+.houses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* ── House Card ── */
+.house-card {
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: default;
+}
+
+.house-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+.house-image {
+  height: 200px;
+  background: var(--neutral-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.house-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.house-card:hover .house-image img {
+  transform: scale(1.04);
+}
+
+.placeholder-image {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.house-info {
+  padding: 1.25rem 1.25rem 0.5rem;
+  flex: 1;
+}
+
+.house-info h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.house-location {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin: 0.15rem 0;
+}
+
+.house-price {
+  font-weight: 700;
+  color: var(--color-accent);
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.house-description {
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0.25rem 0 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Rent button — hidden by default, appears on hover ── */
+.house-actions {
+  padding: 0.5rem 1.25rem 1.25rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.house-card:hover .house-actions,
+.house-card:focus-within .house-actions {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.rent-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  padding: 0.6rem;
+  background: var(--color-brand);
+  color: var(--color-text-on-dark);
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.rent-btn:hover {
+  background: var(--color-brand-hover);
+  transform: scale(1.02);
+}
+
+/* ── Load More Trigger (same 3rem gap as .guides-cta) ── */
+.load-more-trigger {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--neutral-200);
+  border-top-color: var(--color-brand);
+  border-right-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+}
+
+.spinner.small {
+  width: 24px;
+  height: 24px;
+  border-width: 3px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Loading / Empty (same height and padding as the guides states) ── */
+.houses-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 4rem 2rem;
+  gap: 1.25rem;
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+}
+
+.no-houses {
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--color-text-muted);
+  grid-column: 1 / -1;
+}
+
+/* ── Responsive (breakpoints match Guides.css) ── */
+@media (max-width: 1024px) {
+  .houses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .houses-page {
+    padding: 3rem 1rem;
+  }
+
+  .houses-full .houses-header h2 {
+    font-size: 2rem;
+  }
+
+  .houses-light .houses-title {
+    font-size: 2rem;
+  }
+
+  .houses-light .houses-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .view-all-link {
+    align-self: flex-start;
+  }
+
+  .search-loadmore-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchbar {
+    flex: none;
+    max-width: none;
+    width: 100%;
+  }
+
+  .load-more-btn {
+    width: 100%;
+  }
+
+  .house-image {
+    height: 180px;
+  }
+
+  /* On mobile, always show the rent button */
+  .house-actions {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .houses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .houses-full .houses-header h2 {
+    font-size: 1.75rem;
+  }
+
+  .house-image {
+    height: 200px;
+  }
+}

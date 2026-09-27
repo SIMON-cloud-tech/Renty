@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import Footer from '../components/landingpage/jsx/Footer.jsx';
-import Navbar from '../components/landingpage/jsx/Navbar.jsx';
-import Chatbot from '../components/landingpage/jsx/Chatbot.jsx';
-import CookieConsent from '../components/landingpage/jsx/CookieConsent.jsx';
+import Footer from '../components/LandingPage/jsx/Footer.jsx';
+import Navbar from '../components/LandingPage/jsx/Navbar.jsx';
+import Chatbot from '../components/LandingPage/jsx/Chatbot.jsx';
+import CookieConsent from '../components/LandingPage/jsx/CookieConsent.jsx';
 
 const PublicLayout = () => {
   const [cart, setCart] = useState(() => {

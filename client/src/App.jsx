@@ -1,27 +1,40 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Loader from './components/landingpage/jsx/Loader.jsx';
-// Layouts
+import Loader from './components/LandingPage/jsx/Loader.jsx';
+
+// import the layout
 import PublicLayout from './layouts/PublicLayout.jsx';
 
-// Public pages
+// public pages
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
+import HousesPage from './pages/HousesPage.jsx';
 import Contact from './pages/Contact.jsx';
-import Products from './components/landingpage/jsx/Products.jsx';
-import ProductDetail from './components/landingpage/jsx/ProductDetail.jsx';
-import BlogDetail from './components/landingpage/jsx/BlogDetail.jsx';
-import BlogSection from './components/landingpage/jsx/BlogSection.jsx';
-import CategoryPage from './components/landingpage/jsx/CategoryPage.jsx';
-import Guides from './components/landingpage/jsx/Guides.jsx';
-import NewArrivals from './components/landingpage/jsx/NewArrivals.jsx';
-import GuideDetail from './components/landingpage/jsx/GuideDetail.jsx';
-import Privacy from './components/landingpage/jsx/Privacy.jsx';
+import Blog from './components/LandingPage/jsx/BlogSection.jsx';
+import Guides from './components/LandingPage/jsx/Guides.jsx';
+import Privacy from './components/LandingPage/jsx/Privacy.jsx';
+import GuideDetail from './components/LandingPage/jsx/GuideDetail.jsx';
+import BlogDetail from './components/LandingPage/jsx/BlogDetail.jsx';
+import HouseDetail from './components/LandingPage/jsx/HouseDetail.jsx';
 
-// Admin / Auth
-import Auth from './components/dashboard/jsx/Auth.jsx';
-import Reset from './components/dashboard/jsx/Reset.jsx';
-import Dashboard from './components/dashboard/jsx/Dashboard.jsx';
+// Auth
+import Auth from './components/Business/jsx/Auth.jsx';
+import Reset from './components/Business/jsx/Reset.jsx';
+
+// Dashboards (one per role)
+import BusinessDashboard from './components/Business/jsx/Dashboard.jsx';
+import LandlordDashboard from './components/Landlord/jsx/LandlordDashboard.jsx';
+import ClientDashboard from './components/Client/jsx/ClientDashboard.jsx';
+
+// Where each role lands after login
+const HOME = { business: '/business', landlord: '/landlord', client: '/client' };
+
+// Only renders its children for the matching role
+const RoleRoute = ({ user, role, children }) => {
+  if (!user) return <Navigate to="/admin" replace />;
+  if (user.role !== role) return <Navigate to={HOME[user.role] || '/admin'} replace />;
+  return children;
+};
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,12 +44,7 @@ function App() {
     const checkAuth = async () => {
       try {
         const res = await fetch('/api/profile', { credentials: 'include' });
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data);
-        } else {
-          setUser(null);
-        }
+        setUser(res.ok ? await res.json() : null);
       } catch {
         setUser(null);
       } finally {
@@ -46,67 +54,57 @@ function App() {
     checkAuth();
   }, []);
 
-  if (loading) {
-    return <Loader />;
-  }
+  if (loading) return <Loader />;
 
-  const isAuthenticated = !!user;
+  // Null if logged out, or if the session has no valid role (e.g. an old cookie)
+  const homePath = user ? HOME[user.role] : null;
 
   return (
     <Routes>
-      {/* ===== PUBLIC ROUTES (with Navbar + Footer) ===== */}
+      {/* Public pages */}
       <Route element={<PublicLayout />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={homePath ? <Navigate to={homePath} replace /> : <Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/products" element={<Products variant="full" />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/houses" element={<HousesPage />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/blogs" element={<BlogSection />} />
-        <Route path='guides' element={<Guides variant='full' />} />
-        <Route path="/guides/:id" element={<GuideDetail />} />
-        <Route path='/newarrivals' element={<NewArrivals />} />
+        <Route path="/blogs" element={<Blog />} />
+        <Route path="/guides" element={<Guides />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/guides/:id" element={<GuideDetail />} />
         <Route path="/blogs/:id" element={<BlogDetail />} />
-
-        {/* ===== SHOP CATEGORIES (filter by category) ===== */}
-        <Route path="/shop/sofas" element={<CategoryPage filterType="category" filterValue="sofas" title="Sofas" />} />
-        <Route path="/shop/beds" element={<CategoryPage filterType="category" filterValue="beds" title="Beds" />} />
-        <Route path="/shop/tables" element={<CategoryPage filterType="category" filterValue="tables" title="Tables" />} />
-        <Route path="/shop/outdoor" element={<CategoryPage filterType="category" filterValue="outdoor" title="Outdoor" />} />
-        <Route path="/shop/office" element={<CategoryPage filterType="category" filterValue="office" title="Office" />} />
-
-        {/* ===== ROOM CATEGORIES (filter by room) ===== */}
-        <Route path="/rooms/living-room" element={<CategoryPage filterType="room" filterValue="living-room" title="Living Room" />} />
-        <Route path="/rooms/bedroom" element={<CategoryPage filterType="room" filterValue="bedroom" title="Bedroom" />} />
-        <Route path="/rooms/kitchen" element={<CategoryPage filterType="room" filterValue="kitchen" title="Kitchen" />} />
-        <Route path="/rooms/home-office" element={<CategoryPage filterType="room" filterValue="home-office" title="Home Office" />} />
-        <Route path="/rooms/outdoor-spaces" element={<CategoryPage filterType="room" filterValue="outdoor-spaces" title="Outdoor Spaces" />} />
+        <Route path="/houses/:id" element={<HouseDetail />} />
       </Route>
 
-      {/* ===== HIDDEN ADMIN LOGIN ===== */}
+      {/* One login/signup form for all roles */}
       <Route
         path="/admin"
-        element={
-          isAuthenticated ? (
-            <Navigate to="/dashboard" replace />
-          ) : (
-            <Auth setUser={setUser} />
-          )
-        }
+        element={homePath ? <Navigate to={homePath} replace /> : <Auth setUser={setUser} />}
       />
 
-      {/* ===== PASSWORD RESET ===== */}
       <Route path="/reset" element={<Reset />} />
 
-      {/* ===== PROTECTED DASHBOARD ===== */}
       <Route
-        path="/dashboard/*"
+        path="/business/*"
         element={
-          isAuthenticated ? (
-            <Dashboard setUser={setUser} />
-          ) : (
-            <Navigate to="/admin" replace />
-          )
+          <RoleRoute user={user} role="business">
+            <BusinessDashboard setUser={setUser} />
+          </RoleRoute>
+        }
+      />
+      <Route
+        path="/landlord/*"
+        element={
+          <RoleRoute user={user} role="landlord">
+            <LandlordDashboard setUser={setUser} />
+          </RoleRoute>
+        }
+      />
+      <Route
+        path="/client/*"
+        element={
+          <RoleRoute user={user} role="client">
+            <ClientDashboard setUser={setUser} />
+          </RoleRoute>
         }
       />
 

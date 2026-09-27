@@ -1,0 +1,189 @@
+/* ============================================================
+   House Page — inherits from root.css design tokens
+   ============================================================ */
+
+.house-page {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+/* ── Header ── */
+.house-header h5 {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.house-header h1 {
+  font-size: 1.8rem;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.house-header p {
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+  max-width: 42rem;
+}
+
+/* ── Search row ── */
+.house-search-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  background: var(--color-bg-elevated);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.house-search-grid input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.house-search-grid input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.house-search-grid input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-muted);
+}
+
+.house-search-grid button {
+  padding: 0.75rem 2rem;
+  background: var(--color-brand);
+  color: var(--color-text-on-dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.house-search-grid button:hover {
+  background: var(--color-brand-hover);
+}
+
+.house-search-grid button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Error message ── */
+.house-error {
+  color: var(--color-danger);
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+/* ── Floating card ── */
+.house-floating-card {
+  margin-top: 2rem;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  max-width: 420px;
+  animation: floatIn 0.4s ease;
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Card image ── */
+.house-card-image {
+  height: 180px;
+  background: var(--neutral-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+}
+
+.house-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.placeholder-image {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Card body ── */
+.house-card-body {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.house-card-body h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.house-card-location {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+.house-card-rent {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 0.5rem 0;
+}
+
+.house-card-landlord {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.house-card-landlord strong {
+  color: var(--color-text-primary);
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .house-search-grid {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .house-floating-card {
+    max-width: 100%;
+  }
+
+  .house-header h1 {
+    font-size: 1.5rem;
+  }
+}

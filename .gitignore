@@ -77,3 +77,5 @@ coverage/
 *.pem
 *.cert
 *.keybackend/data/*.json
+.env
+node_modules/

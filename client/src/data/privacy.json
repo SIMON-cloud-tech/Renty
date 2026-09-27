@@ -1,7 +1,7 @@
 {
   "title": "Privacy Policy",
-  "lastUpdated": "August 2026",
-  "intro": "At FurniHaven, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website and services.",
+  "lastUpdated": "September 2026",
+  "intro": "At Renty, we take your privacy seriously. This Privacy Policy explains how we collect, use, hold, and protect your personal and payment information when you use our website and services. Because Renty holds rent payments on behalf of renters and landlords, we also explain how that money is handled.",
   "sections": [
     {
       "id": "information-we-collect",
@@ -14,12 +14,13 @@
         {
           "type": "list",
           "items": [
-            "Name, email address, and phone number when you fill our contact form",
-            "Your inquiries and messages about our furniture products",
-            "Location information you mention in your inquiries (e.g., Kilimani, Karen)",
+            "Name, email address, and phone number when you fill our contact or enquiry form",
+            "Your rental search details — preferred location, budget, and unit type",
+            "Payment details needed to process rent, such as your M-Pesa number or bank reference. Card numbers and PINs are never stored on our servers",
+            "Confirmation details after you move in, so we know when to release funds to the landlord",
             "Chatbot conversation history when you interact with our assistant",
             "Browsing behavior and preferences through cookies",
-            "Order details if you make a purchase"
+            "Landlord identity and payout information for landlords using the platform"
           ]
         }
       ]
@@ -35,19 +36,43 @@
         {
           "type": "list",
           "items": [
-            "Respond to your inquiries and provide customer support",
-            "Process orders and arrange deliveries",
-            "Improve our products and services",
-            "Send you updates about new arrivals and offers (only if you opt in)",
-            "Analyze website traffic and user behavior",
-            "Comply with legal obligations"
+            "Respond to your enquiries and connect you with landlords",
+            "Process rent payments and hold funds in trust until the move-in is confirmed",
+            "Calculate and deduct the Renty commission on each completed transaction",
+            "Remit the balance to the landlord once the renter confirms the house",
+            "Resolve disputes between renters and landlords",
+            "Improve our platform and services",
+            "Send you updates about new listings and offers (only if you opt in)",
+            "Comply with Kenyan tax, anti-money laundering, and financial reporting obligations"
           ]
         }
       ]
     },
     {
+      "id": "payment-flow",
+      "heading": "3. How Rent Payments Are Held",
+      "content": [
+        {
+          "type": "text",
+          "text": "When a renter pays rent through Renty, the money does not go directly to the landlord. Instead it moves through a three-step process:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Step 1 — Payment. The renter pays rent through M-Pesa, bank transfer, or another supported method. The full amount is received by Renty.",
+            "Step 2 — Commission. Renty deducts its commission from the payment. This is the only amount Renty keeps.",
+            "Step 3 — Escrow. The remaining balance is held by Renty on the landlord's behalf. It is not released until the renter has physically moved in and confirmed the unit matches what was listed."
+          ]
+        },
+        {
+          "type": "text",
+          "text": "This protects both sides. The renter is not exposed to a landlord who disappears with the money, and the landlord is protected from renters who pay and then refuse to move in. If the renter never confirms the unit, the funds are returned to the renter minus any costs already incurred."
+        }
+      ]
+    },
+    {
       "id": "cookies",
-      "heading": "3. Cookies & Tracking",
+      "heading": "4. Cookies & Tracking",
       "content": [
         {
           "type": "text",
@@ -56,21 +81,21 @@
         {
           "type": "list",
           "items": [
-            "Remember your preferences and settings",
-            "Keep items in your shopping cart",
+            "Remember your preferences and saved searches",
+            "Keep you logged in to your account",
             "Analyze how you use our website",
             "Improve site performance"
           ]
         },
         {
           "type": "text",
-          "text": "You can control cookies through your browser settings. However, disabling essential cookies may affect site functionality."
+          "text": "You can control cookies through your browser settings. Disabling essential cookies may affect site functionality."
         }
       ]
     },
     {
       "id": "third-parties",
-      "heading": "4. Third-Party Services",
+      "heading": "5. Third-Party Services",
       "content": [
         {
           "type": "text",
@@ -79,10 +104,11 @@
         {
           "type": "list",
           "items": [
-            "Cloudinary - For storing and serving product images",
-            "WhatsApp - For direct communication with customers",
-            "MongoDB Atlas - For secure data storage",
-            "Google Maps - For displaying our location"
+            "M-Pesa and banking partners — to receive rent payments and remit funds",
+            "Cloudinary — for storing and serving unit images",
+            "WhatsApp — for direct communication between renters, landlords, and Renty",
+            "MongoDB Atlas — for secure data storage",
+            "Google Maps — for displaying unit locations"
           ]
         },
         {
@@ -93,26 +119,31 @@
     },
     {
       "id": "data-security",
-      "heading": "5. Data Security",
+      "heading": "6. Data Security",
       "content": [
         {
           "type": "text",
-          "text": "We take data security seriously. Your information is:"
+          "text": "We take data and payment security seriously. Your information is:"
         },
         {
           "type": "list",
           "items": [
             "Stored securely in MongoDB with access controls",
             "Protected during transmission using HTTPS",
-            "Only accessible to authorized personnel",
+            "Held on encrypted escrow accounts separate from Renty's operating funds",
+            "Only accessible to authorized personnel bound by confidentiality",
             "Never sold to third parties"
           ]
+        },
+        {
+          "type": "text",
+          "text": "We do not store card PINs, M-Pesa PINs, or full card numbers on our servers. Payments are processed through regulated payment partners."
         }
       ]
     },
     {
       "id": "your-rights",
-      "heading": "6. Your Rights",
+      "heading": "7. Your Rights",
       "content": [
         {
           "type": "text",
@@ -123,61 +154,61 @@
           "items": [
             "Access your personal data",
             "Request correction of inaccurate data",
-            "Request deletion of your data",
+            "Request deletion of your data, unless we are required to keep it for tax or legal reasons",
             "Object to processing of your data",
             "Withdraw consent at any time",
-            "Lodge a complaint with the Data Commissioner"
+            "Lodge a complaint with the Office of the Data Protection Commissioner"
           ]
         },
         {
           "type": "text",
-          "text": "To exercise any of these rights, contact us at info@furnihaven.co.ke."
+          "text": "To exercise any of these rights, contact us at simonmbithi143@gmail.com."
         }
       ]
     },
     {
       "id": "data-retention",
-      "heading": "7. Data Retention",
+      "heading": "8. Data Retention",
       "content": [
         {
           "type": "text",
-          "text": "We retain your personal information only for as long as necessary to fulfill the purposes described in this policy, unless a longer retention period is required by law."
+          "text": "We retain your personal information only for as long as necessary to fulfill the purposes described in this policy. Payment records are kept for the period required by Kenyan tax law, even after you stop using Renty."
         }
       ]
     },
     {
       "id": "children",
-      "heading": "8. Children's Privacy",
+      "heading": "9. Children's Privacy",
       "content": [
         {
           "type": "text",
-          "text": "Our website is not intended for children under 18. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us immediately."
+          "text": "Our platform is not intended for anyone under 18. We do not knowingly collect personal information from minors. If you believe a minor has provided us with personal information, contact us immediately and we will delete it."
         }
       ]
     },
     {
       "id": "changes",
-      "heading": "9. Changes to This Policy",
+      "heading": "10. Changes to This Policy",
       "content": [
         {
           "type": "text",
-          "text": "We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page. Changes are effective immediately upon posting."
+          "text": "We may update this Privacy Policy from time to time. When we do, we will update the date at the top of this page. If the changes are significant, we will notify you by email or through a notice on the site."
         }
       ]
     },
     {
       "id": "contact",
-      "heading": "10. Contact Us",
+      "heading": "11. Contact Us",
       "content": [
         {
           "type": "text",
-          "text": "If you have questions about this Privacy Policy, contact us at:"
+          "text": "If you have questions about this Privacy Policy or about how your payment is held, contact us at:"
         },
         {
           "type": "list",
           "items": [
-            "Email: info@furnihaven.co.ke",
-            "Phone/WhatsApp: +254 727 713 219",
+            "Email: simonmbithi143@gmail.com",
+            "Phone/WhatsApp: +254 700 000 000",
             "Location: Nairobi, Kenya"
           ]
         }

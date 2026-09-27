@@ -15,52 +15,44 @@ const COOKIE_OPTIONS = {
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
-// ========== REGISTER (only one user allowed) ==========
+// Only these roles can be chosen at signup. 'business' is never self-registered.
+const SIGNUP_ROLES = ['client', 'landlord'];
+
+const signToken = (user) =>
+  jwt.sign({ id: user._id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+
+const publicUser = (user) => ({ id: user._id, name: user.name, email: user.email, role: user.role });
+
+// ========== REGISTER ==========
 exports.register = asyncHandler(async (req, res) => {
-  const { fullName, email, password } = req.body;
+  const { fullName, email, password, role } = req.body;
 
-  // ── Check if a user already exists ──
-  const userCount = await User.countDocuments();
-  if (userCount >= 1) {
-    throw new AppError('Registration is disabled. Only one admin account is allowed.', 403);
-  }
-
-  if (!fullName || !email || !password) {
+  if (!fullName || !email || !password || !role) {
     throw new AppError('All fields are required', 400);
   }
-
+  if (!SIGNUP_ROLES.includes(role)) {
+    throw new AppError('Invalid account type', 400);
+  }
   if (password.length < 8) {
     throw new AppError('Password must be at least 8 characters', 400);
   }
 
   const normalizedEmail = email.toLowerCase().trim();
-
   const existingUser = await User.findOne({ email: normalizedEmail });
   if (existingUser) {
     throw new AppError('Email already registered', 400);
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-
-  const newUser = new User({
+  const newUser = await new User({
     name: fullName,
     email: normalizedEmail,
     password: hashedPassword,
-  });
+    role,
+  }).save();
 
-  await newUser.save();
-
-  const token = jwt.sign(
-    { id: newUser._id, email: newUser.email },
-    JWT_SECRET,
-    { expiresIn: '7d' }
-  );
-
-  res.cookie('token', token, COOKIE_OPTIONS);
-
-  res.status(201).json({
-    user: { id: newUser._id, name: newUser.name, email: newUser.email },
-  });
+  res.cookie('token', signToken(newUser), COOKIE_OPTIONS);
+  res.status(201).json({ user: publicUser(newUser) });
 });
 
 // ========== LOGIN ==========
@@ -81,17 +73,8 @@ exports.login = asyncHandler(async (req, res) => {
     throw new AppError('Invalid credentials', 401);
   }
 
-  const token = jwt.sign(
-    { id: user._id, email: user.email },
-    JWT_SECRET,
-    { expiresIn: '7d' }
-  );
-
-  res.cookie('token', token, COOKIE_OPTIONS);
-
-  res.json({
-    user: { id: user._id, name: user.name, email: user.email },
-  });
+  res.cookie('token', signToken(user), COOKIE_OPTIONS);
+  res.json({ user: publicUser(user) });
 });
 
 // ========== GET PROFILE ==========
@@ -100,7 +83,7 @@ exports.getProfile = asyncHandler(async (req, res) => {
   if (!user) {
     throw new AppError('User not found', 404);
   }
-  res.json({ id: user._id, name: user.name, email: user.email });
+  res.json({ id: user._id, name: user.name, email: user.email, role: user.role });
 });
 
 // ========== LOGOUT ==========

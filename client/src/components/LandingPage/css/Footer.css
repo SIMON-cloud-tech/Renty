@@ -1,0 +1,247 @@
+/* ============================================================
+   Footer — Renty
+   Inherits from root.css design tokens
+   ============================================================ */
+
+.footer {
+  background: var(--color-brand);
+  color: var(--color-text-on-dark);
+  padding: 3.5rem 1.5rem 1.5rem;
+  width: 100%;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Top band ── */
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--base-bone) 12%, transparent);
+}
+
+/* Left identity */
+.footer-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.footer-strip {
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.footer-logo {
+  height: 40px;
+  width: auto;
+}
+
+.footer-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-on-dark);
+  letter-spacing: 0.5px;
+}
+
+.footer-tagline {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text-on-dark);
+  margin: 0.25rem 0 0.5rem;
+}
+
+.footer-descriptor {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text-on-dark-muted);
+  max-width: 32rem;
+  margin: 0;
+}
+
+/* Right side — 2 columns */
+.footer-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  text-align: left;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-title {
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin: 0 0 0.5rem;
+}
+
+/* Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.footer-links li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  color: var(--color-text-on-dark-muted);
+}
+
+.footer-links a {
+  color: var(--color-text-on-dark-muted);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.footer-links a:hover {
+  color: var(--color-accent);
+  transform: translateX(3px);
+}
+
+.footer-contact a {
+  word-break: break-word;
+}
+
+/* ── Bottom band ── */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-bottom-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+  color: var(--color-text-on-dark-muted);
+  margin: 0;
+}
+
+.footer-legal {
+  font-size: 0.85rem;
+  color: var(--color-text-on-dark-muted);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-legal a {
+  color: var(--color-text-on-dark-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-legal a:hover {
+  color: var(--color-accent);
+}
+
+.footer-dot {
+  color: color-mix(in srgb, var(--base-bone) 40%, transparent);
+}
+
+/* Socials */
+.footer-socials {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--base-bone) 8%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-on-dark);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+.social-icon:hover {
+  background: var(--color-accent);
+  color: var(--color-brand);
+  transform: translateY(-3px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-right {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding: 2.5rem 1rem 1rem;
+  }
+
+  .footer-right {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-tagline {
+    font-size: 1.2rem;
+  }
+
+  .footer-name {
+    font-size: 1.3rem;
+  }
+
+  .footer-logo {
+    height: 34px;
+  }
+}

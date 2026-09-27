@@ -1,0 +1,187 @@
+/* ============================================================
+   Videos Section — inherits from root.css design tokens
+   ============================================================ */
+
+.videos-section {
+  padding: 2rem 1.5rem;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+/* ── Hero (2 columns: text left, media right) ── */
+.videos-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3rem;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Left copy ── */
+.videos-copy {
+  text-align: left;
+}
+
+.videos-strip {
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.videos-title {
+  font-size: 2.2rem;
+  color: var(--color-text-primary);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.videos-description {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 42rem;
+  margin-bottom: 1.75rem;
+}
+
+.videos-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background: var(--color-brand);
+  color: var(--color-text-on-dark);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.videos-cta:hover {
+  background: var(--color-brand-hover);
+  transform: translateY(-2px);
+}
+
+/* ── Right media area ── */
+.videos-media {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr; /* HD is wider, stacked column is narrower */
+  gap: 1rem;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+}
+
+/* HD slot */
+.videos-hd {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--neutral-200);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  height: 100%;
+}
+
+/* Stacked column */
+.videos-stack {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+  height: 100%;
+}
+
+.videos-tile {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--neutral-200);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.videos-tile:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-accent);
+}
+
+/* Videos fill their containers */
+.videos-hd video,
+.videos-tile video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Fade-in on slot changes */
+.videos-hd video,
+.videos-tile video {
+  animation: fadeIn 0.35s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Small label over each video */
+.videos-label {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  background: color-mix(in srgb, var(--base-ink) 60%, transparent);
+  color: var(--color-text-on-dark);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .videos-hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .videos-media {
+    aspect-ratio: 16 / 12;
+  }
+}
+
+@media (max-width: 600px) {
+  .videos-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .videos-title {
+    font-size: 1.6rem;
+  }
+
+  .videos-media {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    aspect-ratio: auto;
+  }
+
+  .videos-hd {
+    height: 240px;
+  }
+
+  .videos-stack {
+    grid-template-rows: auto auto;
+  }
+
+  .videos-tile {
+    height: 150px;
+  }
+}
