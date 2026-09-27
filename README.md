@@ -1,6 +1,6 @@
 # Renty — Rental Marketplace, House Listings & Secure Payment Platform
 
-**Status:** Production-ready | **Version:** 1.0.0 | **Last Updated:** September 2026
+**Status:** Pre-production — see Section 15 checklist before launch | **Version:** 1.0.0 | **Last Updated:** September 2026
 
 Renty is a full-stack rental platform built for a modern housing marketplace. Clients can browse available homes, visit listings, reserve units, and pay securely through the platform using M-Pesa-based rental payment flows. The system includes public property pages, role-based dashboards for landlords and business users, payment tracking, and operational analytics for rental management.
 
@@ -85,7 +85,7 @@ The app includes separate API sections for:
 - webhook handling for payment callbacks
 - analytics endpoints
 
-This separation helps keep the rental logic organized and reduces operational risk between user roles.
+This separation organizes the rental logic into distinct route files. **Note:** organizing routes into separate files by role is not the same as enforcing those roles — see Section 15 for what still needs to be confirmed server-side before this separation can be relied on as a real access control boundary.
 
 ---
 
@@ -156,11 +156,13 @@ Renty/
 ├── package.json
 ├── Dockerfile
 ├── render.yaml
-├── README.md
-└── cookies.txt
+└── README.md
 ```
 
-The app is separated into a client UI and backend API to keep the rental workflow maintainable and scalable.
+**Security note:** a previous version of this repository listing included a `cookies.txt` file at the project root — almost certainly a byproduct of local testing with `curl -c cookies.txt`. That file has been removed from this documentation and should be:
+1. Deleted from the working directory if it still exists.
+2. Confirmed absent from git history — if it was ever committed with a real session token inside, deleting the file alone does not remove it from history. Use `git log --all --full-history -- cookies.txt` to check, and if it was committed, treat `JWT_SECRET` as compromised and rotate it.
+3. Added to `.gitignore` (e.g. `cookies.txt`, `*.cookies`) to prevent this recurring.
 
 ---
 
@@ -275,7 +277,9 @@ The actual flow is handled in these modules:
 - `backend/routes/webhookRoutes.js`
 - `backend/models/Payment.js`
 
-The reservation logic ensures that a property is not accidentally sold twice while a client is confirming payment.
+**Important, unconfirmed detail:** the reservation step (Step 3) needs to be an atomic database operation (e.g. a single `findOneAndUpdate` with a status guard condition), not a separate read-then-write. If it's currently implemented as "check availability" followed by a later "mark reserved" as two separate steps, two clients reserving within milliseconds of each other could both succeed, defeating the double-booking protection this section describes. Confirm which pattern is actually used in `clientRentRoutes.js` before relying on this guarantee.
+
+**Because this platform holds client funds between payment and payout release, this is functionally a fund-holding/escrow arrangement**, regardless of what it's called in documentation. Before processing real transactions, this should be reviewed against Kenya's National Payment System Act and any applicable Central Bank of Kenya guidance — separate from simply having M-Pesa/Daraja API credentials.
 
 ---
 
@@ -324,7 +328,7 @@ Examples:
 
 - `POST /api/webhooks`
 
-This is used to receive payment confirmations and update the payment state in the system.
+This is used to receive payment confirmations and update the payment state in the system. **See Section 15 — this endpoint's authenticity verification needs to be confirmed before production use.**
 
 ---
 
@@ -389,9 +393,9 @@ This makes the platform suitable for a real rental business that needs a single 
 ## 14. Security & Production Notes
 
 - JWT tokens are stored in secure cookies when used in browser sessions.
-- Route-level access checks ensure protected endpoints are only available to authorized users.
-- Sensitive routes are protected by authentication and role enforcement.
-- Payment routes are guarded by role restrictions so only valid client or landlord flows are allowed.
+- Route-level access checks ensure protected endpoints are only available to authorized users — **see Section 15 for what "authorized" needs to mean here specifically (authenticated vs. correct role).**
+- Sensitive routes are protected by authentication and role enforcement — **unconfirmed; verify before launch, see Section 15.**
+- Payment routes are guarded by role restrictions so only valid client or landlord flows are allowed — **unconfirmed; verify before launch, see Section 15.**
 - The app is designed to run behind a trusted reverse proxy environment such as Render while preserving correct `req.ip` and rate limiting behavior.
 - Server startup will fail without critical environment variables such as MongoDB and JWT configuration.
 
@@ -405,7 +409,20 @@ This makes the platform suitable for a real rental business that needs a single 
 
 ---
 
-## 15. Deployment
+## 15. Production Readiness Checklist — Confirm Before Launch
+
+These items are called out separately, deliberately, rather than folded into the feature list above — each one is either unverified or a known gap as of this version, and each carries real risk (financial, legal, or security) if assumed done without checking:
+
+- [ ] **Role enforcement is checked server-side, not just organized by folder.** Confirm middleware verifies a user's `role` field (or equivalent) on every landlord/business/client route — not just that the routes live in separate files. A valid client JWT should not be able to successfully call a `/api/business/*` or `/api/landlord/*` endpoint.
+- [ ] **Webhook authenticity is verified.** `POST /api/webhooks` should reject requests that don't genuinely originate from Safaricom's Daraja API — via IP allowlisting, a shared secret/signature check, or both. Without this, anyone who discovers the URL could POST a fake "payment confirmed" event.
+- [ ] **Reservation is atomic.** Confirm the availability-check-and-reserve step in `clientRentRoutes.js` is a single atomic database operation, not a check followed by a separate write.
+- [ ] **`cookies.txt` is not, and never was, committed to version control.** See Section 7.
+- [ ] **A refund/dispute path exists.** Current documentation ends at "landlord receives payout" with no described process for a client backing out post-payment, or a landlord failing to complete move-in. This will happen in real use and needs a defined flow (even a manual one, initially) before launch.
+- [ ] **Fund-holding compliance has been reviewed.** See the note in Section 10 — holding client funds between payment and payout may carry regulatory obligations beyond having payment provider credentials.
+
+---
+
+## 16. Deployment
 
 The project includes Docker and Render configuration files for deployment.
 
@@ -415,11 +432,12 @@ Typical deployment flow:
 2. ensure MongoDB is reachable from the deploy environment
 3. configure payment credentials and webhook URLs
 4. build the frontend and serve the backend appropriately
-5. deploy and test the live rental flow end to end
+5. complete the Section 15 checklist
+6. deploy and test the live rental flow end to end
 
 ---
 
-## 16. Summary
+## 17. Summary
 
 Renty is a rental marketplace and operations platform built to manage the full lifecycle of a property transaction:
 
@@ -430,11 +448,11 @@ Renty is a rental marketplace and operations platform built to manage the full l
 - owner payout
 - operational oversight
 
-The project combines a public-facing property marketplace with business logic for clients, landlords, and platform staff, and it is structured to support a real rental business rather than a simple static listing site.
+The project combines a public-facing property marketplace with business logic for clients, landlords, and platform staff, and it is structured to support a real rental business rather than a simple static listing site. Because it handles real money and multiple user roles with different access levels, the Section 15 checklist should be treated as required, not optional, before this is used for genuine transactions.
 
 ---
 
-## 17. Contact & Support
+## 18. Contact & Support
 
 For support, customization, or deployment questions, contact the maintainer:
 
