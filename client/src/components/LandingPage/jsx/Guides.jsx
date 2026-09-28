@@ -170,9 +170,6 @@ const Guides = ({ variant = 'light' }) => {
           )
         ) : (
           <div className="guides-cta">
-            <button className="view-all-guides-btn" onClick={handleViewAll}>
-              View All Guides →
-            </button>
           </div>
         )}
       </div>

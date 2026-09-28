@@ -87,10 +87,6 @@ const BlogSection = ({ variant = 'full' }) => {
     []
   );
 
-  const handleViewAll = useCallback(() => {
-    navigate('/blogs');
-  }, [navigate]);
-
   // ── Loading ──
   if (loading) {
     return (
@@ -127,7 +123,7 @@ const BlogSection = ({ variant = 'full' }) => {
       <section className="blog-section">
         <div className="blog-header">
           <div className="blog-head">
-            <h2>{isFull ? 'Renting Tips & Insights' : 'From the Blog'}</h2>
+            <h2>{isFull ? 'Get it right the first time' : 'What renters are reading'}</h2>
           </div>
           {isFull && hasMore && (
             <div className="loadmore">
@@ -214,13 +210,6 @@ const BlogSection = ({ variant = 'full' }) => {
           </div>
         )}
 
-        {!isFull && (
-          <div className="blog-cta">
-            <button className="view-all-guides-btn" onClick={handleViewAll}>
-              View All Articles →
-            </button>
-          </div>
-        )}
       </section>
     </>
   );
