@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiTrendingUp, FiAlertCircle, FiArrowRight, FiInfo, FiTruck } from 'react-icons/fi';
-import '../css/AffordabilityTool.css';
+import '../css/Affordability.css';
 
 const CACHE_KEY = 'renty_units_all';
 

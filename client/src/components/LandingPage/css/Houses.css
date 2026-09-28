@@ -450,3 +450,210 @@
 
 /* Ensure the parent has position: relative for the badge */
 .house-image { position: relative; }
+/* ============================================================
+   Compare checkbox — appears on hover, stays visible when ticked
+   ============================================================ */
+
+.compare-toggle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem 0.35rem 0.4rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0f172a;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s, border-color 0.2s;
+  z-index: 3;
+}
+
+.house-card:hover .compare-toggle,
+.compare-toggle:focus-visible,
+.compare-toggle.is-selected {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.compare-toggle:hover:not(:disabled) {
+  border-color: var(--color-accent);
+}
+
+.compare-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.compare-toggle-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid rgba(15, 23, 42, 0.35);
+  border-radius: 5px;
+  background: transparent;
+  color: transparent;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.compare-toggle.is-selected .compare-toggle-box {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+}
+
+.compare-toggle-label {
+  white-space: nowrap;
+}
+
+.compare-toggle.is-selected {
+  background: color-mix(in srgb, var(--color-accent) 12%, white);
+  border-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+  color: var(--color-accent);
+}
+
+/* Selected card gets a subtle ring */
+.house-card.compare-selected {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 25%, transparent);
+}
+
+/* On touch devices, always show the checkbox (no hover available) */
+@media (hover: none) {
+  .compare-toggle {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   Floating compare bar
+   ============================================================ */
+
+.compare-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  animation: compareBarSlide 0.25s ease-out;
+  padding: 0 1rem 1rem;
+  pointer-events: none;
+}
+
+.compare-bar-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0.75rem 0.75rem 1.1rem;
+  background: #0f172a;
+  color: white;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.28);
+  pointer-events: auto;
+}
+
+.compare-bar-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.compare-bar-info strong {
+  font-weight: 700;
+}
+
+.compare-bar-max {
+  font-style: normal;
+  opacity: 0.6;
+  font-size: 0.8rem;
+}
+
+.compare-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.compare-bar-clear {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.compare-bar-clear:hover {
+  color: white;
+}
+
+.compare-bar-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.1rem;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 0.87rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.15s, opacity 0.2s;
+}
+
+.compare-bar-go:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+.compare-bar-go:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@keyframes compareBarSlide {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .compare-bar {
+    padding: 0 0.5rem 0.5rem;
+  }
+  .compare-bar-inner {
+    padding: 0.6rem 0.6rem 0.6rem 0.9rem;
+    gap: 0.5rem;
+  }
+  .compare-bar-info {
+    font-size: 0.82rem;
+  }
+  .compare-bar-go {
+    padding: 0.55rem 0.9rem;
+    font-size: 0.82rem;
+  }
+}

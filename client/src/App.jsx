@@ -8,6 +8,7 @@ import PublicLayout from './layouts/PublicLayout.jsx';
 // public pages
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
+import ComparePage from './components/LandingPage/jsx/ComparePage.jsx';
 import HousesPage from './pages/HousesPage.jsx';
 import Contact from './pages/Contact.jsx';
 import Affordability from './components/LandingPage/jsx/Affordability.jsx';
@@ -79,6 +80,7 @@ function App() {
         <Route path="/partners" element={<Partners />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/affordability" element={<Affordability />} />
+        <Route path="compare" element={<ComparePage />} />
       </Route>
 
       {/* One login/signup form for all roles */}

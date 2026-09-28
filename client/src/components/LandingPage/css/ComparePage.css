@@ -1,0 +1,296 @@
+/* ============================================================
+   Compare page — uses root design tokens
+   ============================================================ */
+
+.compare-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  min-height: 60vh;
+}
+
+.compare-state-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+  min-height: 60vh;
+  padding: 4rem 1.5rem;
+}
+
+.compare-state-wrap h2 {
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.compare-state-wrap p {
+  max-width: 420px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.compare-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.compare-back:hover {
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 6%, transparent);
+}
+
+.compare-header {
+  margin-bottom: 2rem;
+}
+
+.compare-header h1 {
+  font-size: 1.75rem;
+  color: var(--color-text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.compare-header p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 640px;
+}
+
+/* ── Table ── */
+.compare-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-elevated);
+  box-shadow: var(--shadow-sm);
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+  table-layout: fixed;
+}
+
+.compare-table th,
+.compare-table td {
+  padding: 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+
+.compare-table thead th {
+  border-bottom: 2px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-accent) 4%, transparent);
+  vertical-align: top;
+}
+
+.compare-table tbody tr:last-child th,
+.compare-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cmp-feature-col,
+.cmp-feature-label {
+  width: 180px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.cmp-unit-col {
+  width: auto;
+  vertical-align: top;
+}
+
+/* ── Unit header cells ── */
+.cmp-unit-head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cmp-remove {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, border-color 0.15s, background-color 0.15s;
+}
+
+.cmp-remove:hover {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.cmp-unit-image {
+  width: 100%;
+  height: 130px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--neutral-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.4rem;
+}
+
+.cmp-unit-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cmp-unit-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.cmp-unit-title:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.cmp-unit-location {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* ── Cell content ── */
+.cmp-price {
+  color: var(--color-accent);
+  font-size: 1rem;
+}
+
+.cmp-cap {
+  text-transform: capitalize;
+}
+
+.cmp-status {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.cmp-status.vacant {
+  background: color-mix(in srgb, #16a34a 15%, transparent);
+  color: #166534;
+}
+
+.cmp-status.reserved {
+  background: color-mix(in srgb, #d97706 15%, transparent);
+  color: #92400e;
+}
+
+.cmp-status.occupied {
+  background: color-mix(in srgb, #dc2626 15%, transparent);
+  color: #991b1b;
+}
+
+.cmp-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+/* ── CTA row ── */
+.cmp-cta-row td {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.cmp-rent-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1.1rem;
+  background: var(--color-brand);
+  color: var(--color-text-on-dark);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.15s;
+}
+
+.cmp-rent-btn:hover {
+  background: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 720px) {
+  .compare-page {
+    padding: 1.5rem 1rem 3rem;
+  }
+  .compare-header h1 {
+    font-size: 1.4rem;
+  }
+  .compare-table th,
+  .compare-table td {
+    padding: 0.75rem;
+  }
+  .cmp-feature-col,
+  .cmp-feature-label {
+    width: 130px;
+    font-size: 0.7rem;
+  }
+  .cmp-unit-image {
+    height: 100px;
+  }
+}
+
+/* Utility — screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
