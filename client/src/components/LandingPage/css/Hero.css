@@ -171,7 +171,9 @@
   .hero__blur { width: 72%; }
 }
 
-/* ── Mobile: text spans the full width, so blur and shade cover it all ── */
+/* ── Mobile: much lighter overlay so the video stays visible.
+   Text now relies mostly on text-shadow (already set above) for
+   readability instead of a heavy dark backdrop. ── */
 @media (max-width: 860px) {
   .hero {
     height: 82vh;
@@ -179,16 +181,20 @@
     min-height: 520px;
   }
 
+  /* Lighter, shorter gradient — just enough at the very bottom for
+     the text block to stay readable, not a wash over the whole video */
   .hero__shade {
-    background: linear-gradient(180deg, rgba(8, 12, 20, 0.35) 0%, rgba(8, 12, 20, 0.8) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(8, 12, 20, 0) 0%,
+      rgba(8, 12, 20, 0.1) 55%,
+      rgba(8, 12, 20, 0.4) 100%
+    );
   }
 
+  /* Blur removed on mobile entirely — the video should read as sharp here */
   .hero__blur {
-    width: 100%;
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    -webkit-mask-image: none;
-    mask-image: none;
+    display: none;
   }
 
   .hero__inner {
