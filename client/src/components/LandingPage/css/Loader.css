@@ -1,3 +1,7 @@
+/* ============================================================
+   Loader — Windows-style circular progress ring
+   ============================================================ */
+
 .loader-wrapper {
   display: flex;
   flex-direction: column;
@@ -8,39 +12,66 @@
   gap: 1.5rem;
 }
 
-.loader-dots {
+/* ── Ring container ── */
+.loader-ring {
+  position: relative;
+  width: 56px;
+  height: 56px;
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
 }
 
-.dot {
-  width: 12px;
-  height: 12px;
+/* ── Each segment: a small dot positioned around the circle ── */
+.loader-ring-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;   /* half of height, to centre on the origin */
+  margin-left: -4px;  /* half of width, to centre on the origin */
   border-radius: 50%;
   background: var(--color-accent);
-  animation: dotBounce 1.4s ease-in-out infinite;
+  opacity: 0.15;
+  animation: loaderFade 1.4s linear infinite;
 }
 
-.dot:nth-child(1) { animation-delay: 0s; }
-.dot:nth-child(2) { animation-delay: 0.2s; }
-.dot:nth-child(3) { animation-delay: 0.4s; }
-.dot:nth-child(4) { animation-delay: 0.6s; }
-.dot:nth-child(5) { animation-delay: 0.8s; }
-
-@keyframes dotBounce {
-  0%, 60%, 100% {
-    transform: translateY(0);
-    opacity: 0.4;
+/* ── Animation: each dot fades in, then fades out.
+     The staggered delay creates the trailing tail. ── */
+@keyframes loaderFade {
+  0% {
+    opacity: 0.15;
   }
-  30% {
-    transform: translateY(-15px);
+  25% {
     opacity: 1;
   }
+  50% {
+    opacity: 0.15;
+  }
+  100% {
+    opacity: 0.15;
+  }
 }
 
+/* ── Text ── */
 .loader-text {
   font-size: 1rem;
   color: var(--color-text-secondary);
   font-weight: 500;
   letter-spacing: 0.5px;
+}
+
+/* ── Accessibility: users who prefer reduced motion get a static ring ── */
+@media (prefers-reduced-motion: reduce) {
+  .loader-ring-dot {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+/* ── Dark theme tweak — brighter dots on dark backgrounds ── */
+.dashboard.dark .loader-ring-dot {
+  background: var(--color-accent);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--color-accent) 60%, transparent);
 }
