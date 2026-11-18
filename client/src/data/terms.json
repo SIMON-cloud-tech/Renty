@@ -1,6 +1,6 @@
 {
   "title": "Terms and Conditions",
-  "lastUpdated": "September 2026",
+  "lastUpdated": "November 2026",
   "intro": "These Terms and Conditions ('Terms') govern your access to and use of Renty, including our website, dashboards, and payment services. By creating an account, listing a unit, or booking a rental through Renty, you agree to be bound by these Terms. If you do not agree, you must not use the platform.",
   "sections": [
     {
@@ -16,7 +16,7 @@
             "'Unit' means a single rental property or room listed on the platform.",
             "'Booking' means a reservation of a Unit initiated by a Renter through the platform.",
             "'Commission' means the percentage of each completed rent payment retained by Renty as its fee.",
-            "'Holding Period' means the fixed period of time, currently 72 hours from confirmed payment, during which a payment is held by Renty before being released to a Landlord.",
+            "'Holding Period' or 'Move-In Verification Window' means the fixed period of 24 hours from confirmed payment, during which a payment is held by Renty before being released to a Landlord.",
             "'Platform' means the Renty website, dashboards, and any associated mobile or web applications."
           ]
         }
@@ -32,7 +32,7 @@
             "You must be at least 18 years old to create an account or use the Platform.",
             "You must provide accurate, current, and complete information when registering, including a valid, reachable M-Pesa number for Renters, and a valid payout M-Pesa number for Landlords.",
             "You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account.",
-            "You must notify us immediately at the contact details in Section 17 if you suspect unauthorized access to your account.",
+            "You must notify us immediately at the contact details in Section 19 if you suspect unauthorized access to your account.",
             "Renty reserves the right to suspend or terminate any account that provides false information, is used fraudulently, or violates these Terms.",
             "Each account is assigned exactly one role — Renter, Landlord, or Business Administrator — and you may not misrepresent your role or attempt to access functionality reserved for another role."
           ]
@@ -109,7 +109,7 @@
           "items": [
             "A payment that fails or is not completed on the Renter's phone does not result in any charge and requires no refund.",
             "If a Booking is cancelled before the Holding Period ends and before funds are released to the Landlord, the Renter may be eligible for a refund, less any costs already incurred by Renty in processing the transaction.",
-            "Refund requests must be raised through the Platform or by contacting us using the details in Section 17, stating the reason for cancellation.",
+            "Refund requests must be raised through the Platform or by contacting us using the details in Section 19, stating the reason for cancellation.",
             "Renty reserves the right to withhold a refund, in whole or in part, where there is evidence of misuse, fraud, or a Renter's failure to honor a confirmed Booking without reasonable cause.",
             "Once funds have been released to a Landlord — whether by Renter approval or automatically at the end of the Holding Period — no refund can be processed through the Platform. Any dispute at that stage must be resolved directly between the Renter and Landlord, though Renty may assist in good faith per Section 7."
           ]
@@ -250,8 +250,31 @@
       ]
     },
     {
+      "id": "same-day-move-in-rule",
+      "heading": "16. Same-Day & 24-Hour Move-In Eligibility",
+      "content": [
+        {
+          "type": "text",
+          "text": "Renty is exclusively intended for high-intent renters who are ready to occupy a unit on the same day or within 24 hours of initiating payment. By triggering an M-Pesa payment request on Renty, you confirm that you have verified the listing details and are prepared for immediate move-in:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Renty does not support speculative reservations, long-term future holds, or casual viewing locks through the payment flow",
+            "Upon M-Pesa payment confirmation, funds are held strictly for the 24-hour move-in verification window before automatic release to the landlord",
+            "Renters must inspect and confirm occupancy within this 24-hour window, or raise a valid dispute through their dashboard before the window expires",
+            "Repeatedly initiating reservations without completing payment or abusing the booking flow may result in temporary or permanent restriction of your renter account"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "This rule protects genuine renters from artificial unit unavailability and ensures landlords only engage with verified, ready-to-move-in tenants."
+        }
+      ]
+    },
+    {
       "id": "governing-law",
-      "heading": "16. Governing Law & Dispute Resolution",
+      "heading": "17. Governing Law & Dispute Resolution",
       "content": [
         {
           "type": "list",
@@ -266,7 +289,7 @@
     },
     {
       "id": "general",
-      "heading": "17. General Provisions",
+      "heading": "18. General Provisions",
       "content": [
         {
           "type": "list",
@@ -281,7 +304,7 @@
     },
     {
       "id": "contact",
-      "heading": "18. Contact Us",
+      "heading": "19. Contact Us",
       "content": [
         {
           "type": "text",
