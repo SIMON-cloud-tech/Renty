@@ -269,8 +269,31 @@
       ]
     },
     {
+      "id": "same-day-move-in-rule",
+      "heading": "15. Same-Day & 24-Hour Move-In Eligibility",
+      "content": [
+        {
+          "type": "text",
+          "text": "Renty is exclusively intended for high-intent renters who are ready to occupy a unit on the same day or within 24 hours of initiating payment. By triggering an M-Pesa payment request on Renty, you confirm that you have verified the listing details and are prepared for immediate move-in:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Renty does not support speculative reservations, long-term future holds, or casual viewing locks through the payment flow",
+            "Upon M-Pesa payment confirmation, funds are held strictly for the 24-hour move-in verification window before automatic release to the landlord",
+            "Renters must inspect and confirm occupancy within this 24-hour window, or raise a valid dispute through their dashboard before the window expires",
+            "Repeatedly initiating reservations without completing payment or abusing the booking flow may result in temporary or permanent restriction of your renter account"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "This rule protects genuine renters from artificial unit unavailability and ensures landlords only engage with verified, ready-to-move-in tenants."
+        }
+      ]
+    },
+    {
       "id": "contact",
-      "heading": "15. Contact Us",
+      "heading": "16. Contact Us",
       "content": [
         {
           "type": "text",
