@@ -15,7 +15,7 @@
             "'Landlord' means a person who registers an account to list rental units for booking.",
             "'Unit' means a single rental property or room listed on the platform.",
             "'Booking' means a reservation of a Unit initiated by a Renter through the platform.",
-            "'Commission' means the percentage of each completed rent payment retained by Renty as its fee.",
+            "'Commission' means the percentage of each completed rent payment retained by Renty as its fee, which covers the cost of processing the payment. The Commission is retained by Renty even where a payment is later refunded under Section 6.",
             "'Holding Period' or 'Move-In Verification Window' means the fixed period of 24 hours from confirmed payment, during which a payment is held by Renty before being released to a Landlord.",
             "'Platform' means the Renty website, dashboards, and any associated mobile or web applications."
           ]
@@ -89,10 +89,11 @@
           "type": "list",
           "items": [
             "Renters pay the full rent amount via M-Pesa through Renty's payment processing partner (currently Safaricom Daraja).",
-            "Upon confirmed payment, Renty deducts its Commission. The Commission percentage is disclosed to you before you complete a Booking and may vary by listing or promotion.",
+            "Upon confirmed payment, Renty deducts its Commission. The Commission percentage is disclosed to you before you complete a Booking and may vary by listing or promotion. The Commission is retained by Renty even if the payment is later refunded under Section 6.",
             "The remaining balance is held by Renty on the Landlord's behalf for the duration of the Holding Period.",
             "The Renter may approve early release of funds to the Landlord at any time during the Holding Period, once satisfied that the Unit matches its listing.",
-            "If the Renter takes no action, funds are released automatically to the Landlord once the Holding Period ends.",
+            "If the Renter is not satisfied that the Unit matches its listing, the Renter should not approve the release and must instead decline it through their dashboard before the Holding Period ends. Refunds are handled under Section 6.",
+            "If the Renter neither approves nor declines the release of funds before the Holding Period ends, funds are released automatically to the Landlord.",
             "Once funds are released to a Landlord, the transaction is final and cannot be reversed by the Renter through the Platform.",
             "Renty is not a bank and does not pay interest on any amount held during the Holding Period.",
             "You are responsible for any charges levied by your mobile network operator or payment provider in connection with a transaction."
@@ -108,8 +109,8 @@
           "type": "list",
           "items": [
             "A payment that fails or is not completed on the Renter's phone does not result in any charge and requires no refund.",
-            "If a Booking is cancelled before the Holding Period ends and before funds are released to the Landlord, the Renter may be eligible for a refund, less any costs already incurred by Renty in processing the transaction.",
-            "Refund requests must be raised through the Platform or by contacting us using the details in Section 19, stating the reason for cancellation.",
+            "If the Renter is not satisfied that the Unit matches its listing, the Renter may decline to approve the release of funds and request a refund through their dashboard at any time before the Holding Period ends. The Renter is refunded the amount paid, less only Renty's Commission, which Renty retains to cover the cost of processing the payment. The Landlord receives nothing from a refunded payment.",
+            "Refund requests must be raised through the Platform before the Holding Period ends, or by contacting us using the details in Section 19, stating the reason for the refund request.",
             "Renty reserves the right to withhold a refund, in whole or in part, where there is evidence of misuse, fraud, or a Renter's failure to honor a confirmed Booking without reasonable cause.",
             "Once funds have been released to a Landlord — whether by Renter approval or automatically at the end of the Holding Period — no refund can be processed through the Platform. Any dispute at that stage must be resolved directly between the Renter and Landlord, though Renty may assist in good faith per Section 7."
           ]
@@ -261,8 +262,9 @@
           "type": "list",
           "items": [
             "Renty does not support speculative reservations, long-term future holds, or casual viewing locks through the payment flow",
-            "Upon M-Pesa payment confirmation, funds are held strictly for the 24-hour move-in verification window before automatic release to the landlord",
+            "Upon M-Pesa payment confirmation, funds are held strictly for the 24-hour move-in verification window before automatic release to the landlord, unless the renter declines the release and requests a refund under Section 6",
             "Renters must inspect and confirm occupancy within this 24-hour window, or raise a valid dispute through their dashboard before the window expires",
+            "If the unit does not match its listing, the renter should not approve the release and will be refunded the amount paid, less only Renty's Commission, as set out in Section 6",
             "Repeatedly initiating reservations without completing payment or abusing the booking flow may result in temporary or permanent restriction of your renter account"
           ]
         },
